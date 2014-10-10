@@ -12,27 +12,81 @@
 	<link href="http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,400,600,700,300&subset=latin" rel="stylesheet" type="text/css">
 
 	<script>
-		$(document).ready(function(){
-			$("LI.mm-dropdown").click(function(){
-				var that = $(this)
-				$(this).find("UL").slideToggle(function(){
-					that.toggleClass('open');
-				});
-			});
+		var mainMenu = {
+			submenu_locker: false,
+			hide_submenu: function() {
+				setTimeout(function(){
+					if (!mainMenu.submenu_locker)
+						$(".mmc-dropdown-open-ul").remove();
+				},1000);
+			},
+			init: function() {
+				$("#main-menu").on("click", "a", function(){
+					if ($("BODY").hasClass("mmc"))
+						return false;
 
-			$(".mmc_toggler").click(function(){
+					var LI = $(this).parent();
+
+					LI.siblings("LI").not(LI).each(function(){
+						$(this).find("UL:first").slideUp(function(){$(this).removeClass("open")}.bind($(this)));
+					});
+
+					if ($(this).parent().hasClass("open")) {
+						LI.removeClass("open").find("UL:first").slideUp();
+					}
+					else {
+						LI.addClass("open").find("UL:first").slideDown();
+					}
+
+					return false;
+				});
+
+				$("#main-menu").on({
+					mouseenter: function() {
+						mainMenu.submenu_locker = true;
+					},
+					mouseleave: function() {
+						mainMenu.submenu_locker = false;
+						mainMenu.hide_submenu();
+					}
+				}, ".mmc-dropdown-open-ul");
+
+				$("LI.mm-dropdown").hover(
+					function(){
+						mainMenu.submenu_locker = true;
+
+						$(".mmc-dropdown-open-ul").remove();
+
+						var head = $(this).find(".mm-text:first").clone();
+						$(this).find("UL:first").clone().removeClass("fadeInLeft").addClass("mmc-dropdown-open-ul").css({"top": $(this).position().top}).appendTo("#main-menu").prepend(head.addClass('mmc-title'));
+
+					},
+					function(){
+						mainMenu.submenu_locker = false;
+						mainMenu.hide_submenu();
+					}
+				);
+
+
+			}
+		};
+
+		$(document).ready(function(){
+			mainMenu.init();
+
+			$(".toogleMenu").click(function(){
 				$("BODY").toggleClass("mmc");
-				$(".mm-dropdown > UL").remove();
-			})
+			});
 		});
 	</script>
 </head>
 
-<body class="theme-default main-menu-animated animate-mm-sm animate-mm-md animate-mm-lg">
+<body class="main-menu-animated animate-mm-sm animate-mm-md animate-mm-lg">
 <h1>Check this out</h1>
 
-<i class="fa fa-bars"></i>
-<span class="glyphicon glyphicon-search"></span>
+<div style='position: absolute; top: 10px; left: 10px; z-index: 1000; color: #FFF'>
+	<i class="navbar-icon fa fa-bars toogleMenu"></i>
+</div>
 
 <div id="main-menu">
 	<div class="slimScrollDiv" style="position: relative; overflow: hidden; width: auto; height: 100%;">
@@ -45,8 +99,11 @@
 				</div>
 			</div>
 			<ul class="navigation">
-				<li>
-					<a href="index.php"><i class="menu-icon fa fa-dashboard"></i><span class="mm-text mmc-dropdown-delay animated fadeIn">Сводка</span></a>
+				<li class=''>
+					<a href="index.php">
+						<i class="menu-icon fa fa-dashboard"></i>
+						<span class="mm-text mmc-dropdown-delay animated fadeIn">Сводка</span>
+					</a>
 				</li>
 				<li>
 					<a href="stat-panels.php"><i class="menu-icon fa fa-tasks"></i><span class="mm-text mmc-dropdown-delay animated fadeIn">Статистика</span></a>
@@ -54,7 +111,7 @@
 				<li>
 					<a href="widgets.php"><i class="menu-icon fa fa-flask"></i><span class="mm-text mmc-dropdown-delay animated fadeIn">Виджеты</span></a>
 				</li>
-				<li class="mm-dropdown mm-dropdown-root open active">
+				<li class="mm-dropdown mm-dropdown-root open">
 					<a href="#"><i class="menu-icon fa fa-desktop"></i><span class="mm-text mmc-dropdown-delay animated fadeIn">Интерфейс</span></a>
 					<ul class="mmc-dropdown-delay animated fadeInLeft">
 						<li>
@@ -67,8 +124,7 @@
 							<a href="ui-modals.php"><span class="mm-text">Диалоги</span></a>
 						</li>
 						<li class=" active">
-							<a href="ui-icons.php"><span class="mm-text">Иконки</span></a>
-						</li>
+							<a href="ui-icons.php"><span class="mm-text">Иконки</span></a>						</li>
 					</ul>
 				</li>
 				<li class="mm-dropdown mm-dropdown-root">
@@ -147,10 +203,9 @@
 		</div>
 
 
+	</div>
 
-		<div class="slimScrollBar" style="width: 7px; position: absolute; top: 0px; opacity: 0.4; display: none; border-top-left-radius: 7px; border-top-right-radius: 7px; border-bottom-right-radius: 7px; border-bottom-left-radius: 7px; z-index: 99; right: 1px; height: 683px; background: rgb(0, 0, 0);"></div><div class="slimScrollRail" style="width: 7px; height: 100%; position: absolute; top: 0px; display: none; border-top-left-radius: 7px; border-top-right-radius: 7px; border-bottom-right-radius: 7px; border-bottom-left-radius: 7px; opacity: 0.2; z-index: 90; right: 1px; background: rgb(51, 51, 51);"></div></div>
-
-	 <ul class="mmc-dropdown-delay animated fadeInLeft mmc-dropdown-open-ul" style="top: 172px;"><div class="mmc-title">Интерфейс</div>
+ 	<!-- <ul class="mmc-dropdown-delay animated fadeInLeft mmc-dropdown-open-ul" style="top: 172px;"><div class="mmc-title">Интерфейс</div>
 		<li>
 			<a href="ui-buttons.php"><span class="mm-text">Кнопки</span></a>
 		</li>
@@ -163,7 +218,9 @@
 		<li>
 			<a href="ui-icons.php"><span class="mm-text">Иконки</span></a>
 		</li>
-	</ul>
+	</ul> -->
+
+
 </div>
 <div id="main-menu-bg"></div>
 
