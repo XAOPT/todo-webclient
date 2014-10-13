@@ -233,7 +233,6 @@
 .main-wrapper {
 	padding-left: 240px;
 	width: 100%;
-	overflow: hidden!important;
 
 	.transition05s();
 
@@ -279,19 +278,19 @@
 	line-height: 24px;
 	font-weight: 600;
 
-	.table-primary & {
+	&.table-primary {
 		border-color: #23638c!important;
 		color: #fff;
 		background: #1d89cf;
 	}
 
-	.table-success & {
+	&.table-success {
 		border-color: #518d51!important;
 		color: #fff;
 		background: #5ebd5e;
 	}
 
-	.table-danger & {
+	&.table-danger {
 		border-color: #ca4433!important;
 		color: #fff;
 		background: #e66454;
@@ -307,23 +306,30 @@ table {
 	}
 
 	th, thead, thead th, thead tr {
-
 		background: #ebebeb;
 		font-weight: 600;
+	}
 
-		.table-primary & {
+	&.table-primary {
+		border-top-color: #23638c!important;
+
+		th, thead, thead th, thead tr {
 			color:#fff;
 			border-color:#23638c!important;
 			background:#2175ac;
 		}
+	}
 
-		.table-success & {
+	&.table-success {
+		th, thead, thead th, thead tr {
 			color:#fff;
 			border-color:#518d51!important;
 			background:#53a953;
 		}
+	}
 
-		.table-danger & {
+	&.table-danger {
+		th, thead, thead th, thead tr {
 			color:#fff;
 			border-color: #ca4433!important;
 			background: #d95342;
