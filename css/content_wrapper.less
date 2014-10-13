@@ -1,0 +1,332 @@
+.transition05s {
+	-webkit-transition: all .5s;
+	transition: all .5s;
+}
+.transition02s {
+	-webkit-transition: all .2s;
+	transition: all .2s;
+}
+
+/* ------------ верхняя панель навигации ------------ */
+#main-navbar {
+	border: none;
+	border-radius: 0;
+	position: absolute;
+	left: 0;
+	right: 0;
+	top: 0 !important;
+	min-height: 46px;
+	z-index: 1030;
+
+	-webkit-box-shadow: 0 2px 2px rgba(0,0,0,.05), 0 1px 0 rgba(0,0,0,.05);
+	box-shadow: 0 2px 2px rgba(0,0,0,.05), 0 1px 0 rgba(0,0,0,.05);
+
+	a {
+		color: #555;
+	}
+
+	#main-menu-toggle {
+		background: 0 0;
+		border: none;
+		display: block;
+		font-size: 11px;
+		margin: 0;
+		outline: 0!important;
+		padding: 0;
+		position: absolute;
+		top: 0!important;
+		left: 0;
+		text-align: center;
+		z-index: 1033;
+
+		height: 46px;
+		width: 56px;
+		overflow: hidden;
+		z-index: 1034;
+	}
+
+	.dropdown-menu {
+		margin-right: 10px;
+		background: #fff;
+		padding: 5px 0;
+		border: 2px solid #ccc;
+		box-shadow: none;
+
+		li {
+			border: none;
+
+			a {
+				padding: 5px 18px;
+				line-height: 32px !important;
+				margin: 0px;
+				color: #555;
+				font-size: 13px;
+			}
+		}
+	}
+
+	.navbar-inner {
+		min-height: 46px;
+		width: 100%;
+		position: relative;
+		left: 0;
+
+		.navbar-header {
+			padding: 0;
+			position: relative;
+			width: 240px;
+			z-index: 1032;
+			background: #fff;
+			float: left;
+			padding-left: 56px!important;
+
+			a {
+				text-transform: uppercase;
+				font-size: 11px;
+				font-weight: 600;
+				color: #555;
+			}
+
+			.navbar-brand {
+				display: inline-block;
+				float: none;
+				line-height: 46px;
+				height: auto!important;
+				padding: 0 0 0 14px;
+
+				div {
+					display: inline-block;
+					position: relative;
+					margin-right: 4px;
+					top: 4px;
+
+					img {
+						height: 18px;
+						width: 18px;
+						display: block;
+					}
+				}
+			}
+		}
+
+		.navbar-collapse {
+			background: #fff;
+			border: none;
+
+			.navbar-nav {
+				border-left: 1px solid #f1f1f1;
+				margin-right: 10px;
+
+				a {
+					line-height: 46px;
+					padding-top: 0px;
+					padding-bottom: 0px;
+				}
+
+				&>li {
+					border-right: 1px solid #f1f1f1;
+				}
+			}
+		}
+
+		.right {
+			li {
+				border-left: 1px solid #f1f1f1;
+			}
+
+			.navbar-nav>li {
+				border-right: none;
+			}
+		}
+
+		.navbar-form .form-control {
+			-webkit-box-shadow: none;
+			box-shadow: none;
+			-webkit-transition: background .2s;
+			transition: background .2s;
+
+			height: 30px;
+			line-height: 20px;
+			margin-top: 8px;
+			padding-bottom: 5px;
+			padding-top: 5px;
+			width: 150px;
+			margin: 0px;
+
+			background: #f8f8f8;
+			border: none;
+			color: #999;
+		}
+
+		.nav-icon-btn {
+
+			&>a {
+				line-height: 46px;
+				padding-top: 0;
+				padding-bottom: 0;
+				height: 46px;
+
+				.transition02s;
+
+				&:hover {
+					background: #f8f8f8;
+					border-top: none !important;
+					border-bottom: none !important;
+				}
+
+				.nav-icon {
+					display: inline-block;
+					line-height: 46px;
+				}
+
+				.small-screen-text {
+					display: none;
+				}
+
+				.badge,
+				.label {
+					font-size: 8px;
+					padding: 0 2px;
+					line-height: 10px;
+					position: absolute;
+					display: block;
+					right: 10px;
+					top: 11px;
+				}
+			}
+
+
+			&.nav-icon-btn-success {
+				.label {
+					background: #5ebd5e;
+				}
+			}
+
+			&.nav-icon-btn-danger {
+				.label {
+					background: #e66454;
+				}
+			}
+		}
+
+		.user-menu {
+			&>img{
+				border-radius: 25px;
+				display: inline-block;
+				height: 25px;
+				width: 25px;
+				margin: -2px 0 0 0;
+			}
+
+			&>span {
+				margin-left: 7px;
+			}
+		}
+	}
+
+
+}
+
+
+
+/* ------------------------- */
+.main-wrapper {
+	padding-left: 240px;
+	width: 100%;
+	overflow: hidden!important;
+
+	.transition05s();
+
+	&.mmc {
+		padding-left: 56px;
+	}
+}
+
+#content-wrapper {
+	left: 0;
+	padding: 64px 18px 18px;
+	width: 100%;
+	position: relative;
+}
+
+.page-header {
+	background: #f6f6f6;
+	border-color: #e9e9e9;
+	background: #fafafa;
+	border-bottom: 1px solid #e4e4e4;
+	margin: -18px -18px 18px -18px;
+	padding: 20px 18px;
+
+	h1 {
+		color: #666;
+		display: inline-block;
+		font-size: 18px;
+		font-weight: 300;
+		line-height: 30px;
+	}
+}
+
+.table-header {
+
+	position: relative;
+	border: 1px solid #e4e4e4;
+	margin-bottom: -1px;
+	padding: 10px 15px;
+	border-top-right-radius: 2px;
+	border-top-left-radius: 2px;
+
+	font-size: 15px;
+	line-height: 24px;
+	font-weight: 600;
+
+	.table-primary & {
+		border-color: #23638c!important;
+		color: #fff;
+		background: #1d89cf;
+	}
+
+	.table-success & {
+		border-color: #518d51!important;
+		color: #fff;
+		background: #5ebd5e;
+	}
+
+	.table-danger & {
+		border-color: #ca4433!important;
+		color: #fff;
+		background: #e66454;
+	}
+}
+
+table {
+	font-size: 13px;
+	margin-bottom:20px;
+
+	input, select {
+		border:none!important;
+	}
+
+	th, thead, thead th, thead tr {
+
+		background: #ebebeb;
+		font-weight: 600;
+
+		.table-primary & {
+			color:#fff;
+			border-color:#23638c!important;
+			background:#2175ac;
+		}
+
+		.table-success & {
+			color:#fff;
+			border-color:#518d51!important;
+			background:#53a953;
+		}
+
+		.table-danger & {
+			color:#fff;
+			border-color: #ca4433!important;
+			background: #d95342;
+		}
+	}
+}

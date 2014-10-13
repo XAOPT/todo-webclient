@@ -46,24 +46,38 @@
 /*****************/
 
 body {
-	background-color: #CCC;
-	font-family: "Open Sans","Helvetica Neue", Helvetica, Arial, sans-serif;
+	font-family: "Open Sans","Helvetica Neue",Helvetica,Arial,sans-serif;
+	font-size: 13px;
+	line-height: 1.42857143;
+	color: #555;
+	background: #f6f6f6;
 }
 
 .navbar-icon {
 	left:26px;
+	font-size: 14px;
+
+	margin: -23px 0 0 0;
+	padding: 0;
+	position: absolute;
+	z-index: 1035;
+	line-height: 46px;
+
+	.transition02s();
 
 	&:after {
 		content:"\f0d9";
 		right:16px;
-	}
-}
 
-.mmc {
-	.navbar-icon {
-		&:after {
+		display: block;
+		font-size: 10px;
+		line-height: 46px;
+		position: absolute;
+		top: 0;
+
+		.mmc & {
 			content:"\f0da";
-			right:-8px;
+			right: -8px;
 		}
 	}
 }
@@ -79,8 +93,8 @@ body {
 	top: 0;
 	z-index: 500;
 
-	.transition05s();
-	.user-select-none();
+	.transition05s;
+	.user-select-none;
 
 	#menu-content-info {
 		border-bottom: 1px solid;
@@ -430,6 +444,7 @@ body {
 	padding: 0;
 	position: fixed;
 	top: 0;
+	left: 0;
 	z-index: 0;
 
 	.transition05s();
