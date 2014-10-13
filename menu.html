@@ -77,11 +77,19 @@
 			$(".toogleMenu").click(function(){
 				$("BODY").toggleClass("mmc");
 			});
+
+			$( window ).resize(function() {
+				var windowWidth = $( window ).width();
+
+				if (windowWidth < 840) {
+					$("BODY").addClass("mmc");
+				}
+			});
 		});
 	</script>
 </head>
 
-<body>
+<body class=''>
 <h1>Check this out</h1>
 
 <div style='position: absolute; top: 10px; left: 10px; z-index: 1000; color: #FFF'>
@@ -91,15 +99,13 @@
 <div id="main-menu">
 
 	<div>
-		<div class="menu-content top animated fadeIn" id="menu-content-info">
-			<div>
-				<div class="text-bg">
-					<span class="text-slim">Привет,</span>
-					<span class="text-semibold">Manager</span>
-				</div>
-
-				<img src="img/avatar1.jpg" alt="">
+		<div class="animated fadeIn" id="menu-content-info">
+			<div class="hello-text">
+				<span class="text-slim">Привет,</span>
+				<span class="text-semibold">Manager</span>
 			</div>
+
+			<img src="img/avatar1.jpg" alt="">
 		</div>
 		<ul class="navigation">
 			<li>

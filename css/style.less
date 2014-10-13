@@ -2,6 +2,19 @@
 	-webkit-transition: all .5s;
 	transition: all .5s;
 }
+.transition02s {
+	-webkit-transition: all .2s;
+	transition: all .2s;
+}
+
+.user-select-none {
+	-webkit-touch-callout: none;
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+}
 
 .link_outline_0 {
 	a,
@@ -32,7 +45,7 @@
 
 /*****************/
 
-BODY {
+body {
 	background-color: #CCC;
 	font-family: "Open Sans","Helvetica Neue", Helvetica, Arial, sans-serif;
 }
@@ -65,40 +78,22 @@ BODY {
 	left: 0;
 	top: 0;
 	z-index: 500;
-	-webkit-touch-callout: none;
-	-webkit-user-select: none;
-	-khtml-user-select: none;
-	-moz-user-select: none;
-	-ms-user-select: none;
-	user-select: none;
 
 	.transition05s();
+	.user-select-none();
 
-	li.active {
-		&>a {
-			background:#181b1f;
-			color:#fff;
-
-			&:after {
-				display: block;
-			}
-		}
-	}
-
-	.menu-content.top {
+	#menu-content-info {
 		border-bottom: 1px solid;
 		border-top: none;
 		margin-bottom: -47px;
 		margin-top: 0;
 		padding-top: 66px;
-	}
-
-	#menu-content-info {
-		white-space: nowrap!important;
-		position: relative;
 		padding-left: 86px!important;
 
-		.text-bg {
+		white-space: nowrap!important;
+		position: relative;
+
+		.hello-text {
 			font-size: 17px;
 			color: #fff;
 			padding-top: 12px;
@@ -109,21 +104,19 @@ BODY {
 			height: 54px;
 			display: block;
 			position: absolute;
-			left: -68px;
-			top: 1px;
+			left: 18px;
+			top: 50px;
 			border-radius: 999999px;
+		}
+
+		.mmc & {
+			display: none;
 		}
 	}
 
-	#menu-content-info>div {
-		margin: 6px 0;
-		position: relative;
-		width: 120px;
-	}
-
 	.fadeInLeft{
-		-webkit-animation-name:fadeInLeft;
-		animation-name:fadeInLeft
+		-webkit-animation-name: fadeInLeft;
+		animation-name: fadeInLeft
 	}
 
 	.navigation {
@@ -136,12 +129,23 @@ BODY {
 			padding: 11px 14px;
 			text-decoration: none;
 
-			color:#808b9c;
-			position:relative;
-			-webkit-transition:all .2s;
-			transition:all .2s;
+			color: #808b9c;
+			position: relative;
 
+			.transition02s();
 			.link_outline_0();
+
+			&:after {
+				content: "";
+				top: 0;
+				bottom: 0;
+				width: 4px;
+				position: absolute;
+				right: auto;
+				background: #1a7ab9;
+				display: none;
+				left: 0;
+			}
 
 			&:hover {
 				color:#fff;
@@ -150,24 +154,28 @@ BODY {
 					display: block;
 				}
 			}
+		}
 
-			&:after {
-				content:"";
-				top:0;
-				bottom:0;
-				width:4px;
-				position:absolute;
-				right:auto;
-				background:#1a7ab9;
-				display:none;
-				left:0;
+		li.active {
+			&>a {
+				background: #181b1f;
+				color: #fff;
+
+				&:after {
+					display: block;
+				}
 			}
 		}
 
-		&>li>a {
-			text-align:left;
+		&>li {
+			/* эти свойства для того, чтобы не разъезжалось меню в момент сворачивания до узкого состояния */
+			width: 240px;
+			&>a {
+				text-align:left;
+			}
 		}
 
+		/* пункты меню, у которых есть дочерние элементы */
 		.mm-dropdown {
 
 			&>a {
@@ -181,11 +189,11 @@ BODY {
 					line-height: 10px;
 					height: 10px;
 					width: 10px;
+					position: absolute;
 					left: auto;
 					right: 14px;
-					top: 17px;
+					top: 16px;
 					margin: 0;
-					position: absolute;
 					text-align: center;
 					-webkit-transition: all 300ms ease-in-out;
 					transition: all 300ms ease-in-out;
@@ -197,18 +205,10 @@ BODY {
 				padding: 0;
 				background: #2a2e36;
 				display: none;
-
-				a {
-					padding-bottom:8px;
-					padding-top:8px;
-
-					&:before {
-						top:14px;
-					}
-				}
 			}
 
 			&>ul {
+				/* пункты меню 2, 3 и 4го уровня */
 				&>li>a {
 					padding-left: 40px;
 				}
@@ -219,6 +219,10 @@ BODY {
 
 				&>.mm-dropdown>ul>.mm-dropdown>ul>li>a {
 					padding-left: 80px;
+				}
+
+				&>.mm-dropdown>ul>.mm-dropdown>ul>.mm-dropdown>ul>li>a {
+					padding-left: 100px;
 				}
 			}
 
@@ -236,7 +240,7 @@ BODY {
 				}
 
 				&>a:before {
-				.rotate(90deg);
+					.rotate(90deg);
 				}
 			}
 		}
@@ -256,43 +260,31 @@ BODY {
 		}
 	}
 
-	.navigation>li {
-		width: 240px;
-	}
-
  	// выпадающее вправо подменю, когда главное меню ужато в полоску
 	.mmc-dropdown-open-ul {
 		overflow: hidden;
 		padding: 0;
 		background: #2a2e36;
 
-		display:block!important;
-		left:100%;
-		padding-bottom:0;
-		padding-left:0!important;
+		display: block!important;
+		left: 100%;
 		position:absolute;
-		top:0;
-		width:240px;
-		z-index:502;
-		margin:0!important;
-
-		padding:46px 0 0;
+		top: 0;
+		width: 240px;
+		z-index: 502;
+		margin: 0!important;
 
 		a {
 			display: block;
 			font-size: 13px;
 			line-height: 20px;
-			padding: 11px 14px;
+			padding: 8px 14px;
 			text-decoration: none;
 
 			color:#808b9c;
 			position:relative;
-			-webkit-transition:all .2s;
-			transition:all .2s;
 
-			padding-bottom:8px;
-			padding-top:8px;
-
+			.transition02s;
 			.link_outline_0;
 
 			&:hover {
@@ -301,13 +293,13 @@ BODY {
 
 			&:after {
 				content:"";
+				position:absolute;
 				top:0;
 				bottom:0;
 				width:4px;
-				position:absolute;
 				right:auto;
 				background:#1a7ab9;
-				display:none;
+				display: none;
 				left:0;
 			}
 
@@ -322,7 +314,7 @@ BODY {
 			display: block;
 
 			a:before {
-				top:14px;
+				top: 14px;
 			}
 		}
 
@@ -332,9 +324,9 @@ BODY {
 
 		.mmc-title {
 			display: block;
-			line-height:42px;
-			position:relative;
-			padding:0 18px;
+			line-height: 42px;
+			position: relative;
+			padding: 0 18px;
 			background: #181b1f;
 			color: #fff;
 
@@ -380,34 +372,16 @@ BODY {
 		text-align:center;
 		font-size:14px;
 	}
-}
 
-#main-menu-bg {
-	overflow: hidden;
-	width: 240px;
+	/**/
 
-	background-color: #23272d;
-	display: block;
-	height: 100%;
-	padding: 0;
-	position: fixed;
-	top: 0;
-	z-index: 0;
-
-	.transition05s();
-}
-
-.mmc {
-	#menu-content-info {
-		display: none;
-	}
-	#main-menu {
+	.mmc & {
 		overflow: visible;
 		width: 56px;
 
 		.navigation {
 			&>.mm-dropdown {
-				.open {
+				&.open {
 					&>ul {
 						display: none;
 					}
@@ -415,9 +389,15 @@ BODY {
 
 				&>a {
 					padding-right:14px;
+
+					&:before {
+						right: 6px;
+						.rotate(0deg);
+					}
 				}
 			}
 
+			/* у ссылок первого уровня убираем тест и бейджи, оставляем только иконку */
 			&>li {
 				width: auto;
 
@@ -436,20 +416,25 @@ BODY {
 					}
 				}
 			}
-
-			&>a {
-				&:before {
-					right:7px;
-				}
-			}
-		}
-
-		.navigation>.mm-dropdown.open>a:before {
-			.rotate(0deg);
 		}
 	}
+}
 
-	#main-menu-bg {
+#main-menu-bg {
+	overflow: hidden;
+	width: 240px;
+
+	background-color: #23272d;
+	display: block;
+	height: 100%;
+	padding: 0;
+	position: fixed;
+	top: 0;
+	z-index: 0;
+
+	.transition05s();
+
+	.mmc & {
 		overflow: visible;
 		width: 56px;
 	}
