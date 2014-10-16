@@ -296,7 +296,11 @@
       function setFloatWidth(){
         var tableWidth = $table.outerWidth();
         var width = $scrollContainer.width() || tableWidth;
-        $floatContainer.width(width - scrollbarOffset.vertical);
+        if ($scrollContainer.css("overflow-y") != 'hidden')
+          $floatContainer.width(width - scrollbarOffset.vertical);
+        else
+          $floatContainer.width(width);
+
         if(locked){
           var percent = 100 * tableWidth / (width - scrollbarOffset.vertical);
           $floatTable.css('width', percent+'%');

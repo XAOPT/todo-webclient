@@ -10,12 +10,17 @@
 
 <script>
 $(document).ready(function(){
+	$(".wrapper").scroll(function () {
+		var scrollTop = $(this).scrollTop();
+        $(".wrapper").scrollTop(scrollTop);
+    });
+
 	var $demoTable = $("table.demo1");
     $demoTable.floatThead({
         //the pageTop is a global function i have here, it takes care of making the table float under my floated nav
         scrollingTop: 0,
         scrollContainer: function($table){
-            return $table.closest('.task-list');
+            return $table.closest('.wrapper');
         },
         useAbsolutePositioning: true
     });
@@ -30,10 +35,7 @@ $(document).ready(function(){
         useAbsolutePositioning: true
     });
 
-	$(".wrapper").scroll(function () {
-		var scrollTop = $(this).scrollTop();
-        $(".wrapper").scrollTop(scrollTop);
-    });
+    var users = API.get.user();
 });
 </script>
 
@@ -45,165 +47,168 @@ $(document).ready(function(){
 	<div class="row">
 		<div class="col-sm-12">
 
-			<div class="task-list wrapper" style="">
-						<div class="table-header table-primary">
-							Primary
-						</div>
-						<table class="table table-bordered demo1 table-primary">
-							<thead>
-								<tr>
-									<th>Пр</th>
-									<th></th>
-									<th>Название</th>
-									<th>Тр</th>
-									<th>Ф.тр</th>
-								</tr>
-							</thead>
-							<tbody>
-							<tr>
-								<td>123</td>
-								<td>123</td>
-								<td>123</td>
-								<td>123</td>
-								<td>123</td>
-							</tr>
-							<tr>
-																<td>123</td>
-								<td>123</td>
-								<td>123</td>
-								<td>123</td>
-								<td>123</td>
-							</tr>
-							<tr>
-								<td>123</td>
-								<td>123</td>
-								<td>123</td>
-								<td>123</td>
-								<td>123</td>
-							</tr>
-							<tr>
-								<td>123</td>
-								<td>123</td>
-								<td>123</td>
-								<td>123</td>
-								<td>123</td>
-							</tr>
-							<tr>
-								<td>123</td>
-								<td>123</td>
-								<td>123</td>
-								<td>123</td>
-								<td>123</td>
-							</tr>
-							<tr>
-								<td>123</td>
-								<td>123</td>
-								<td>123</td>
-								<td>123</td>
-								<td>123</td>
-							</tr>
-							<tr>
-								<td>123</td>
-								<td>123</td>
-								<td>123</td>
-								<td>123</td>
-								<td>123</td>
-							</tr>
-							<tr>
-								<td>123</td>
-								<td>123</td>
-								<td>123</td>
-								<td>123</td>
-								<td>123</td>
-							</tr>
-						</tbody>
-					</table>
-
-			</div>
-			<div class="task-hours wrapper">
-					<div class="table-header table-primary">
-						Primary
-					</div>
-					<table class="table table-bordered demo2 table-primary">
+			<div id="timesheet">
+				<div class="task-list wrapper" style="">
+					<table class="table table-bordered demo1 table-primary">
 						<thead>
 							<tr>
-								<?php
-								for ($i=1; $i<=60; $i++)
-								{
-									echo "<th>".$i."</th>";
-								}
-								?>
+								<th colspan='5'>Задачи по пользователям</th>
+							</tr>
+							<tr>
+								<th>Пр</th>
+								<th></th>
+								<th class='tt'>Название</th>
+								<th>Тр</th>
+								<th>Ф.тр</th>
 							</tr>
 						</thead>
 						<tbody>
 							<tr>
-								<?php
-								for ($i=1; $i<=60; $i++)
-								{
-									echo "<td>".rand(0,4)."</td>";
-								}
-								?>
+								<td colspan='5' class="user">Денис Петров</td>
 							</tr>
 							<tr>
-								<?php
-								for ($i=1; $i<=60; $i++)
-								{
-									echo "<td>".rand(0,4)."</td>";
-								}
-								?>
+								<td>TZ</td>
+								<td></td>
+								<td class='tt'>Реализация Fb, OK, Vk, MM</td>
+								<td>5</td>
+								<td>5</td>
 							</tr>
 							<tr>
-								<?php
-								for ($i=1; $i<=60; $i++)
-								{
-									echo "<td>".rand(0,4)."</td>";
-								}
-								?>
+								<td>C</td>
+								<td></td>
+								<td class='tt'>работа над API</td>
+								<td>880</td>
+								<td>880</td>
 							</tr>
 							<tr>
-								<?php
-								for ($i=1; $i<=60; $i++)
-								{
-									echo "<td>".rand(0,4)."</td>";
-								}
-								?>
+								<td>123</td>
+								<td>123</td>
+								<td class='tt'>123</td>
+								<td>123</td>
+								<td>123</td>
 							</tr>
 							<tr>
-								<?php
-								for ($i=1; $i<=60; $i++)
-								{
-									echo "<td>".rand(0,4)."</td>";
-								}
-								?>
+								<td>123</td>
+								<td>123</td>
+								<td class='tt'>123</td>
+								<td>123</td>
+								<td>123</td>
 							</tr>
 							<tr>
-								<?php
-								for ($i=1; $i<=60; $i++)
-								{
-									echo "<td>".rand(0,4)."</td>";
-								}
-								?>
+								<td>123</td>
+								<td>123</td>
+								<td class='tt'>123</td>
+								<td>123</td>
+								<td>123</td>
 							</tr>
 							<tr>
-								<?php
-								for ($i=1; $i<=60; $i++)
-								{
-									echo "<td>".rand(0,4)."</td>";
-								}
-								?>
+								<td>123</td>
+								<td>123</td>
+								<td class='tt'>123</td>
+								<td>123</td>
+								<td>123</td>
 							</tr>
 							<tr>
-								<?php
-								for ($i=1; $i<=60; $i++)
-								{
-									echo "<td>".rand(0,4)."</td>";
-								}
-								?>
+								<td>123</td>
+								<td>123</td>
+								<td class='tt'>123</td>
+								<td>123</td>
+								<td>123</td>
 							</tr>
 						</tbody>
 					</table>
+				</div>
+				<div class="task-hours">
+					<div class="wrapper">
+						<table class="table table-bordered demo2 table-primary">
+							<thead>
+								<tr>
+									<?php
+									for ($i=1; $i<=60; $i++)
+									{
+										echo "<th>".$i."</th>";
+									}
+									?>
+								</tr>
+								<tr>
+									<?php
+									for ($i=1; $i<=60; $i++)
+									{
+										echo "<th>".$i."</th>";
+									}
+									?>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<?php
+									for ($i=1; $i<=60; $i++)
+									{
+										echo "<td>".rand(0,4)."</td>";
+									}
+									?>
+								</tr>
+								<tr>
+									<?php
+									for ($i=1; $i<=60; $i++)
+									{
+										echo "<td>".rand(0,4)."</td>";
+									}
+									?>
+								</tr>
+								<tr>
+									<?php
+									for ($i=1; $i<=60; $i++)
+									{
+										echo "<td>".rand(0,4)."</td>";
+									}
+									?>
+								</tr>
+								<tr>
+									<?php
+									for ($i=1; $i<=60; $i++)
+									{
+										echo "<td>".rand(0,4)."</td>";
+									}
+									?>
+								</tr>
+								<tr>
+									<?php
+									for ($i=1; $i<=60; $i++)
+									{
+										echo "<td>".rand(0,4)."</td>";
+									}
+									?>
+								</tr>
+								<tr>
+									<?php
+									for ($i=1; $i<=60; $i++)
+									{
+										echo "<td>".rand(0,4)."</td>";
+									}
+									?>
+								</tr>
+								<tr>
+									<?php
+									for ($i=1; $i<=60; $i++)
+									{
+										echo "<td>".rand(0,4)."</td>";
+									}
+									?>
+								</tr>
+								<tr>
+									<?php
+									for ($i=1; $i<=60; $i++)
+									{
+										echo "<td>".rand(0,4)."</td>";
+									}
+									?>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
 			</div>
-
 		</div>
 	</div>
 

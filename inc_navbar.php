@@ -135,7 +135,7 @@
 								<span>Divo Manager</span>
 							</a>
 							<ul class="dropdown-menu">
-								<li><a href="#">Профиль</a></li>
+								<li><a href="#" class="profileDialog">Профиль</a></li>
 								<li><a href="#">Аккаунт</a></li>
 								<li><a href="#"><i class="dropdown-icon fa fa-cog"></i>&nbsp;&nbsp;Настройки</a></li>
 								<li class="divider"></li>
@@ -148,3 +148,16 @@
 		</div> <!-- / #main-navbar-collapse -->
 	</div> <!-- / .navbar-inner -->
 </div>
+
+<script>
+$(document).ready(function(){
+	BootstrapDialog.prototype.updateAnimate = function(){return;};
+
+	$(".profileDialog").click(function(){
+   		BootstrapDialog.show({
+   			title: "<h5>Профиль</h5>",
+            message: $('<div></div>').load('profile.php')
+        });
+	});
+});
+</script>

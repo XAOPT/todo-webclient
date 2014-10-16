@@ -1,18 +1,61 @@
-.task-list {
-	width: 240px;
-	overflow: auto;
-	float: left;
-	height: 300px;
-	z-index: 100;
-	position: absolute;
-}
+#timesheet {
+	@task-list-width: 290px;
 
-.task-hours {
-	padding-left: 250px;
-	width: 100%;
-	overflow: scroll;
-	float: left;
-	position: absolute;
-	height: 300px;
-	z-index:50;
+	table {
+		white-space: nowrap;
+	}
+
+	td, th, span {
+		padding: 7px 1px;
+		overflow: hidden;
+		text-align: center;
+	}
+
+	.task-list {
+		width: @task-list-width;
+		overflow: hidden;
+		float: left;
+		z-index: 100;
+		position: absolute;
+		height: auto;
+
+		td, th {
+			width: 20px;
+		}
+
+		// ячейка с названием задачи в левой колонке
+		td.tt {
+			width: 80px;
+			text-align: left;
+			font-size: 11px;
+			padding-left: 4px;
+		}
+
+		// строка с именем пользователя в левой колонке
+		td.user {
+			font-weight: bold;
+		}
+	}
+
+	.task-hours {
+		padding-left: @task-list-width+10px;
+		width: 99%;
+		float: left;
+		position: absolute;
+		z-index:50;
+
+		.wrapper {
+			overflow-x: scroll;
+			height: auto;
+		}
+
+		table {
+			table-layout: fixed;
+		}
+
+		td, th {
+			width: 30px;
+		}
+	}
+
 }
