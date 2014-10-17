@@ -154,10 +154,10 @@ $(document).ready(function(){
 	BootstrapDialog.prototype.updateAnimate = function(){return;};
 
 	$(".profileDialog").click(function(){
-   		BootstrapDialog.show({
-   			title: "<h5>Профиль</h5>",
-            message: $('<div></div>').load('profile.php')
-        });
+		BootstrapDialog.show({
+			title: "<h5>Профиль</h5>",
+			message: $('<div></div>').load('profile.php')
+		});
 	});
 });
 </script>

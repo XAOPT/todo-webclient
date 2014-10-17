@@ -13,11 +13,19 @@
 	<script src="js/less.min.js"></script>
 	<script src="js/jquery.floatThead.js"></script>
 	<script src="js/bootstrap-dialog.js"></script>
+	<script src="js/doT.js"></script>
 	<script src="js/todo-api.js"></script>
+	<script src="js/templates.js"></script>
 
 	<link href="http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,400,600,700,300&subset=latin" rel="stylesheet" type="text/css">
 
 	<script>
+		for (var prop in TEMPLATES)
+		{
+			TEMPLATES[prop] = doT.template(TEMPLATES[prop]);
+		}
+
+
 		var mainMenu = {
 			submenu_locker: false,
 			hide_submenu: function() {
@@ -90,6 +98,20 @@
 				if (windowWidth < 840) {
 					$("BODY").addClass("mmc");
 				}
+			});
+
+			/*!!!!!!!!!!!!!!!!!!!!! FAIL reinits!!!!!! */
+			$("#main-menu").on('click', "a", function(){
+				var a = $(this);
+				$.ajax({
+					type: 'get',
+					url: a.attr("href"),
+					dataType: 'HTML',
+					success: function(answer) {
+						//console.log(1);
+						$("#content-wrapper").html(answer);
+					}
+				});
 			});
 		});
 	</script>

@@ -7,6 +7,9 @@
 <?php include("inc_navbar.php");?>
 
 <?php include("inc_mainmenu.php");?>
+
+<div id="content-wrapper">
+</div>
 </body>
 
 </html>

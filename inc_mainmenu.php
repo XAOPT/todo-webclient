@@ -10,7 +10,13 @@
 		</div>
 		<ul class="navigation">
 			<li>
-				<a href="#"><i class="menu-icon fa fa-dashboard"></i><span class="mm-text mmc-dropdown-delay fadeIn">Сводка</span></a>
+				<a href="/users.php"><i class="menu-icon fa fa-users"></i><span class="mm-text mmc-dropdown-delay fadeIn">Сотрудники</span></a>
+			</li>
+			<li>
+				<a href="/timesheet.php"><i class="menu-icon fa fa-table"></i><span class="mm-text mmc-dropdown-delay fadeIn">Timesheet</span></a>
+			</li>
+			<li>
+				<a href="/convert.php"><i class="menu-icon fa fa-exchange"></i><span class="mm-text mmc-dropdown-delay fadeIn">Конвертирование</span></a>
 			</li>
 			<li>
 				<a href="#"><i class="menu-icon fa fa-tasks"></i><span class="mm-text mmc-dropdown-delay fadeIn">Статистика</span></a>
@@ -48,9 +54,6 @@
 						<a href="#"><span class="mm-text">Редакторы</span></a>
 					</li>
 				</ul>
-			</li>
-			<li>
-				<a href="#"><i class="menu-icon fa fa-table"></i><span class="mm-text mmc-dropdown-delay fadeIn">Таблицы</span></a>
 			</li>
 			<li>
 				<a href="#"><i class="menu-icon fa fa-bar-chart-o"></i><span class="mm-text mmc-dropdown-delay fadeIn">Графики</span></a>

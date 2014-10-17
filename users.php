@@ -1,0 +1,36 @@
+<script>
+
+$(document).ready(function() {
+
+	API.get.user(function(answer){
+		var html = TEMPLATES.users_list({users: answer.items});
+
+		$("#content-wrapper").append(html);
+	});
+
+	$("#content-wrapper").on('dblclick', '.user_card', function() {
+		var this_id = $(this).data("id");
+		API.get.user({id: this_id}, function(answer){
+			BootstrapDialog.show({
+				title: "<h5>Профиль</h5>",
+				message: TEMPLATES.user_edit(answer.items[0])
+			});
+		});
+	});
+});
+</script>
+
+<!-- <div class="user_card" data-id="1" >
+	<div class="first_row">
+		<img class="avatar" src="img/avatar1.jpg">
+		<div>
+			<div class="name">Divo Manager</div>
+			<div class="role">Developer</div>
+		</div>
+	</div>
+	<div class="second_row">
+		<div class="fa settings">100</div>
+		<div class="fa projects">1</div>
+		<div class="is_active">Active</div>
+	</div>
+</div> -->

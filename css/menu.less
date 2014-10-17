@@ -59,6 +59,85 @@ body {
 	height: 54px;
 }
 
+/* ---------------------USERS ------------------------- */
+
+.user_card {
+	float: left;
+	width: 300px;
+	box-shadow: 0 1px 2px rgba(0,0,0,0.4);
+	padding: 4px 4px;
+	background: #fff;
+	position: relative;
+	margin: 0 20px 20px 0;
+
+	&:hover {
+		background: #fff6cb;
+	}
+
+	.first_row {
+		height: 60px;
+
+		img {
+			margin-right: 12px;
+			float: left;
+		}
+
+		>div {
+			float: none;
+			overflow: hidden;
+			position: relative;
+			margin-top: 3px;
+
+			.name {
+				white-space: nowrap;
+				font-size: 14px;
+			}
+
+			.role {
+				color: #999;
+			}
+		}
+	}
+
+	.second_row {
+		clear: both;
+		vertical-align: bottom;
+
+		.is_active {
+			position: absolute;
+			width: 50px;
+			height: 20px;
+			bottom: 4px;
+			right: 4px;
+			color: #8595a8;
+			background: #fcf1c3;
+			padding: 2px;
+			text-align: center;
+			text-transform: uppercase;
+			font-size: 11px;
+		}
+
+		.settings {
+			display: inline-block;
+			margin-right: 10px;
+
+			&:before {
+				content: "\f013";
+			}
+		}
+
+		.projects {
+			display: inline-block;
+
+			&:before {
+				content: "\f0b1";
+			}
+		}
+	}
+}
+
+/* --------------------- END OF USERS -------------------------- */
+
 .bootstrap-dialog
 {
 	.modal-content {

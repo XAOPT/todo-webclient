@@ -1,13 +1,3 @@
-<html>
-
-<?php include("inc_head.php");?>
-
-<body class='main-wrapper'>
-
-<?php include("inc_navbar.php");?>
-
-<?php include("inc_mainmenu.php");?>
-
 <script>
 $(document).ready(function(){
 	$(".wrapper").scroll(function () {
@@ -34,12 +24,10 @@ $(document).ready(function(){
         },
         useAbsolutePositioning: true
     });
-
-    var users = API.get.user();
 });
 </script>
 
-<div id="content-wrapper">
+
 	<div class="page-header">
 		<h1>Timesheet</h1>
 	</div>
@@ -211,9 +199,3 @@ $(document).ready(function(){
 			</div>
 		</div>
 	</div>
-
-</div>
-
-</body>
-
-</html>
