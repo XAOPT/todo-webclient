@@ -1,5 +1,4 @@
 <script>
-
 $(document).ready(function() {
 
 	API.get.user(function(answer){
@@ -19,18 +18,3 @@ $(document).ready(function() {
 	});
 });
 </script>
-
-<!-- <div class="user_card" data-id="1" >
-	<div class="first_row">
-		<img class="avatar" src="img/avatar1.jpg">
-		<div>
-			<div class="name">Divo Manager</div>
-			<div class="role">Developer</div>
-		</div>
-	</div>
-	<div class="second_row">
-		<div class="fa settings">100</div>
-		<div class="fa projects">1</div>
-		<div class="is_active">Active</div>
-	</div>
-</div> -->

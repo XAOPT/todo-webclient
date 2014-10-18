@@ -1,7 +1,8 @@
-var TEMPLATES = {users_list:'{{~it.users :user:index}} \
+var TEMPLATES = {users_list:' \
+{{~it.users :user:index}} \
 <div class="user_card" data-id="{{=user.id}}" > \
 	<div class="first_row"> \
-		<img class="avatar" src="img/avatar1.jpg"> \
+		<img class="avatar {{? user.deleted }}grayscale{{?}}" src="{{? user.email }}http://www.gravatar.com/avatar/{{=md5(user.email)}}?d=mm{{??}}img/avatar1.jpg{{?}}"> \
 		<div> \
 			<div class="name">{{=user.firstname}} {{=user.lastname}}</div> \
 			<div class="role">{{=user.role}}</div> \
