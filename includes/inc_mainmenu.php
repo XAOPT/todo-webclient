@@ -1,3 +1,64 @@
+<script>
+	var mainMenu = {
+		submenu_locker: false,
+		hide_submenu: function() {
+			setTimeout(function(){
+				if (!mainMenu.submenu_locker)
+					$(".mmc-dropdown-open-ul").remove();
+			},1000);
+		},
+		init: function() {
+			$("#main-menu").on("click", "a", function(){
+				if ($("BODY").hasClass("mmc"))
+					return false;
+
+				var LI = $(this).parent();
+
+				LI.siblings("LI").not(LI).each(function(){
+					$(this).find("UL:first").slideUp("fast", function(){$(this).removeClass("open")}.bind($(this)));
+				});
+
+				if (LI.hasClass("open")) {
+					LI.find("UL:first").slideUp("fast", function(){LI.removeClass("open")});
+				}
+				else {
+					LI.find("UL:first").slideDown("fast", function(){LI.addClass("open"); LI.find("UL:first").removeAttr('style');})
+				}
+
+				return false;
+			});
+
+			$("#main-menu").on({
+				mouseenter: function() {
+					mainMenu.submenu_locker = true;
+				},
+				mouseleave: function() {
+					mainMenu.submenu_locker = false;
+					mainMenu.hide_submenu();
+				}
+			}, ".mmc-dropdown-open-ul");
+
+			$("LI.mm-dropdown").hover(
+				function(){
+					mainMenu.submenu_locker = true;
+
+					$(".mmc-dropdown-open-ul").remove();
+
+					var head = $(this).find(".mm-text:first").clone();
+					$(this).find("UL:first").clone().removeClass("fadeInLeft").addClass("mmc-dropdown-open-ul").css({"top": $(this).position().top}).appendTo("#main-menu").prepend(head.addClass('mmc-title'));
+
+				},
+				function(){
+					mainMenu.submenu_locker = false;
+					mainMenu.hide_submenu();
+				}
+			);
+
+
+		}
+	};
+</script>
+
 <div id="main-menu">
 	<div>
 		<div class="animated fadeIn" id="menu-content-info">
@@ -10,19 +71,19 @@
 		</div>
 		<ul class="navigation">
 			<li>
-				<a href="/users.php"><i class="menu-icon fa fa-users"></i><span class="mm-text mmc-dropdown-delay fadeIn">Сотрудники</span></a>
+				<a href="pages/users.php"><i class="menu-icon fa fa-users"></i><span class="mm-text mmc-dropdown-delay fadeIn">Сотрудники</span></a>
 			</li>
 			<li>
-				<a href="/timesheet.php"><i class="menu-icon fa fa-table"></i><span class="mm-text mmc-dropdown-delay fadeIn">Timesheet</span></a>
+				<a href="pages/timesheet.php"><i class="menu-icon fa fa-table"></i><span class="mm-text mmc-dropdown-delay fadeIn">Timesheet</span></a>
 			</li>
 			<li>
-				<a href="/convert.php"><i class="menu-icon fa fa-exchange"></i><span class="mm-text mmc-dropdown-delay fadeIn">Конвертирование</span></a>
+				<a href="pages/projects.php"><i class="menu-icon fa fa-sitemap"></i><span class="mm-text mmc-dropdown-delay fadeIn">Проекты</span></a>
+			</li>
+			<li>
+				<a href="pages/convert.php"><i class="menu-icon fa fa-exchange"></i><span class="mm-text mmc-dropdown-delay fadeIn">Конвертирование</span></a>
 			</li>
 			<li>
 				<a href="#"><i class="menu-icon fa fa-tasks"></i><span class="mm-text mmc-dropdown-delay fadeIn">Статистика</span></a>
-			</li>
-			<li>
-				<a href="#"><i class="menu-icon fa fa-flask"></i><span class="mm-text mmc-dropdown-delay fadeIn">Виджеты</span></a>
 			</li>
 			<li class="mm-dropdown open active">
 				<a href="#"><i class="menu-icon fa fa-desktop"></i><span class="mm-text mmc-dropdown-delay fadeIn">Интерфейс</span></a>

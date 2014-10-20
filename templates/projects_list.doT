@@ -1,0 +1,5 @@
+{{~it.items :project:index}}
+	<div class="project-title" data-id="{{=project.id}}">
+		{{=project.title}}<br />
+	</div>
+{{~}}

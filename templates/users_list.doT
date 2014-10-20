@@ -1,4 +1,4 @@
-{{~it.users :user:index}}
+{{~it.items :user:index}}
 <div class="user_card" data-id="{{=user.id}}" >
 	<div class="first_row">
 		<img class="avatar {{? user.deleted }}grayscale{{?}}" src="{{? user.email }}http://www.gravatar.com/avatar/{{=md5(user.email)}}?d=mm{{??}}img/avatar1.jpg{{?}}">

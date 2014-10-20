@@ -1,12 +1,12 @@
 <html>
 
-<?php include("inc_head.php");?>
+<?php include("includes/inc_head.php");?>
 
 <body class='main-wrapper'>
 
-<?php include("inc_navbar.php");?>
+<?php include("includes/inc_navbar.php");?>
 
-<?php include("inc_mainmenu.php");?>
+<?php include("includes/inc_mainmenu.php");?>
 
 <div id="content-wrapper">
 </div>

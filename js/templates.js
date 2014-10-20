@@ -1,5 +1,14 @@
-var TEMPLATES = {users_list:' \
-{{~it.users :user:index}} \
+var TEMPLATES = { 
+	projects_list: ' \
+{{~it.items :project:index}} \
+	<div class="project-title" data-id="{{=project.id}}"> \
+		{{=project.title}}<br /> \
+	</div> \
+{{~}}', 
+ project_edit: ' \
+{{=it.id}}', 
+ users_list: ' \
+{{~it.items :user:index}} \
 <div class="user_card" data-id="{{=user.id}}" > \
 	<div class="first_row"> \
 		<img class="avatar {{? user.deleted }}grayscale{{?}}" src="{{? user.email }}http://www.gravatar.com/avatar/{{=md5(user.email)}}?d=mm{{??}}img/avatar1.jpg{{?}}"> \
@@ -14,7 +23,9 @@ var TEMPLATES = {users_list:' \
 		<div class="is_active">{{? user.deleted }}Fired{{??}}Active{{?}}</div> \
 	</div> \
 </div> \
-{{~}}',user_edit:'<div class="user_card" data-id="{{=it.id}}" > \
+{{~}}', 
+ user_edit: ' \
+<div class="user_card" data-id="{{=it.id}}" > \
 	<div class="first_row"> \
 		<img class="avatar" src="img/avatar1.jpg"> \
 		<div> \
@@ -27,4 +38,5 @@ var TEMPLATES = {users_list:' \
 		<div class="fa projects">1</div> \
 		<div class="is_active">{{? it.deleted }}Fired{{??}}Active{{?}}</div> \
 	</div> \
-</div>',}
+</div>', 
+ }
