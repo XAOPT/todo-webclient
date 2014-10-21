@@ -1,12 +1,33 @@
 var TEMPLATES = { 
-	projects_list: ' \
+	calendar_edit: ' \
+<form class="form-horizontal" role="form"> \
+	<input type="hidden" name="day" value="{{=it.day}}"> \
+	<div class="form-group form-group-sm"> \
+		<label class="col-sm-2 control-label" for="formGroupInputSmall">Выходной</label> \
+		<div class="col-sm-10"> \
+			<input type="checkbox" name="dayoff" class="switcher-theme-square" {{?it.kind=="dayoff"}}CHECKED{{?}}> \
+		</div> \
+	</div> \
+</form>', 
+ dom_checkbox: ' \
+<div class="switcher {{=it.theme}} {{?it.checked}}checked{{?}}"> \
+	<input type="checkbox" name="dayoff" {{?it.checked}}checked="checked"{{?}}> \
+	<div class="switcher-toggler"></div> \
+	<div class="switcher-inner"> \
+		<div class="switcher-state-on"><span class="fa fa-check"></span></div><div class="switcher-state-off"><span class="fa fa-times"></span></div> \
+	</div> \
+</div>', 
+ projects_list: ' \
 {{~it.items :project:index}} \
 	<div class="project-title" data-id="{{=project.id}}"> \
 		{{=project.title}}<br /> \
 	</div> \
 {{~}}', 
  project_edit: ' \
-{{=it.id}}', 
+<h2>{{=it.title}}</h2> \
+<form> \
+Created: {{=it.created}} \
+</form>', 
  users_list: ' \
 {{~it.items :user:index}} \
 <div class="user_card" data-id="{{=user.id}}" > \

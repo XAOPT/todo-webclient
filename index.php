@@ -8,7 +8,9 @@
 
 <?php include("includes/inc_mainmenu.php");?>
 
+
 <div id="content-wrapper">
+	<input type='checkbox' class="switcher-theme-square">
 </div>
 </body>
 

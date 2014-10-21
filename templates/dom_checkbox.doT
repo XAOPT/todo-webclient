@@ -1,0 +1,7 @@
+<div class="switcher {{=it.theme}} {{?it.checked}}checked{{?}}">
+	<input type="checkbox" name="dayoff" {{?it.checked}}checked="checked"{{?}}>
+	<div class="switcher-toggler"></div>
+	<div class="switcher-inner">
+		<div class="switcher-state-on"><span class="fa fa-check"></span></div><div class="switcher-state-off"><span class="fa fa-times"></span></div>
+	</div>
+</div>

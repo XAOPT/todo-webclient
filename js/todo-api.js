@@ -6,15 +6,21 @@ API = {
 		var data = _api.params;
 		_api.params = {};
 
+		if (method == 'put') {
+			data = JSON.stringify(data);
+		}
+
 		$.ajax({
 			type: method,
 			url: url,
 			data: data,
 			dataType: 'JSON',
 			success: function(answer) {
-				cb(answer);
+				console.log(answer);
+				if (typeof cb !== 'undefined')
+					cb(answer);
 			},
-			error: function() {
+			error: function(error) {
 				console.log(error);
 			}
 		});
@@ -33,7 +39,7 @@ API = {
 
 			_api.ajax('get', url, cb);
 		},
-		project: function(params, cb) {
+		project: function (params, cb) {
 			if (typeof params === 'function')
 				cb = params;
 			else {
@@ -41,6 +47,17 @@ API = {
 			}
 
 			var url = _api.url+"/project/";
+
+			if (typeof params.id !== 'undefined') {
+				url = url+params.id+"/";
+			}
+
+			_api.ajax('get', url, cb);
+		},
+		calendar: function(params, cb) {
+			_api.params = params;
+
+			var url = _api.url+"/calendar/";
 
 			_api.ajax('get', url, cb);
 		},
@@ -55,6 +72,15 @@ API = {
 
 				_api.ajax('get', url, cb);
 			},
+		}
+	},
+	put: {
+		calendar: function(params) {
+			_api.params = params;
+
+			var url = _api.url+"/calendar/";
+
+			_api.ajax('put', url);
 		}
 	}
 }

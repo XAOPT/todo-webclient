@@ -1,1 +1,4 @@
-{{=it.id}}
+<h2>{{=it.title}}</h2>
+<form>
+Created: {{=it.created}}
+</form>
