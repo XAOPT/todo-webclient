@@ -28,6 +28,42 @@ var TEMPLATES = {
 <form> \
 Created: {{=it.created}} \
 </form>', 
+ timesheet_edit: ' \
+<form class="form-horizontal" role="form"> \
+	<input type="hidden" name="day" value="{{=it.day}}"> \
+	<input type="hidden" name="userid" value="{{=it.userid}}"> \
+	<input type="hidden" name="taskid" value="{{=it.taskid}}"> \
+	<div class="form-group"> \
+		<label class="col-sm-4 control-label" for="formGroupInputSmall">Потрачено часов</label> \
+		<div class="col-sm-7"> \
+			<input type="text" class="form-control input-sm" name="worktimeHours" value="{{? typeof it.item !== "undefined"}}{{=it.item.worktimeHours}}{{??}}0{{?}}"> \
+		</div> \
+		<label class="col-sm-4 control-label" for="formGroupInputSmall">Комментарий</label> \
+		<div class="col-sm-7"> \
+			<textarea class="form-control" rows="3"> \
+			{{? typeof it.item !== "undefined"}}{{it.item.comment}}{{?}} \
+			</textarea> \
+		</div> \
+	</div> \
+</form>', 
+ timesheet_taskbody: ' \
+<tr><td colspan="{{=it.day_count}}">&nbsp;</td></tr> \
+{{~it.task :task:index}} \
+	<tr data-taskid="{{=task.taskid}}" data-userid="{{=task.userid}}"> \
+	{{~task.days :day:day_index}} \
+		<td data-day="{{=day.day}}" class="{{=day.day_kind}}">{{=day.hours}}</td> \
+	{{~}} \
+	</tr> \
+{{~}} \
+', 
+ timesheet_taskhead: ' \
+<tr> \
+	<td style="background-color: {{=it.tagcolor}}">{{=it.shorttitle}}</td> \
+	<td></td> \
+	<td class="tt">{{=it.title}}</td> \
+	<td></td> \
+	<td></td> \
+</tr>', 
  users_list: ' \
 {{~it.items :user:index}} \
 <div class="user_card" data-id="{{=user.id}}" > \

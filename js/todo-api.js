@@ -14,6 +14,7 @@ API = {
 			type: method,
 			url: url,
 			data: data,
+			async: false,
 			dataType: 'JSON',
 			success: function(answer) {
 				console.log(answer);
@@ -101,6 +102,13 @@ API = {
 			_api.params = params;
 
 			var url = _api.url+"/calendar/";
+
+			_api.ajax('put', url);
+		},
+		timesheet: function(params, cb) {
+			_api.params = params;
+
+			var url = _api.url+"/timesheet/";
 
 			_api.ajax('put', url);
 		}
@@ -307,4 +315,29 @@ function md5 ( str ) {	// Calculate the md5 hash of a string
 	var temp = WordToHex(a)+WordToHex(b)+WordToHex(c)+WordToHex(d);
 
 	return temp.toLowerCase();
+}
+
+function _findInItems(stack, needle, value) {
+	var length = stack.length;
+
+	for (var i = 0; i < length; i++) {
+		if (typeof stack[i][needle] !== 'undefined' && stack[i][needle] === value) {
+			return stack[i];
+		}
+	}
+
+	return "undefined";
+}
+
+function _itemsInHash(stack, key) {
+	var output = {};
+
+	var length = stack.length;
+
+	for (var i = 0; i < length; i++) {
+		if (typeof stack[i][key] !== 'undefined')
+			output[stack[i][key]] = stack[i];
+	}
+
+	return output;
 }

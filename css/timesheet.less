@@ -64,6 +64,12 @@
 
 		td, th {
 			min-width: 30px;
+			cursor: pointer;
+			.user-select-none();
+
+			&:hover {
+				background: #ccc;
+			}
 
 			&.dayoff {
 				background: #ccc;
@@ -74,12 +80,7 @@
 			}
 
 			&.timesheet-day {
-				cursor: pointer;
-				.user-select-none();
 
-				&:hover {
-					background: #ccc;
-				}
 			}
 		}
 	}

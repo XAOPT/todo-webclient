@@ -1,0 +1,7 @@
+<tr>
+	<td style="background-color: {{=it.tagcolor}}">{{=it.shorttitle}}</td>
+	<td></td>
+	<td class='tt'>{{=it.title}}</td>
+	<td></td>
+	<td></td>
+</tr>

@@ -109,9 +109,9 @@ $(document).ready(function() {
 					data = {};
 					dialogRef.getModal().find('form').serializeArray().map(function(item) {
 						if (item.name == 'dayoff' && item.value == 'on')
-					    	data['kind'] = 'dayoff';
-					    else
-					    	data[item.name] = item.value;
+							data['kind'] = 'dayoff';
+						else
+							data[item.name] = item.value;
 					});
 
 					if (typeof data['kind'] === 'undefined')
@@ -121,6 +121,42 @@ $(document).ready(function() {
 
 					// изменим стиль у выбранной ячейки дня
 					$(".task-hours table thead").find("TH[data-day="+data.day+"]").removeClass("workday, dayoff").addClass(data.kind);
+				}
+			});
+		});
+	});
+
+	$("#content-wrapper").on('dblclick', 'td', function() {
+		var day = $(this).data("day");
+		var taskid = $(this).parent().data("taskid");
+		var userid = $(this).parent().data("userid");
+
+		API.get.timesheet({"from": day, "count": 1, "userid": userid, "taskid": taskid}, function(answer) {
+
+			var tpl_data = {
+				'day': day,
+				'taskid': taskid,
+				'userid': userid,
+				'item': answer.items[0]
+			};
+
+			if (typeof answer.items[0] != 'undefined') {
+				tpl_data.item.worktimeHours = tpl_data.item.worktimeSeconds/3600;
+			}
+
+			BootstrapDialog.confirm(TEMPLATES.timesheet_edit(tpl_data), function(result, dialogRef){
+				if (result) {
+					data = {};
+					dialogRef.getModal().find('form').serializeArray().map(function(item) {
+						if (item.name == 'worktimeHours')
+							data['worktimeSeconds'] = item.value*3600;
+
+						data[item.name] = item.value;
+					});
+
+					API.put.timesheet(data, function(data){
+						$(".task-hours table tr[data-taskid='"+data.taskid+"'][data-userid='"+data.userid+"'] td[data-day='"+data.day+"']").text(data.worktimeHours);
+					}.call(this, data));
 				}
 			});
 		});

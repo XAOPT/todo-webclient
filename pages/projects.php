@@ -3,7 +3,6 @@
 $(document).ready(function() {
 
 	API.get.project(function(answer){
-		console.log(answer);
 		var html = TEMPLATES.projects_list({items: answer.items});
 
 		$(".projects-list").append(html);
@@ -14,7 +13,7 @@ $(document).ready(function() {
 </script>
 
 <div class="page-header">
-	<h1>Projects</h1>
+	<h1>Проекты</h1>
 </div>
 
 <div id="projects" class="row">
