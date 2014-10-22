@@ -4,14 +4,14 @@
 
 <body class='main-wrapper'>
 
-<?php include("includes/inc_navbar.php");?>
+	<?php include("includes/inc_navbar.php");?>
 
-<?php include("includes/inc_mainmenu.php");?>
+	<?php include("includes/inc_mainmenu.php");?>
 
 
-<div id="content-wrapper">
-	<input type='checkbox' class="switcher-theme-square">
-</div>
+	<div id="content-wrapper">
+	</div>
+
 </body>
 
 </html>

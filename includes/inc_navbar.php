@@ -98,7 +98,7 @@
 								<div class="slimScrollDiv" style="position: relative; overflow: hidden; width: auto; height: 250px;"><div class="messages-list" id="main-navbar-messages" style="overflow: hidden; width: auto; height: 250px;">
 
 									<div class="message">
-										<img src="assets/demo/avatars/2.jpg" alt="" class="message-avatar">
+										<img src="img/avatar1.jpg" alt="" class="message-avatar">
 										<a href="#" class="message-subject">Lorem ipsum dolor sit amet, consectetur adipisicing elit.</a>
 										<div class="message-description">
 											from <a href="#">Robert Jang</a>
@@ -108,7 +108,7 @@
 									</div> <!-- / .message -->
 
 									<div class="message">
-										<img src="assets/demo/avatars/3.jpg" alt="" class="message-avatar">
+										<img src="img/avatar1.jpg" alt="" class="message-avatar">
 										<a href="#" class="message-subject">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</a>
 										<div class="message-description">
 											from <a href="#">Michelle Bortz</a>

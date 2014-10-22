@@ -35,9 +35,82 @@ $(document).ready(function(){
 	var current_day = parseInt(current_timestamp/86400/1000);
 	var lower_day = current_day - 30*4;
 
+	/* начнём с отрисовки шапки календаря */
 	API.get.calendar({"from": lower_day, "count": 130}, function(answer) {
-		drawTimesheetCalendar({"from": lower_day, "count": 130, "exceptions": answer.items});
+		var global_exceptions = {};
+		for (var i=0; i<answer.items.length; i++) {
+			global_exceptions[answer.items[i].day] = answer.items[i];
+		}
+
+		drawTimesheetCalendar({"from": lower_day, "count": 130, "exceptions": global_exceptions});
+
+		/* теперь отрисуем задачи */
+		API.get.project(function(answer) {
+			var projects = {};
+			for (var i=0; i<answer.items.length; i++) {
+				projects[answer.items[i].id] = answer.items[i];
+			}
+
+			API.get.task({"assignee": 39}, function(answer){
+				API.get.calendar({"userid": 39, "from": lower_day, "count": 130}, function(calendar){
+					var user_exceptions = {};
+					for (var i=0; i<calendar.items.length; i++) {
+						user_exceptions[calendar.items[i].day] = calendar.items[i];
+					}
+
+					drawUserTasks({"projects": projects, "tasks": answer.items});
+					drawUserTimesheet({"from": lower_day, "count": 130, "tasks": answer.items, "exceptions": global_exceptions, "user_exceptions": user_exceptions});
+				});
+			});
+		});
+
 	});
+
+	function drawUserTasks(params)
+	{
+		var html = '';
+		for (var i=0; i<params.tasks.length; i++) {
+			html += "<tr>";
+			html += "	<td>"+params.projects[params.tasks[i].project].shorttitle+"</td>";
+			html += "	<td></td>";
+			html += "	<td class='tt'>"+params.tasks[i].title+"</td>";
+			html += "	<td></td>";
+			html += "	<td></td>";
+			html += "</tr>";
+		}
+
+		$(".task-list table tbody").append(html);
+	}
+
+	function drawUserTimesheet(params)
+	{
+		$(".task-hours table tbody").append("<tr><td colspan='"+params.count+"'>&nbsp;</td></tr>");
+
+		for (var i=0; i<params.tasks.length; i++) {
+			API.get.timesheet({"userid":39, "taskid":params.tasks[i].id}, function(){
+				html = "<tr>";
+				for (var i=params.from; i<params.from+params.count; i++) {
+					var date    = new Date(i*86400*1000);
+					var day     = date.getDate();
+					var day_num = date.getDay();
+
+					var day_kind = (day_num === 0 || day_num === 6)?'dayoff':'workday';
+
+					if (typeof params.user_exceptions[i] !== 'undefined') {
+						day_kind = params.user_exceptions[i].kind; // пользовательские исключения для календаря выше в приоритете
+					}
+					else if (typeof params.exceptions[i] !== 'undefined') {
+						day_kind = params.exceptions[i].kind; // глобальные исключения для календаря
+					}
+
+					html += "<td class='"+day_kind+"'>&nbsp;</td>";
+				}
+				html += "</tr>";
+
+				$(".task-hours table tbody").append(html);
+			});
+		}
+	}
 
 	function drawTimesheetCalendar(params)
 	{
@@ -54,6 +127,10 @@ $(document).ready(function(){
 			var day_num = date.getDay();
 
 			var day_kind = (day_num === 0 || day_num === 6)?'dayoff':'workday';
+			if (typeof params.exceptions[i] !== 'undefined') {
+				day_kind = params.exceptions[i].kind;
+			}
+
 			var th_class = (current_day == i)?'current_day':day_kind;
 
 			row1 += "<th data-day='"+i+"' data-kind='"+day_kind+"' class='timesheet-day "+th_class+"''>"+day+"</th>";
@@ -107,55 +184,6 @@ $(document).ready(function(){
 							<tr>
 								<td colspan='5' class="user">Денис Петров</td>
 							</tr>
-							<tr>
-								<td>TZ</td>
-								<td></td>
-								<td class='tt'>Реализация Fb, OK, Vk, MM</td>
-								<td>5</td>
-								<td>5</td>
-							</tr>
-							<tr>
-								<td>C</td>
-								<td></td>
-								<td class='tt'>работа над API</td>
-								<td>880</td>
-								<td>880</td>
-							</tr>
-							<tr>
-								<td>123</td>
-								<td>123</td>
-								<td class='tt'>123</td>
-								<td>123</td>
-								<td>123</td>
-							</tr>
-							<tr>
-								<td>123</td>
-								<td>123</td>
-								<td class='tt'>123</td>
-								<td>123</td>
-								<td>123</td>
-							</tr>
-							<tr>
-								<td>123</td>
-								<td>123</td>
-								<td class='tt'>123</td>
-								<td>123</td>
-								<td>123</td>
-							</tr>
-							<tr>
-								<td>123</td>
-								<td>123</td>
-								<td class='tt'>123</td>
-								<td>123</td>
-								<td>123</td>
-							</tr>
-							<tr>
-								<td>123</td>
-								<td>123</td>
-								<td class='tt'>123</td>
-								<td>123</td>
-								<td>123</td>
-							</tr>
 						</tbody>
 					</table>
 				</div>
@@ -164,72 +192,8 @@ $(document).ready(function(){
 						<table class="table table-bordered demo2 table-primary">
 							<thead>
 							</thead>
-							<!-- <tbody>
-								<tr>
-									<?php
-									for ($i=1; $i<=60; $i++)
-									{
-										echo "<td>".rand(0,4)."</td>";
-									}
-									?>
-								</tr>
-								<tr>
-									<?php
-									for ($i=1; $i<=60; $i++)
-									{
-										echo "<td>".rand(0,4)."</td>";
-									}
-									?>
-								</tr>
-								<tr>
-									<?php
-									for ($i=1; $i<=60; $i++)
-									{
-										echo "<td>".rand(0,4)."</td>";
-									}
-									?>
-								</tr>
-								<tr>
-									<?php
-									for ($i=1; $i<=60; $i++)
-									{
-										echo "<td>".rand(0,4)."</td>";
-									}
-									?>
-								</tr>
-								<tr>
-									<?php
-									for ($i=1; $i<=60; $i++)
-									{
-										echo "<td>".rand(0,4)."</td>";
-									}
-									?>
-								</tr>
-								<tr>
-									<?php
-									for ($i=1; $i<=60; $i++)
-									{
-										echo "<td>".rand(0,4)."</td>";
-									}
-									?>
-								</tr>
-								<tr>
-									<?php
-									for ($i=1; $i<=60; $i++)
-									{
-										echo "<td>".rand(0,4)."</td>";
-									}
-									?>
-								</tr>
-								<tr>
-									<?php
-									for ($i=1; $i<=60; $i++)
-									{
-										echo "<td>".rand(0,4)."</td>";
-									}
-									?>
-								</tr>
-							</tbody> -->
+							<tbody>
+							</tbody>
 						</table>
 					</div>
 				</div>

@@ -61,6 +61,28 @@ API = {
 
 			_api.ajax('get', url, cb);
 		},
+		task: function(params, cb) {
+			if (typeof params === 'function')
+				cb = params;
+			else {
+				_api.params = params;
+			}
+
+			var url = _api.url+"/task/";
+
+			_api.ajax('get', url, cb);
+		},
+		timesheet: function(params, cb) {
+			if (typeof params === 'function')
+				cb = params;
+			else {
+				_api.params = params;
+			}
+
+			var url = _api.url+"/timesheet/";
+
+			_api.ajax('get', url, cb);
+		},
 		convert: {
 			users: function(cb) {
 				var url = _api.url+"/convert/users/";
