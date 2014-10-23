@@ -1,3 +1,6 @@
+@menu-width: 240px;
+@task-list-width: 290px; // DUPLICATE!!!
+
 .transition05s {
 	-webkit-transition: all .5s;
 	transition: all .5s;
@@ -156,12 +159,14 @@ body {
 
 /* --------------------- END OF USERS -------------------------- */
 
+
 /* ---------------------- PROJECTS --------------------------------*/
 
 #projects {
 	.projects-list {
 		padding: 0px !important;
-		div {
+
+		.project-title {
 			padding: 10px 4px 10px 10px;
 			white-space: nowrap;
 			overflow: hidden;
@@ -169,6 +174,15 @@ body {
 			background: #FFF;
 			border-top: solid 1px #ccc;
 			border-right: solid 1px #ccc;
+
+			&.archived {
+				&:after {
+					content: "\f023";
+					display: inline-block;
+					font-family: FontAwesome;
+
+				}
+			}
 		}
 	}
 
@@ -176,8 +190,8 @@ body {
 	}
 }
 
-
 /* ---------------------- END OF PROJECTS -------------------------*/
+
 
 .bootstrap-dialog.wide
 {
@@ -205,6 +219,8 @@ body {
 		height: auto;
 	}
 }
+
+
 
 .navbar-icon {
 	left:26px;
@@ -254,7 +270,7 @@ body {
 		border-top: none;
 		margin-bottom: -47px;
 		margin-top: 0;
-		padding-top: 66px;
+		padding-top: 125px;
 		padding-left: 86px!important;
 
 		white-space: nowrap!important;
@@ -263,7 +279,9 @@ body {
 		.hello-text {
 			font-size: 17px;
 			color: #fff;
-			padding-top: 12px;
+
+			position: absolute;
+			top: 75px;
 		}
 
 		img {
@@ -272,7 +290,7 @@ body {
 			display: block;
 			position: absolute;
 			left: 18px;
-			top: 50px;
+			top: 60px;
 		}
 
 		.mmc & {
@@ -605,4 +623,35 @@ body {
 		overflow: visible;
 		width: 56px;
 	}
+}
+
+#item-description {
+	display: block;
+	height: 100%;
+	width: 0px;
+	overflow: hidden;
+	position: absolute;
+	right: 0;
+	top: 0px;
+	z-index: 100;
+	padding: 0px;
+
+	.transition02s;
+
+	.bg {
+		background: #FFF;
+	}
+
+	.rpo & {
+		width: 100%;
+		padding-left: @menu-width+@task-list-width+20px;
+		.bg {
+			padding-top: 60px;
+			position: absolute;
+			width: 100%;
+			height: 100%;
+			border-left: solid 2px #ccc;
+		}
+	}
+
 }

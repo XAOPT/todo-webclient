@@ -9,8 +9,10 @@
 		},
 		init: function() {
 			$("#main-menu").on("click", "a", function(){
-				if ($("BODY").hasClass("mmc"))
-					return false;
+				var a = $(this);
+
+				/*if ($("BODY").hasClass("mmc")) // здесь надо добавить решение для меню со вложенными пунктами
+					return false;*/
 
 				var LI = $(this).parent();
 
@@ -24,6 +26,20 @@
 				else {
 					LI.find("UL:first").slideDown("fast", function(){LI.addClass("open"); LI.find("UL:first").removeAttr('style');})
 				}
+
+				$("#main-menu li").removeClass("active");
+				a.parent().addClass("active");
+
+				$(".main-wrapper").removeClass("rpo");
+				$.ajax({
+					type: 'get',
+					url: a.attr("href"),
+					dataType: 'HTML',
+					success: function(answer) {
+						$("#content-wrapper").html(answer);
+						window.history.pushState({},"", '#'+a.attr("href"));
+					}
+				});
 
 				return false;
 			});
@@ -53,8 +69,6 @@
 					mainMenu.hide_submenu();
 				}
 			);
-
-
 		}
 	};
 </script>
@@ -82,58 +96,7 @@
 			<li>
 				<a href="pages/convert.php"><i class="menu-icon fa fa-exchange"></i><span class="mm-text mmc-dropdown-delay fadeIn">Конвертирование</span></a>
 			</li>
-			<li>
-				<a href="#"><i class="menu-icon fa fa-tasks"></i><span class="mm-text mmc-dropdown-delay fadeIn">Статистика</span></a>
-			</li>
-			<li class="mm-dropdown open active">
-				<a href="#"><i class="menu-icon fa fa-desktop"></i><span class="mm-text mmc-dropdown-delay fadeIn">Интерфейс</span></a>
-				<ul class="mmc-dropdown-delay fadeInLeft">
-					<li>
-						<a href="#"><span class="mm-text">Кнопки</span></a>
-					</li>
-					<li>
-						<a href="#"><span class="mm-text">Закладки</span></a>
-					</li>
-					<li>
-						<a href="#"><span class="mm-text">Диалоги</span></a>
-					</li>
-					<li class=" active">
-						<a href="#"><span class="mm-text">Иконки</span></a>
-					</li>
-				</ul>
-			</li>
-			<li class="mm-dropdown">
-				<a href="#"><i class="menu-icon fa fa-check-square"></i><span class="mm-text mmc-dropdown-delay fadeIn">Элементы форм</span></a>
-				<ul class="mmc-dropdown-delay fadeInLeft">
-					<li>
-						<a href="#"><span class="mm-text">Основное</span></a>
-					</li>
-					<li>
-						<a href="#"><span class="mm-text">Пиккеры</span></a>
-					</li>
-					<li>
-						<a href="#"><span class="mm-text">Редакторы</span></a>
-					</li>
-				</ul>
-			</li>
-			<li>
-				<a href="#"><i class="menu-icon fa fa-bar-chart-o"></i><span class="mm-text mmc-dropdown-delay fadeIn">Графики</span></a>
-			</li>
-			<li class="mm-dropdown">
-				<a href="#"><i class="menu-icon fa fa-files-o"></i><span class="mm-text mmc-dropdown-delay fadeIn">Страницы</span><span class="label label-success">16</span></a>
-				<ul class="mmc-dropdown-delay fadeInLeft">
-					<li>
-						<a href="#"><span class="mm-text">Результат поиска</span></a>
-					</li>
-					<li>
-						<a href="#"><span class="mm-text">Авторизация</span></a>
-					</li>
-					<li>
-						<a href="#"><span class="mm-text">FAQ</span></a>
-					</li>
-				</ul>
-			</li>
-			<li class="mm-dropdown">
+			<!-- <li class="mm-dropdown">
 				<a href="#"><i class="menu-icon fa fa-sitemap"></i><span class="mm-text mmc-dropdown-delay fadeIn">Уровни меню</span><span class="badge badge-primary">6</span></a>
 				<ul class="mmc-dropdown-delay fadeInLeft">
 					<li>
@@ -170,8 +133,8 @@
 						</ul>
 					</li>
 				</ul>
-			</li>
-		</ul> <!-- / .navigation -->
+			</li> -->
+		</ul>
 	</div>
 </div>
 <div id="main-menu-bg"></div>

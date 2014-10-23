@@ -62,20 +62,6 @@ $(document).ready(function() {
 		}
 	});
 
-	$("#main-menu").on('click', "a", function(){
-		var a = $(this);
-		$.ajax({
-			type: 'get',
-			url: a.attr("href"),
-			dataType: 'HTML',
-			success: function(answer) {
-				$("#content-wrapper").html(answer);
-				window.history.pushState({},"", '#'+a.attr("href"));
-			}
-		});
-	});
-
-
 	/* top navigation */
 	$(".profileDialog").click(function(){
 		BootstrapDialog.show({
@@ -159,6 +145,21 @@ $(document).ready(function() {
 					}.call(this, data));
 				}
 			});
+		});
+	});
+
+	$("#content-wrapper").on('dblclick', '.tt', function() {
+		var taskid = $(this).parent().data("taskid");
+
+		API.get.task({"id": taskid}, function(answer) {
+
+			var tpl_data = {
+				'task': answer.items[0]
+			};
+
+			$(".main-wrapper").addClass("rpo");
+
+			console.log(tpl_data);
 		});
 	});
 

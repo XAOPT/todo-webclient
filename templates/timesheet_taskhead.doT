@@ -1,7 +1,7 @@
-<tr>
-	<td style="background-color: {{=it.tagcolor}}">{{=it.shorttitle}}</td>
+<tr data-taskid="{{=it.task.id}}">
+	<td class="tp" style="background-color: {{=it.tagcolor}}">{{=it.shorttitle}}</td>
 	<td></td>
-	<td class="tt">{{=it.title}} [{{=it.id}}]</td>
+	<td class="tt priority-{{=it.task.priority}}">{{=it.task.title}}</td>
 	<td></td>
 	<td></td>
 </tr>

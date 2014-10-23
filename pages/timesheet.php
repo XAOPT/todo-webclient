@@ -87,8 +87,7 @@ function renderTimesheet() {
 			var tpl_data = {
 				"tagcolor": (typeof this.projects[tasks[i].project] !== 'undefined')?this.projects[tasks[i].project].tagcolor:'',
 				"shorttitle": (typeof this.projects[tasks[i].project] !== 'undefined')?this.projects[tasks[i].project].shorttitle:'',
-				"title": tasks[i].title,
-				"id": tasks[i].id
+				"task": tasks[i]
 			}
 
 			html += TEMPLATES.timesheet_taskhead(tpl_data);
@@ -185,7 +184,7 @@ $(document).ready(function(){
 
 	renderTimesheet();
 
-/*	$(".wrapper").scroll(function () {
+	/*$(".wrapper").scroll(function () {
 		var scrollTop = $(this).scrollTop();
 		$(".wrapper").scrollTop(scrollTop);
 	});
@@ -209,14 +208,6 @@ $(document).ready(function(){
 		},
 		useAbsolutePositioning: true
 	});*/
-
-	/*API.get.user(function(answer){
-		var html = TEMPLATES.users_list({items: answer.items});
-
-		$("#content-wrapper").append(html);
-	});*/
-
-
 });
 </script>
 
@@ -244,9 +235,6 @@ $(document).ready(function(){
 							</tr>
 						</thead>
 						<tbody>
-							<!-- <tr>
-								<td colspan='5' class="user">Денис Петров</td>
-							</tr> -->
 						</tbody>
 					</table>
 				</div>

@@ -19,8 +19,8 @@ var TEMPLATES = {
 </div>', 
  projects_list: ' \
 {{~it.items :project:index}} \
-	<div class="project-title" data-id="{{=project.id}}"> \
-		{{=project.title}}<br /> \
+	<div class="project-title {{? project.archived}}archived{{?}}" data-id="{{=project.id}}"> \
+		{{=project.title}} \
 	</div> \
 {{~}}', 
  project_edit: ' \
@@ -58,17 +58,18 @@ Created: {{=it.created}} \
 {{~}} \
 ', 
  timesheet_taskhead: ' \
-<tr> \
-	<td style="background-color: {{=it.tagcolor}}">{{=it.shorttitle}}</td> \
+<tr data-taskid="{{=it.task.id}}"> \
+	<td class="tp" style="background-color: {{=it.tagcolor}}">{{=it.shorttitle}}</td> \
 	<td></td> \
-	<td class="tt">{{=it.title}} [{{=it.id}}]</td> \
+	<td class="tt priority-{{=it.task.priority}}">{{=it.task.title}}</td> \
 	<td></td> \
 	<td></td> \
 </tr> \
 ', 
  timesheet_taskhead_user: ' \
 <tr> \
-	<td colspan="5"> \
+	<td colspan="5" class="user"> \
+	<img class="avatar {{? it.deleted }}grayscale{{?}}" src="{{? it.email }}http://www.gravatar.com/avatar/{{=md5(it.email)}}?d=mm{{??}}img/avatar1.jpg{{?}}"> \
 	{{=it.firstname}} {{=it.lastname}} \
 	</td> \
 </tr>', 

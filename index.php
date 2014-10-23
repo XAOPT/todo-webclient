@@ -12,6 +12,10 @@
 	<div id="content-wrapper">
 	</div>
 
+	<div id="item-description">
+		<div class='bg' id="description">
+		</div>
+	</div>
 </body>
 
 </html>
