@@ -1,11 +1,11 @@
 <form class="form-horizontal" role="form">
-	<input type='hidden' name='day' value='{{=it.day}}'>
-	<input type='hidden' name='userid' value='{{=it.userid}}'>
-	<input type='hidden' name='taskid' value='{{=it.taskid}}'>
+	<input type="hidden" name="day" value="{{=it.day}}">
+	<input type="hidden" name="userid" value="{{=it.userid}}">
+	<input type="hidden" name="taskid" value="{{=it.taskid}}">
 	<div class="form-group">
 		<label class="col-sm-4 control-label" for="formGroupInputSmall">Потрачено часов</label>
 		<div class="col-sm-7">
-			<input type='text' class="form-control input-sm" name="worktimeHours" value="{{? typeof it.item !== 'undefined'}}{{=it.item.worktimeHours}}{{??}}0{{?}}">
+			<input type="text" class="form-control input-sm" name="worktimeHours" value="{{? typeof it.item !== 'undefined'}}{{=it.item.worktimeHours}}{{??}}0{{?}}">
 		</div>
 		<label class="col-sm-4 control-label" for="formGroupInputSmall">Комментарий</label>
 		<div class="col-sm-7">

@@ -126,7 +126,7 @@ $(document).ready(function() {
 		});
 	});
 
-	$("#content-wrapper").on('dblclick', 'td', function() {
+	$("#content-wrapper").on('dblclick', '.task-hours td', function() {
 		var day = $(this).data("day");
 		var taskid = $(this).parent().data("taskid");
 		var userid = $(this).parent().data("userid");
@@ -183,6 +183,14 @@ $(document).ready(function() {
 
 	$("#content-wrapper").on('click', '.convert_projects', function() {
 		API.get.convert.projects(function(answer){
+			BootstrapDialog.show({
+				message: "OK"
+			});
+		});
+	});
+
+	$("#content-wrapper").on('click', '.convert_tasks', function() {
+		API.get.convert.tasks(function(answer){
 			BootstrapDialog.show({
 				message: "OK"
 			});

@@ -4,7 +4,7 @@ function renderTimesheet() {
 	this.current_timestamp = new Date().getTime();
 	this.current_day = parseInt(current_timestamp/86400/1000);
 	this.from = current_day - 30*4;
-	this.count = 130;
+	this.count = 131;
 	this.projects = {};
 
 	this.is_weakend = function(day_int) {
@@ -22,13 +22,32 @@ function renderTimesheet() {
 			"task": []
 		};
 
-		for (var i=0; i<params.tasks.length; i++) {
-			API.get.timesheet({"userid": params.userid, "taskid":params.tasks[i].id}, function(answer) {
+		if (params.tasks.length == 0) {
+			$(".task-hours table tbody").append("<tr><td colspan="+this.count+">&nbsp;</td></tr>");
+			return;
+		}
 
-				answer.items = _itemsInHash(answer.items, "day");
+		var task_ids = [];
+		for (var i=0; i<params.tasks.length; i++) {
+			task_ids[i] = params.tasks[i].id;
+		}
+
+		API.get.timesheet({"userid": params.userid, "taskid":task_ids}, function(answer) {
+
+			for (var i=0; i < answer.taskid.length; i++) {
+
+				var current_task = answer.taskid[i];
+
+				var current_task_days = {};
+
+				var length = answer.items.length;
+				for (var j = 0; j < length; j++) {
+					if (current_task == answer.items[j].taskid)
+						current_task_days[answer.items[j].day] = answer.items[j];
+				}
 
 				tpl_data.task[i] = {
-					"taskid": answer.taskid,
+					"taskid": answer.taskid[i],
 					"userid": answer.userid,
 					"days": []
 				};
@@ -44,7 +63,7 @@ function renderTimesheet() {
 						day_kind = this.global_exceptions[j].kind; // глобальные исключения для календаря
 					}
 
-					var hours = (typeof answer.items[j] !== 'undefined')?answer.items[j].worktimeSeconds/3600:"&nbsp;";
+					var hours = (typeof current_task_days[j] !== 'undefined')?current_task_days[j].worktimeSeconds/3600:"&nbsp;";
 
 					tpl_data.task[i].days[j-this.from] = {
 						"day": j,
@@ -52,22 +71,24 @@ function renderTimesheet() {
 						"hours": hours
 					};
 				}
-			});
-		}
+			}
+		});
 
 		html = TEMPLATES.timesheet_taskbody(tpl_data);
 		$(".task-hours table tbody").append(html);
-
 	}
 
-	this.drawUserTasks = function(tasks)
+	this.drawUserTasks = function(user,tasks)
 	{
 		var html = '';
+		html += TEMPLATES.timesheet_taskhead_user(user);
+
 		for (var i=0; i<tasks.length; i++) {
 			var tpl_data = {
-				"tagcolor": this.projects[tasks[i].project].tagcolor,
-				"shorttitle": this.projects[tasks[i].project].shorttitle,
-				"title": tasks[i].title
+				"tagcolor": (typeof this.projects[tasks[i].project] !== 'undefined')?this.projects[tasks[i].project].tagcolor:'',
+				"shorttitle": (typeof this.projects[tasks[i].project] !== 'undefined')?this.projects[tasks[i].project].shorttitle:'',
+				"title": tasks[i].title,
+				"id": tasks[i].id
 			}
 
 			html += TEMPLATES.timesheet_taskhead(tpl_data);
@@ -82,11 +103,12 @@ function renderTimesheet() {
 		var row2 = "<tr>";
 		var column_counter = 0;
 		var prev_day = -1;
+		var date;
 		var months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
 
 		for (var i = this.from; i < this.from + this.count; i++) {
-			var date    = new Date(i*86400*1000);
-			var month   = months[date.getMonth()];
+			date    = new Date(i*86400*1000);
+			var month   = months[date.getMonth()-1];
 			var day     = date.getDate();
 
 			var day_kind = this.is_weakend(i);
@@ -111,7 +133,7 @@ function renderTimesheet() {
 		}
 
 		row1 += "</tr>";
-		row2 += "<th colspan='"+column_counter+"'>"+month+"</th>"
+		row2 += "<th colspan='"+column_counter+"'>"+months[date.getMonth()];+"</th>"
 		row2 += "</tr>";
 		$(".task-hours table thead").append(row2, row1);
 
@@ -135,18 +157,24 @@ function renderTimesheet() {
 				this.projects[answer.items[i].id] = answer.items[i];
 			}
 
-			API.get.task({"assignee": 39}, function(task_answer){
-				API.get.calendar({"userid": 39, "from": this.from, "count": this.count}, function(calendar){
-					var user_exceptions = {};
-					for (var i=0; i<calendar.items.length; i++) {
-						user_exceptions[calendar.items[i].day] = calendar.items[i];
-					}
+			API.get.user({"deleted":"0", "id": 39}, function(users){
+				for (var i=0; i < users.items.length; i++) {
+					var user = users.items[i];
 
-					this.drawUserTasks(task_answer.items);
+					API.get.task({"assignee": user.id, "status": ["open","inprogress"], "project":[3,19,21,24,25,28,33]}, function(task_answer){
+						API.get.calendar({"userid": user.id, "from": this.from, "count": this.count}, function(calendar){
+							var user_exceptions = {};
+							for (var i=0; i<calendar.items.length; i++) {
+								user_exceptions[calendar.items[i].day] = calendar.items[i];
+							}
 
-					this.drawUserTimesheet({"userid": 39, "tasks": task_answer.items, "user_exceptions": user_exceptions});
-				});
-			});
+							this.drawUserTasks(user, task_answer.items);
+
+							this.drawUserTimesheet({"userid": user.id, "tasks": task_answer.items, "user_exceptions": user_exceptions});
+						});
+					});
+				}
+			})
 		});
 	});
 
@@ -216,9 +244,9 @@ $(document).ready(function(){
 							</tr>
 						</thead>
 						<tbody>
-							<tr>
+							<!-- <tr>
 								<td colspan='5' class="user">Денис Петров</td>
-							</tr>
+							</tr> -->
 						</tbody>
 					</table>
 				</div>

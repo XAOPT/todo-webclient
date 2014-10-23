@@ -17,7 +17,7 @@ API = {
 			async: false,
 			dataType: 'JSON',
 			success: function(answer) {
-				console.log(answer);
+				console.log(url, answer);
 				if (typeof cb !== 'undefined')
 					cb(answer);
 			},
@@ -92,6 +92,11 @@ API = {
 			},
 			projects: function(cb) {
 				var url = _api.url+"/convert/projects/";
+
+				_api.ajax('get', url, cb);
+			},
+			tasks: function(cb) {
+				var url = _api.url+"/convert/tasks/";
 
 				_api.ajax('get', url, cb);
 			},

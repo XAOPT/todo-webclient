@@ -45,7 +45,8 @@ Created: {{=it.created}} \
 			</textarea> \
 		</div> \
 	</div> \
-</form>', 
+</form> \
+', 
  timesheet_taskbody: ' \
 <tr><td colspan="{{=it.day_count}}">&nbsp;</td></tr> \
 {{~it.task :task:index}} \
@@ -60,9 +61,16 @@ Created: {{=it.created}} \
 <tr> \
 	<td style="background-color: {{=it.tagcolor}}">{{=it.shorttitle}}</td> \
 	<td></td> \
-	<td class="tt">{{=it.title}}</td> \
+	<td class="tt">{{=it.title}} [{{=it.id}}]</td> \
 	<td></td> \
 	<td></td> \
+</tr> \
+', 
+ timesheet_taskhead_user: ' \
+<tr> \
+	<td colspan="5"> \
+	{{=it.firstname}} {{=it.lastname}} \
+	</td> \
 </tr>', 
  users_list: ' \
 {{~it.items :user:index}} \
