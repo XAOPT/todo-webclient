@@ -28,6 +28,14 @@ var TEMPLATES = {
 <form> \
 Created: {{=it.created}} \
 </form>', 
+ task_full: ' \
+<h2>{{=it.task.title}}</h2> \
+type: {{=it.task.type}}<br /> \
+project: {{=it.task.project}}<br /> \
+priority: {{=it.task.priority}}<br /> \
+created: {{=it.task.created}}<br /> \
+<br /> \
+description: {{=it.comments[0].text}}<br />', 
  timesheet_edit: ' \
 <form class="form-horizontal" role="form"> \
 	<input type="hidden" name="day" value="{{=it.day}}"> \

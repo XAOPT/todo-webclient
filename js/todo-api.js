@@ -1,7 +1,35 @@
 API = {
 	url: "http://trunk.todo-server",
 	params: {},
+	cache_ajax: 0,
+	cache: {
+		/*
+		"element": {
+			"data": {}, // закешированные данные
+			"timestamp":  // время, когда элемент был закеширован
+		}
+		*/
+	},
 
+	clear_cache: function(element) {
+		if (typeof this.cache[element] !== 'undefined') {
+			delete this.cache[element];
+		}
+	},
+	check_cache: function(element, expireSeconds) {
+		if (typeof this.cache[element] !== 'undefined') {
+			var current_timestamp = new Date().getTime();
+
+			if ( current_timestamp - this.cache[element].timestamp > expireSeconds*100 ) {
+				delete this.cache[element];
+				return false;
+			}
+			else
+				return this.cache[element].data;
+		}
+
+		return false;
+	},
 	ajax: function(method, url, cb) {
 		var data = _api.params;
 		_api.params = {};
@@ -10,14 +38,32 @@ API = {
 			data = JSON.stringify(data);
 		}
 
+		if (this.cache_ajax) {
+			var data = this.check_cache(url, this.cache_ajax);
+
+			if (data !== false) {
+				console.log('CACHE', url, data);
+				if (typeof cb !== 'undefined')
+					cb(data);
+			}
+		}
+
 		$.ajax({
 			type: method,
-			url: url,
+			url: _api.url+url,
 			data: data,
 			async: false,
 			dataType: 'JSON',
 			success: function(answer) {
 				console.log(url, answer);
+
+				if (_api.cache_ajax > 0) {
+					_api.cache[url] = {
+						"data": answer,
+						"timestamp": new Date().getTime()
+					};
+				}
+
 				if (typeof cb !== 'undefined')
 					cb(answer);
 			},
@@ -25,6 +71,7 @@ API = {
 				console.log(error);
 			}
 		});
+		this.cache_ajax = 0;
 	},
 	/*---------------------------- */
 
@@ -36,7 +83,7 @@ API = {
 				_api.params = params;
 			}
 
-			var url = _api.url+"/user/";
+			var url = "/user/";
 
 			_api.ajax('get', url, cb);
 		},
@@ -47,10 +94,13 @@ API = {
 				_api.params = params;
 			}
 
-			var url = _api.url+"/project/";
+			var url = "/project/";
 
 			if (typeof params.id !== 'undefined') {
 				url = url+params.id+"/";
+			}
+			else {
+				_api.cache_ajax = 180;
 			}
 
 			_api.ajax('get', url, cb);
@@ -58,7 +108,7 @@ API = {
 		calendar: function(params, cb) {
 			_api.params = params;
 
-			var url = _api.url+"/calendar/";
+			var url = "/calendar/";
 
 			_api.ajax('get', url, cb);
 		},
@@ -69,7 +119,7 @@ API = {
 				_api.params = params;
 			}
 
-			var url = _api.url+"/task/";
+			var url = "/task/";
 
 			_api.ajax('get', url, cb);
 		},
@@ -80,23 +130,34 @@ API = {
 				_api.params = params;
 			}
 
-			var url = _api.url+"/timesheet/";
+			var url = "/timesheet/";
+
+			_api.ajax('get', url, cb);
+		},
+		comment: function(params, cb) {
+			if (typeof params === 'function')
+				cb = params;
+			else {
+				_api.params = params;
+			}
+
+			var url = "/comment/";
 
 			_api.ajax('get', url, cb);
 		},
 		convert: {
 			users: function(cb) {
-				var url = _api.url+"/convert/users/";
+				var url = "/convert/users/";
 
 				_api.ajax('get', url, cb);
 			},
 			projects: function(cb) {
-				var url = _api.url+"/convert/projects/";
+				var url = "/convert/projects/";
 
 				_api.ajax('get', url, cb);
 			},
 			tasks: function(cb) {
-				var url = _api.url+"/convert/tasks/";
+				var url = "/convert/tasks/";
 
 				_api.ajax('get', url, cb);
 			},
@@ -106,15 +167,17 @@ API = {
 		calendar: function(params) {
 			_api.params = params;
 
-			var url = _api.url+"/calendar/";
+			var url = "/calendar/";
 
+			_api.clear_cache(url);
 			_api.ajax('put', url);
 		},
 		timesheet: function(params, cb) {
 			_api.params = params;
 
-			var url = _api.url+"/timesheet/";
+			var url = "/timesheet/";
 
+			_api.clear_cache(url);
 			_api.ajax('put', url);
 		}
 	}
@@ -345,4 +408,10 @@ function _itemsInHash(stack, key) {
 	}
 
 	return output;
+}
+
+function bb2html(bb) {
+	bb = bb.replace(/(\r\n|\n|\r)/gm, '<br />');
+
+	return bb;
 }

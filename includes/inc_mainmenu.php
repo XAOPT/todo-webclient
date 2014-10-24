@@ -69,6 +69,11 @@
 					mainMenu.hide_submenu();
 				}
 			);
+
+			var after_hash = window.location.hash;
+			after_hash = after_hash.substring(1,(after_hash.length))
+
+			$(".navigation a[href='"+after_hash+"']").click();
 		}
 	};
 </script>

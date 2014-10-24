@@ -148,18 +148,25 @@ $(document).ready(function() {
 		});
 	});
 
-	$("#content-wrapper").on('dblclick', '.tt', function() {
+	$("#content-wrapper").on('click', '.tt', function() {
 		var taskid = $(this).parent().data("taskid");
 
-		API.get.task({"id": taskid}, function(answer) {
+		API.get.task({"id": taskid}, function(task) {
+			API.get.comment({"taskid": taskid}, function(comments){
+				for (var i=0; i<comments.items.length; i++) {
+					comments.items[i].text = bb2html(comments.items[i].text);
+				}
+				var tpl_data = {
+					'task': task.items[0],
+					'comments': comments.items,
+				};
 
-			var tpl_data = {
-				'task': answer.items[0]
-			};
+				$(".main-wrapper").addClass("rpo");
 
-			$(".main-wrapper").addClass("rpo");
+				$("#description").html(TEMPLATES.task_full(tpl_data));
 
-			console.log(tpl_data);
+				console.log(tpl_data);
+			});
 		});
 	});
 
