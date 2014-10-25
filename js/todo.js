@@ -169,8 +169,6 @@ $(document).ready(function() {
 						}
 					}
 
-
-
 					$(".main-wrapper").addClass("rpo");
 
 					$("#description").html(TEMPLATES.task_full(tpl_data));
@@ -179,6 +177,11 @@ $(document).ready(function() {
 				});
 			});
 		});
+	});
+
+	$("#item-description").on('click', '.close', function() {
+		$(".main-wrapper").removeClass("rpo");
+		$("#description").html('');
 	});
 
 	/* projects */

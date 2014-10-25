@@ -31,6 +31,7 @@ Created: {{=it.created}} \
  task_full: ' \
 <h2>{{=it.task.title}}</h2> \
 <div id="task_description"> \
+	<span class="fa fa-times close"></span> \
 	type: {{=it.task.type}}<br /> \
 	project: {{=it.project.title}}<br /> \
 	priority: {{=it.task.priority}}<br /> \

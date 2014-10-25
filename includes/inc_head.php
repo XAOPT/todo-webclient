@@ -11,7 +11,6 @@
 	<script src="js/jquery-2.1.1.min.js"></script>
 	<script src="js/bootstrap.min.js"></script>
 	<script src="js/less.min.js"></script>
-	<script src="js/jquery.floatThead.js"></script>
 	<script src="js/bootstrap-dialog.js"></script>
 	<script src="js/doT.js"></script>
 	<script src="js/todo-api.js"></script>

@@ -62,6 +62,7 @@ body {
 	line-height: 1.42857143;
 	color: #555;
 	background: #f6f6f6;
+	overflow: hidden;
 }
 
 .fa {
@@ -271,9 +272,9 @@ body {
 		margin-bottom: -47px;
 		margin-top: 0;
 		padding-top: 125px;
-		padding-left: 86px!important;
+		padding-left: 86px;
 
-		white-space: nowrap!important;
+		white-space: nowrap;
 		position: relative;
 
 		.hello-text {
@@ -636,8 +637,6 @@ body {
 	z-index: 100;
 	padding: 0px;
 
-	.transition02s;
-
 	.bg {
 		background: #FFF;
 	}
@@ -659,6 +658,14 @@ body {
 }
 
 #task_description {
+	position: relative;
+
+	.close {
+		position: absolute;
+		font-size: 20px;
+		top: -30px; right: 20px;
+	}
+
 	.comment {
 		border: solid 1px #ccc;
 		background: #eee;

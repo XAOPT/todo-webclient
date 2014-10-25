@@ -22,7 +22,7 @@ function renderTimesheet() {
 			"task": []
 		};
 		if (params.tasks.length == 0) {
-			$(".task-hours table tbody tr[data-holderid='"+params.userid+"']").replaceWith("<tr><td colspan="+this.count+">&nbsp;</td></tr>");
+			$(".task-hours .wrapper table tbody tr[data-holderid='"+params.userid+"']").replaceWith("<tr><td colspan="+this.count+">&nbsp;</td></tr>");
 			return;
 		}
 
@@ -74,7 +74,8 @@ function renderTimesheet() {
 
 			html = TEMPLATES.timesheet_taskbody(tpl_data);
 
-			$(".task-hours table tbody tr[data-holderid='"+params.userid+"']").replaceWith(html);
+			$(".task-hours .wrapper table tbody tr[data-holderid='"+params.userid+"']").replaceWith(html);
+			$(".task-hours .wrapper").animate({scrollLeft: 9999}, 0);
 		});
 
 
@@ -95,7 +96,7 @@ function renderTimesheet() {
 			html += TEMPLATES.timesheet_taskhead(tpl_data);
 		}
 
-		$(".task-list table tbody tr[data-holderid='"+user.id+"']").replaceWith(html);
+		$(".task-list .wrapper table tbody tr[data-holderid='"+user.id+"']").replaceWith(html);
 	}
 
 	this.drawTimesheetCalendar = function()
@@ -136,9 +137,8 @@ function renderTimesheet() {
 		row1 += "</tr>";
 		row2 += "<th colspan='"+column_counter+"'>"+months[date.getMonth()];+"</th>"
 		row2 += "</tr>";
-		$(".task-hours table thead").append(row2, row1);
-
-		$(".task-hours .wrapper").animate({scrollLeft: 9999}, 0);
+		$(".task-hours table.table-primary thead").append(row2, row1);
+		$(".task-hours .table-head").animate({scrollLeft: 9999}, 0);
 	}
 
 	/* начнём с отрисовки шапки календаря */
@@ -160,8 +160,8 @@ function renderTimesheet() {
 
 			API.get.user({"deleted":"0"}, function(users){
 				for (var i=0; i < users.items.length; i++) {
-					$(".task-list table tbody").append("<tr data-holderid='"+users.items[i].id+"'></tr>");
-					$(".task-hours table tbody").append("<tr data-holderid='"+users.items[i].id+"'></tr>");
+					$(".task-list .wrapper table tbody").append("<tr data-holderid='"+users.items[i].id+"'></tr>");
+					$(".task-hours .wrapper table tbody").append("<tr data-holderid='"+users.items[i].id+"'></tr>");
 
 					(function(i){
 						API.get.task({"assignee": users.items[i].id, "status": ["open","inprogress"], "project":[3,19,21,24,25,28,33]}, function(task_answer){
@@ -187,30 +187,19 @@ $(document).ready(function(){
 
 	renderTimesheet();
 
-	/*$(".wrapper").scroll(function () {
+	var prev_top = 0;
+	$(".task-hours .wrapper").scroll(function () {
 		var scrollTop = $(this).scrollTop();
-		$(".wrapper").scrollTop(scrollTop);
-	});
 
-	var $demoTable = $("table.demo1");
-	$demoTable.floatThead({
-		//the pageTop is a global function i have here, it takes care of making the table float under my floated nav
-		scrollingTop: 0,
-		scrollContainer: function($table){
-			return $table.closest('.wrapper');
-		},
-		useAbsolutePositioning: true
+		if (scrollTop !== prev_top) {
+			$(".task-list .wrapper").scrollTop(scrollTop);
+			prev_top = scrollTop;
+		}
+		else {
+			var scrollLeft = $(this).scrollLeft();
+			$(".task-hours .table-head").animate({scrollLeft: scrollLeft}, 0);
+		}
 	});
-
-	var $demoTable = $("table.demo2");
-	$demoTable.floatThead({
-		//the pageTop is a global function i have here, it takes care of making the table float under my floated nav
-		scrollingTop: 0,
-		scrollContainer: function($table){
-			return $table.closest('.wrapper');
-		},
-		useAbsolutePositioning: true
-	});*/
 });
 </script>
 
@@ -223,8 +212,8 @@ $(document).ready(function(){
 		<div class="col-sm-12">
 
 			<div id="timesheet">
-				<div class="task-list wrapper" style="">
-					<table class="table table-bordered demo1 table-primary">
+				<div class="task-list">
+					<table class="table table-bordered table-primary">
 						<thead>
 							<tr>
 								<th colspan='5'>Задачи по пользователям</th>
@@ -237,13 +226,23 @@ $(document).ready(function(){
 								<th>Ф.тр</th>
 							</tr>
 						</thead>
-						<tbody>
-						</tbody>
 					</table>
+					<div class='wrapper'>
+						<table class="table table-bordered">
+							<tbody>
+							</tbody>
+						</table>
+					</div>
 				</div>
 				<div class="task-hours">
+					<div class="table-head">
+						<table class="table table-bordered table-primary">
+							<thead>
+							</thead>
+						</table>
+					</div>
 					<div class="wrapper">
-						<table class="table table-bordered demo2 table-primary">
+						<table class="table table-bordered">
 							<thead>
 							</thead>
 							<tbody>
