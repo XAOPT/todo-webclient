@@ -21,9 +21,8 @@ function renderTimesheet() {
 			"day_count": this.count,
 			"task": []
 		};
-
 		if (params.tasks.length == 0) {
-			$(".task-hours table tbody").append("<tr><td colspan="+this.count+">&nbsp;</td></tr>");
+			$(".task-hours table tbody tr[data-holderid='"+params.userid+"']").replaceWith("<tr><td colspan="+this.count+">&nbsp;</td></tr>");
 			return;
 		}
 
@@ -72,10 +71,13 @@ function renderTimesheet() {
 					};
 				}
 			}
+
+			html = TEMPLATES.timesheet_taskbody(tpl_data);
+
+			$(".task-hours table tbody tr[data-holderid='"+params.userid+"']").replaceWith(html);
 		});
 
-		html = TEMPLATES.timesheet_taskbody(tpl_data);
-		$(".task-hours table tbody").append(html);
+
 	}
 
 	this.drawUserTasks = function(user,tasks)
@@ -93,7 +95,7 @@ function renderTimesheet() {
 			html += TEMPLATES.timesheet_taskhead(tpl_data);
 		}
 
-		$(".task-list table tbody").append(html);
+		$(".task-list table tbody tr[data-holderid='"+user.id+"']").replaceWith(html);
 	}
 
 	this.drawTimesheetCalendar = function()
@@ -156,28 +158,29 @@ function renderTimesheet() {
 				this.projects[answer.items[i].id] = answer.items[i];
 			}
 
-			API.get.user({"deleted":"0", "id": 39}, function(users){
+			API.get.user({"deleted":"0"}, function(users){
 				for (var i=0; i < users.items.length; i++) {
-					var user = users.items[i];
+					$(".task-list table tbody").append("<tr data-holderid='"+users.items[i].id+"'></tr>");
+					$(".task-hours table tbody").append("<tr data-holderid='"+users.items[i].id+"'></tr>");
 
-					API.get.task({"assignee": user.id, "status": ["open","inprogress"], "project":[3,19,21,24,25,28,33]}, function(task_answer){
-						API.get.calendar({"userid": user.id, "from": this.from, "count": this.count}, function(calendar){
-							var user_exceptions = {};
-							for (var i=0; i<calendar.items.length; i++) {
-								user_exceptions[calendar.items[i].day] = calendar.items[i];
-							}
+					(function(i){
+						API.get.task({"assignee": users.items[i].id, "status": ["open","inprogress"], "project":[3,19,21,24,25,28,33]}, function(task_answer){
+							API.get.calendar({"userid": users.items[i].id, "from": this.from, "count": this.count}, function(calendar){
+								var user_exceptions = {};
+								for (var j=0; j<calendar.items.length; j++) {
+									user_exceptions[calendar.items[j].day] = calendar.items[j];
+								}
 
-							this.drawUserTasks(user, task_answer.items);
+								this.drawUserTasks(users.items[i], task_answer.items);
 
-							this.drawUserTimesheet({"userid": user.id, "tasks": task_answer.items, "user_exceptions": user_exceptions});
+								this.drawUserTimesheet({"userid": users.items[i].id, "tasks": task_answer.items, "user_exceptions": user_exceptions});
+							});
 						});
-					});
+					})(i);
 				}
 			})
 		});
 	});
-
-
 }
 
 $(document).ready(function(){

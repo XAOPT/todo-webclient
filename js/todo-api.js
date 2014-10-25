@@ -32,19 +32,25 @@ API = {
 	},
 	ajax: function(method, url, cb) {
 		var data = _api.params;
+		var cache_ajax = _api.cache_ajax;
+
+		_api.cache_ajax = 0;
 		_api.params = {};
 
 		if (method == 'put') {
 			data = JSON.stringify(data);
 		}
 
-		if (this.cache_ajax) {
-			var data = this.check_cache(url, this.cache_ajax);
 
-			if (data !== false) {
-				console.log('CACHE', url, data);
-				if (typeof cb !== 'undefined')
-					cb(data);
+		if (cache_ajax) {
+			var answer = this.check_cache(url, cache_ajax);
+
+			if (answer !== false) {
+				console.log('CACHE', url, answer);
+				if (typeof cb !== 'undefined') {
+					cb(answer);
+					return;
+				}
 			}
 		}
 
@@ -52,12 +58,12 @@ API = {
 			type: method,
 			url: _api.url+url,
 			data: data,
-			async: false,
+			async: true,
 			dataType: 'JSON',
 			success: function(answer) {
 				console.log(url, answer);
 
-				if (_api.cache_ajax > 0) {
+				if (cache_ajax > 0) {
 					_api.cache[url] = {
 						"data": answer,
 						"timestamp": new Date().getTime()
@@ -71,14 +77,15 @@ API = {
 				console.log(error);
 			}
 		});
-		this.cache_ajax = 0;
 	},
 	/*---------------------------- */
 
 	get: {
 		user: function(params, cb) {
-			if (typeof params === 'function')
+			if (typeof params === 'function') {
 				cb = params;
+				_api.cache_ajax = 180;
+			}
 			else {
 				_api.params = params;
 			}

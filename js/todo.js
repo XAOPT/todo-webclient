@@ -153,19 +153,30 @@ $(document).ready(function() {
 
 		API.get.task({"id": taskid}, function(task) {
 			API.get.comment({"taskid": taskid}, function(comments){
-				for (var i=0; i<comments.items.length; i++) {
-					comments.items[i].text = bb2html(comments.items[i].text);
-				}
-				var tpl_data = {
-					'task': task.items[0],
-					'comments': comments.items,
-				};
+				API.get.project(function(projects){
+					var tpl_data = {
+						'task': task.items[0]
+					};
 
-				$(".main-wrapper").addClass("rpo");
+					for (var i=0; i<comments.items.length; i++) {
+						comments.items[i].text = bb2html(comments.items[i].text);
+					}
+					tpl_data['comments'] = comments.items;
 
-				$("#description").html(TEMPLATES.task_full(tpl_data));
+					for (var i=0; i<projects.items.length; i++) {
+						if (projects.items[i].id == task.items[0].project) {
+							tpl_data['project'] = projects.items[i];
+						}
+					}
 
-				console.log(tpl_data);
+
+
+					$(".main-wrapper").addClass("rpo");
+
+					$("#description").html(TEMPLATES.task_full(tpl_data));
+
+					console.log(tpl_data);
+				});
 			});
 		});
 	});

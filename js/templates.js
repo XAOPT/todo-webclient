@@ -30,12 +30,19 @@ Created: {{=it.created}} \
 </form>', 
  task_full: ' \
 <h2>{{=it.task.title}}</h2> \
-type: {{=it.task.type}}<br /> \
-project: {{=it.task.project}}<br /> \
-priority: {{=it.task.priority}}<br /> \
-created: {{=it.task.created}}<br /> \
-<br /> \
-description: {{=it.comments[0].text}}<br />', 
+<div id="task_description"> \
+	type: {{=it.task.type}}<br /> \
+	project: {{=it.project.title}}<br /> \
+	priority: {{=it.task.priority}}<br /> \
+	created: {{=it.task.created}}<br /> \
+	status: {{=it.task.status}}<br /> \
+	<br /> \
+	<div class="comment"> \
+		{{? typeof it.comments[0] !== "undefined"}} \
+		{{=it.comments[0].text}} \
+		{{?}} \
+	</div> \
+</div>', 
  timesheet_edit: ' \
 <form class="form-horizontal" role="form"> \
 	<input type="hidden" name="day" value="{{=it.day}}"> \

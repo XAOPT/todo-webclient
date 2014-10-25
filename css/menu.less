@@ -644,15 +644,25 @@ body {
 
 	.rpo & {
 		width: 100%;
-		padding-left: @menu-width+@task-list-width+20px;
 		.bg {
-			padding: 60px 20px 20px 20px;
+			padding: 20px 20px 20px 20px;
 			width: auto;
 			position: absolute;
-			height: 100%;
+			top: 28px;
+			left: @menu-width+@task-list-width+20px;;
+			right: 0px;
+			bottom: 0px;
 			border-left: solid 2px #ccc;
 			overflow: scroll;
 		}
 	}
+}
 
+#task_description {
+	.comment {
+		border: solid 1px #ccc;
+		background: #eee;
+		padding: 15px;
+		border-radius: 5px;
+	}
 }

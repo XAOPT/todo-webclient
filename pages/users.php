@@ -12,6 +12,6 @@ $(document).ready(function() {
 
 </script>
 
-	<div class="page-header">
-		<h1>Пользователи</h1>
-	</div>
+<div class="page-header">
+	<h1>Пользователи</h1>
+</div>
