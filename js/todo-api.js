@@ -37,7 +37,7 @@ API = {
 		_api.cache_ajax = 0;
 		_api.params = {};
 
-		if (method == 'put') {
+		if (method == 'put' || method == 'post') {
 			data = JSON.stringify(data);
 		}
 
@@ -170,6 +170,15 @@ API = {
 			},
 		}
 	},
+	post: {
+		user: function(params, cb) {
+			_api.params = params;
+
+			var url = "/user/";
+
+			_api.ajax('post', url);
+		}
+	},
 	put: {
 		calendar: function(params) {
 			_api.params = params;
@@ -183,6 +192,18 @@ API = {
 			_api.params = params;
 
 			var url = "/timesheet/";
+
+			_api.clear_cache(url);
+			_api.ajax('put', url);
+		},
+		user: function(params, cb) {
+			_api.params = params;
+
+			var url = "/user/";
+
+			if (typeof params.userid !== 'undefined') {
+				url = url+params.userid+"/";
+			}
 
 			_api.clear_cache(url);
 			_api.ajax('put', url);

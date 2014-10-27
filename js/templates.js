@@ -104,8 +104,33 @@ Created: {{=it.created}} \
 		<div class="fa projects">1</div> \
 		<div class="is_active">{{? user.deleted }}Fired{{??}}Active{{?}}</div> \
 	</div> \
+	<span class="fa fa-trash-o remove"></span> \
 </div> \
 {{~}}', 
+ user_add: ' \
+<form class="form-horizontal" role="form"> \
+	<div class="form-group form-group-sm"> \
+		<label class="col-sm-2 control-label">E-mail</label> \
+		<div class="col-sm-10"> \
+			<input type="text" name="email" class="form-control"> \
+		</div> \
+	</div> \
+	<div class="form-group form-group-sm"> \
+		<label class="col-sm-2 control-label">Роль</label> \
+		<div class="col-sm-10"> \
+			<select name="role" class="form-control"> \
+				<option val="1">Admin</option> \
+				<option val="2">Manager</option> \
+				<option val="3">Worker</option> \
+			</select> \
+		</div> \
+	</div> \
+</form>', 
+ user_delete: ' \
+<form> \
+	<input type="hidden" name="userid" value="{{=it.userid}}"> \
+	Вы действительно хотите удалить пользователя? \
+</form>', 
  user_edit: ' \
 <div class="user_card" data-id="{{=it.id}}" > \
 	<div class="first_row"> \
@@ -120,5 +145,6 @@ Created: {{=it.created}} \
 		<div class="fa projects">1</div> \
 		<div class="is_active">{{? it.deleted }}Fired{{??}}Active{{?}}</div> \
 	</div> \
+	<span class="fa fa-trash-o remove"></span> \
 </div>', 
  }

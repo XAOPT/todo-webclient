@@ -12,5 +12,6 @@
 		<div class="fa projects">1</div>
 		<div class="is_active">{{? user.deleted }}Fired{{??}}Active{{?}}</div>
 	</div>
+	<span class="fa fa-trash-o remove"></span>
 </div>
 {{~}}

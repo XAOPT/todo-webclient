@@ -4,6 +4,7 @@
 
 	<link rel="stylesheet" href="css/bootstrap.min.css">
 	<link rel="stylesheet" href="css/font-awesome.min.css">
+	<link rel="stylesheet" href="css/bootstrap-editable.css">
 	<link rel="stylesheet/less" href="css/menu.less">
 	<link rel="stylesheet/less" href="css/content_wrapper.less">
 	<link rel="stylesheet/less" href="css/timesheet.less">
@@ -12,6 +13,7 @@
 	<script src="js/bootstrap.min.js"></script>
 	<script src="js/less.min.js"></script>
 	<script src="js/bootstrap-dialog.js"></script>
+	<script src="js/bootstrap-editable.min.js"></script>
 	<script src="js/doT.js"></script>
 	<script src="js/todo-api.js"></script>
 	<script src="js/todo.js"></script>

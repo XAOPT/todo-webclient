@@ -13,9 +13,12 @@ $(document).ready(function() {
 		});
 	} });
 
-	BootstrapDialog.confirm = function(message, callback) {
+	BootstrapDialog.confirm = function(message, params, callback) {
+		if (typeof params === 'function')
+			callback = params;
+
 		new BootstrapDialog({
-			title: 'Confirmation',
+			title: params.title || 'Подтвердите действие',
 			message: message,
 			data: {
 				'callback': callback

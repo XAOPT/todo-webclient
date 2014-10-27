@@ -158,7 +158,7 @@ function renderTimesheet() {
 				this.projects[answer.items[i].id] = answer.items[i];
 			}
 
-			API.get.user({"deleted":"0"}, function(users){
+			API.get.user({"deleted":"0", "id": 39}, function(users){
 				for (var i=0; i < users.items.length; i++) {
 					$(".task-list .wrapper table tbody").append("<tr data-holderid='"+users.items[i].id+"'></tr>");
 					$(".task-hours .wrapper table tbody").append("<tr data-holderid='"+users.items[i].id+"'></tr>");
@@ -200,13 +200,77 @@ $(document).ready(function(){
 			$(".task-hours .table-head").animate({scrollLeft: scrollLeft}, 0);
 		}
 	});
+
+	$("#toggle-filter-options").click(function(){
+		$(".filter-options").slideToggle();
+	});
+
+	$.fn.editable.defaults.mode = 'popup';
+
+	$('#filter_projects, #filter_user_groups').editable({
+		placement: "left",
+		source: [
+			{value: 1, text: 'banana'},
+			{value: 2, text: 'peach'},
+			{value: 3, text: 'apple'},
+			{value: 4, text: 'watermelon watermelon watermelon'},
+			{value: 5, text: 'orange'},
+			{value: 1, text: 'banana'},
+			{value: 2, text: 'peach'},
+			{value: 3, text: 'apple'},
+			{value: 4, text: 'watermelon'},
+			{value: 5, text: 'orange'},
+			{value: 1, text: 'banana'},
+			{value: 2, text: 'peach'},
+			{value: 3, text: 'apple'},
+			{value: 4, text: 'watermelon'},
+			{value: 5, text: 'orange'},
+			{value: 3, text: 'apple'},
+			{value: 4, text: 'watermelon'},
+			{value: 5, text: 'orange'},
+			{value: 1, text: 'banana'},
+			{value: 2, text: 'peach'},
+			{value: 3, text: 'apple'},
+			{value: 4, text: 'watermelon'},
+			{value: 5, text: 'orange'},
+
+		]
+	});
 });
 </script>
 
 
-	<div class="page-header">
-		<h1>Timesheet</h1>
+<div class="page-header">
+	<h1>Timesheet</h1>
+</div>
+
+<div class="page-header-menu">
+	<button class="btn btn-flat btn-sm btn-labeled btn-primary" id="toggle-filter-options"><span class="btn-label icon fa fa-filter"></span>Фильтр</button>
+</div>
+
+<div class="row">
+	<div class="col-sm-12 filter-options panel">
+		<div class="panel-heading">
+			<span class="panel-title"><i class="panel-title-icon fa fa-comments-o"></i>Настройки фильтра</span>
+		</div>
+		<div class="panel-body">
+			<table id="user" class="table table-bordered table-striped" style="clear: both">
+				<tbody>
+					<tr>
+						<td width="35%">Группы пользователей</td>
+						<td width="65%"><a href="#" id="filter_user_groups" data-type="checklist" class="editable editable-click" data-title="Выберите группы">Выбор</a></td>
+					</tr>
+					<tr>
+						<td>Проекты</td>
+						<td><a href="#" id="filter_projects" data-type="checklist" data-title="Укажите проекты" class="editable editable-click" data-original-title="" title="">Выбор</a></td>
+					</tr>
+				</tbody>
+			</table>
+			<div class="alert alert-warning">Внимание! Большой список пользователей и проектов может привезти к замедлению работы страницы!</div>
+			<button class="btn btn-flat btn-sm btn-success">OK</button>
+		</div>
 	</div>
+</div>
 
 	<div class="row">
 		<div class="col-sm-12">
