@@ -205,36 +205,29 @@ $(document).ready(function(){
 		$(".filter-options").slideToggle();
 	});
 
-	$.fn.editable.defaults.mode = 'popup';
+	API.get.project(function(answer) {
+		var source = [];
+		for (var i=0; i<answer.items.length; i++)
+		{
+			source[i] = {
+				value: answer.items[i].id,
+				text: answer.items[i].title
+			};
+		}
+		$('#filter_projects').editable({
+			"placement": "left",
+			"source": source,
+			"url": "/post.php"
+		});
 
-	$('#filter_projects, #filter_user_groups').editable({
-		placement: "left",
-		source: [
-			{value: 1, text: 'banana'},
-			{value: 2, text: 'peach'},
-			{value: 3, text: 'apple'},
-			{value: 4, text: 'watermelon watermelon watermelon'},
-			{value: 5, text: 'orange'},
-			{value: 1, text: 'banana'},
-			{value: 2, text: 'peach'},
-			{value: 3, text: 'apple'},
-			{value: 4, text: 'watermelon'},
-			{value: 5, text: 'orange'},
-			{value: 1, text: 'banana'},
-			{value: 2, text: 'peach'},
-			{value: 3, text: 'apple'},
-			{value: 4, text: 'watermelon'},
-			{value: 5, text: 'orange'},
-			{value: 3, text: 'apple'},
-			{value: 4, text: 'watermelon'},
-			{value: 5, text: 'orange'},
-			{value: 1, text: 'banana'},
-			{value: 2, text: 'peach'},
-			{value: 3, text: 'apple'},
-			{value: 4, text: 'watermelon'},
-			{value: 5, text: 'orange'},
-
-		]
+		$('#filter_user_groups').editable({
+			"placement": "left",
+			"source": [
+				{value: 'worker', text: 'worker'},
+				{value: 'manager', text: 'manager'},
+				{value: 'admin', text: 'admin'}
+			]
+		});
 	});
 });
 </script>

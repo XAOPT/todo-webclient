@@ -180,6 +180,30 @@ API = {
 		}
 	},
 	put: {
+		task: function(params) {
+			_api.params = params;
+
+			var url = "/task/";
+
+			if (typeof params.id !== 'undefined') {
+				url = url+params.id+"/";
+			}
+
+			_api.clear_cache(url);
+			_api.ajax('put', url);
+		},
+		comment: function(params){
+			_api.params = params;
+
+			var url = "/comment/";
+
+			if (typeof params.id !== 'undefined') {
+				url = url+params.id+"/";
+			}
+
+			_api.clear_cache(url);
+			_api.ajax('put', url);
+		},
 		calendar: function(params) {
 			_api.params = params;
 

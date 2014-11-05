@@ -30,20 +30,43 @@ Created: {{=it.created}} \
 </form>', 
  task_full: ' \
 <h2>{{=it.task.title}}</h2> \
-<div id="task_description"> \
+<div id="task_description" class="row"> \
 	<span class="fa fa-times close"></span> \
-	type: {{=it.task.type}}<br /> \
-	project: {{=it.project.title}}<br /> \
-	priority: {{=it.task.priority}}<br /> \
-	created: {{=it.task.created}}<br /> \
-	status: {{=it.task.status}}<br /> \
-	<br /> \
-	<div class="comment"> \
+	<div class="col-sm-12 filter-options panel"> \
+		<table id="user" class="table table-bordered table-striped"> \
+			<tbody> \
+				<tr> \
+					<td width="35%">Тип задачи:</td> \
+					<td width="65%"><a href="#" id="type" data-type="select" class="editable editable-click" data-pk="{{=it.task.id}}" data-value="{{=it.task.type}}"></a></td> \
+				</tr> \
+				<tr> \
+					<td>Проект:</td> \
+					<td><a href="#" id="project" data-type="select" class="editable editable-click">{{=it.project.title}}</a></td> \
+				</tr> \
+				<tr> \
+					<td>Приоритет:</td> \
+					<td><a href="#" id="priority" data-type="select" class="editable editable-click" data-pk="{{=it.task.id}}" data-value="{{=it.task.priority}}"></a></td> \
+				</tr> \
+				<tr> \
+					<td>Статус:</td> \
+					<td><a href="#" id="status" data-type="select" class="editable editable-click" data-pk="{{=it.task.id}}" data-value="{{=it.task.status}}"></a></td> \
+				</tr> \
+				<tr> \
+					<td>Создан:</td> \
+					<td>{{=it.task.created}}</td> \
+				</tr> \
+			</tbody> \
+		</table> \
+	</div> \
+	{{? it.comments[0] }} \
+	<div class="col-sm-12 comment" id="comment" data-type="textarea" data-pk="{{=it.comments[0].id}}"> \
 		{{? typeof it.comments[0] !== "undefined"}} \
 		{{=it.comments[0].text}} \
 		{{?}} \
 	</div> \
-</div>', 
+	{{?}} \
+</div> \
+', 
  timesheet_edit: ' \
 <form class="form-horizontal" role="form"> \
 	<input type="hidden" name="day" value="{{=it.day}}"> \
