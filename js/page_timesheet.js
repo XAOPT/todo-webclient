@@ -246,7 +246,7 @@ function renderTimesheet() {
 	});
 }
 
-function init_interface() {
+function init_timesheet_interface() {
 	var prev_top = 0;
 	$(".task-hours .wrapper").scroll(function () {
 		var scrollTop = $(this).scrollTop();
@@ -267,23 +267,25 @@ function init_interface() {
 
 	/* кнопка добавления таска. открывает диалог и оживляет его */
 	$("#add-task-button").click(function(){
-		API.get.project(function(answer) {
-			/* отрисуем диалог */
-			BootstrapDialog.confirm(TEMPLATES.task_full({projects: answer.items}), {
-					title: "<h5>Добавить задачу</h5>",
-					cssClass: 'wide'
-				}, function(result, dialogRef) {
-					/* если пользователь нажал кнопку "добавить" - сабмитим форму */
-					if (result) {
-						var data = {};
-						dialogRef.getModal().find('form').serializeArray().map(function(item) {
-							data[item.name] = item.value;
-						});
+		API.get.project(function(projects) {
+			API.get.user({"deleted":0}, function(users) {
+				/* отрисуем диалог */
+				BootstrapDialog.confirm(TEMPLATES.task_full({projects: projects.items, users: users.items}), {
+						title: "<h5>Добавить задачу</h5>",
+						cssClass: 'wide'
+					}, function(result, dialogRef) {
+						/* если пользователь нажал кнопку "добавить" - сабмитим форму */
+						if (result) {
+							var data = {};
+							dialogRef.getModal().find('form').serializeArray().map(function(item) {
+								data[item.name] = item.value;
+							});
 
-						API.post.task(data);
+							API.post.task(data);
+						}
 					}
-				}
-			);
+				);
+			});
 		});
 
 		make_task_editable(".modal")

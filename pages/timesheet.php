@@ -1,6 +1,6 @@
 <script>
 $(document).ready(function(){
-	init_interface();
+	init_timesheet_interface();
 	renderTimesheet();
 });
 </script>

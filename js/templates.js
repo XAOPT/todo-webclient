@@ -103,6 +103,16 @@ Created: {{=it.created}} \
 					</td> \
 				</tr> \
 				<tr> \
+					<td>Исполнитель:</td> \
+					<td> \
+						<select name="assignee"> \
+						{{~it.users :user:index}} \
+							<option value="{{=user.id}}">{{=user.firstname}} {{=user.lastname}}</option> \
+						{{~}} \
+						</select> \
+					</td> \
+				</tr> \
+				<tr> \
 					<td>Приоритет:</td> \
 					<td> \
 						<select name="priority"> \
@@ -110,19 +120,6 @@ Created: {{=it.created}} \
 							<option value="1">Major</option> \
 							<option value="2">Critical</option> \
 							<option value="3">Blocker</option> \
-						</select> \
-					</td> \
-				</tr> \
-				<tr> \
-					<td>Статус:</td> \
-					<td> \
-						<select name="status"> \
-							<option value="canceled">canceled</option> \
-							<option value="closed">closed</option> \
-							<option value="finished">finished</option> \
-							<option value="inprogress">inprogress</option> \
-							<option value="open">open</option> \
-							<option value="reopened">reopened</option> \
 						</select> \
 					</td> \
 				</tr> \

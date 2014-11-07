@@ -1,4 +1,4 @@
-function init_interface() {
+function init_users_interface() {
 	API.get.user(function(answer){
 		var html = TEMPLATES.users_list({items: answer.items});
 
