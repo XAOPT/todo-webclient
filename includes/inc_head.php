@@ -19,6 +19,8 @@
 	<script src="js/todo-api.js"></script>
 	<script src="js/todo.js"></script>
 	<script src="js/templates.js"></script>
+	<script src="js/page_timesheet.js"></script>
+	<script src="js/page_users.js"></script>
 
 	<link href="http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,400,600,700,300&subset=latin" rel="stylesheet" type="text/css">
 </head>

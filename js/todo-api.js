@@ -171,10 +171,17 @@ API = {
 		}
 	},
 	post: {
-		user: function(params, cb) {
+		user: function(params) {
 			_api.params = params;
 
 			var url = "/user/";
+
+			_api.ajax('post', url);
+		},
+		task: function(params) {
+			_api.params = params;
+
+			var url = "/task/";
 
 			_api.ajax('post', url);
 		}

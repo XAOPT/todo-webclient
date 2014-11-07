@@ -22,6 +22,7 @@ $(document).ready(function() {
 
 		new BootstrapDialog({
 			title: params.title || 'Подтвердите действие',
+			cssClass: params.cssClass || '',
 			message: message,
 			data: {
 				'callback': callback
@@ -180,52 +181,7 @@ $(document).ready(function() {
 
 					$("#description").html(TEMPLATES.task_full(tpl_data));
 
-					$('#description #comment').editable({
-						mode: "inline",
-						url: function(params) {
-							API.put.comment({id: params.pk, text: params.value});
-						}
-					});
-
-					$('#description #priority').editable({
-						source: [
-							{value: 0, text: "Minor"},
-							{value: 1, text: "Major"},
-							{value: 2, text: "Critical"},
-							{value: 3, text: "Blocker"}
-						],
-						url: function(params) {
-							API.put.task({id: params.pk, priority: params.value});
-						}
-					});
-
-					$('#description #type').editable({
-						source: [
-							{value: "feature", text: "feature"},
-							{value: "folder", text: "folder"},
-							{value: "issue", text: "issue"},
-							{value: "milestone", text: "milestone"},
-							{value: "task", text: "task"},
-							{value: "testcase", text: "testcase"}
-						],
-						url: function(params) {
-							API.put.task({id: params.pk, type: params.value});
-						}
-					});
-
-					$('#description #status').editable({
-						source: [
-							{value: "canceled", text: "canceled"},
-							{value: "closed", text: "closed"},
-							{value: "finished", text: "finished"},
-							{value: "inprogress", text: "inprogress"},
-							{value: "open", text: "open"},
-							{value: "reopened", text: "reopened"}
-						],
-						url: function(params) {
-							API.put.task({id: params.pk, status: params.value});
-						}
-					});
+					make_task_editable("#description");
 				});
 			});
 		});

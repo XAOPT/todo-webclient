@@ -1,3 +1,7 @@
+{{? it.task}}
+
+<!-- Просмотр и редактирование задачи -->
+
 <h2>{{=it.task.title}}</h2>
 
 <div id="task_description" class="row">
@@ -38,3 +42,73 @@
 	</div>
 	{{?}}
 </div>
+{{??}}
+
+<!-- Добавление задачи -->
+
+<form>
+<div id="task_description" class="row">
+	<div class="col-sm-12 filter-options panel">
+		<table id="user" class="table table-bordered table-striped">
+			<tbody>
+				<tr>
+					<td width="35%">Заголовок:</td>
+					<td width="65%"><input type="text" name="title"></td>
+				</tr>
+				<tr>
+					<td>Тип задачи:</td>
+					<td>
+						<select name="type">
+							<option value="feature">feature</option>
+							<option value="folder">folder</option>
+							<option value="issue">issue</option>
+							<option value="milestone">milestone</option>
+							<option value="task">task</option>
+							<option value="testcase">testcase</option>
+						</select>
+					</td>
+				</tr>
+				<tr>
+					<td>Проект:</td>
+					<td>
+						<select name="project">
+						{{~it.projects :project:index}}
+							<option value="{{=project.id}}">{{=project.title}}</option>
+						{{~}}
+						</select>
+					</td>
+				</tr>
+				<tr>
+					<td>Приоритет:</td>
+					<td>
+						<select name="priority">
+							<option value="0">Minor</option>
+							<option value="1">Major</option>
+							<option value="2">Critical</option>
+							<option value="3">Blocker</option>
+						</select>
+					</td>
+				</tr>
+				<tr>
+					<td>Статус:</td>
+					<td>
+						<select name="status">
+							<option value="canceled">canceled</option>
+							<option value="closed">closed</option>
+							<option value="finished">finished</option>
+							<option value="inprogress">inprogress</option>
+							<option value="open">open</option>
+							<option value="reopened">reopened</option>
+						</select>
+					</td>
+				</tr>
+				<tr>
+					<td>Описание:</td>
+					<td><textarea name="comment"></textarea></td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</div>
+</form>
+{{?}}
