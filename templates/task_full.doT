@@ -53,12 +53,12 @@
 			<tbody>
 				<tr>
 					<td width="35%">Заголовок:</td>
-					<td width="65%"><input type="text" name="title"></td>
+					<td width="65%"><input type="text" name="title" class="input-sm form-control"></td>
 				</tr>
 				<tr>
 					<td>Тип задачи:</td>
 					<td>
-						<select name="type">
+						<select name="type" class="input-sm form-control">
 							<option value="feature">feature</option>
 							<option value="folder">folder</option>
 							<option value="issue">issue</option>
@@ -71,7 +71,7 @@
 				<tr>
 					<td>Проект:</td>
 					<td>
-						<select name="project">
+						<select name="project" class="input-sm form-control">
 						{{~it.projects :project:index}}
 							<option value="{{=project.id}}">{{=project.title}}</option>
 						{{~}}
@@ -81,7 +81,7 @@
 				<tr>
 					<td>Исполнитель:</td>
 					<td>
-						<select name="assignee">
+						<select name="assignee" class="input-sm form-control">
 						{{~it.users :user:index}}
 							<option value="{{=user.id}}">{{=user.firstname}} {{=user.lastname}}</option>
 						{{~}}
@@ -91,7 +91,7 @@
 				<tr>
 					<td>Приоритет:</td>
 					<td>
-						<select name="priority">
+						<select name="priority" class="input-sm form-control">
 							<option value="0">Minor</option>
 							<option value="1">Major</option>
 							<option value="2">Critical</option>
@@ -101,7 +101,7 @@
 				</tr>
 				<tr>
 					<td>Описание:</td>
-					<td><textarea name="comment"></textarea></td>
+					<td><textarea name="comment" class="input-sm form-control"></textarea></td>
 				</tr>
 			</tbody>
 		</table>

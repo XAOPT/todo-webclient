@@ -23,11 +23,35 @@ var TEMPLATES = {
 		{{=project.title}} \
 	</div> \
 {{~}}', 
- project_edit: ' \
+ project_full: ' \
+{{? it }} \
+<span class="fa fa-times close"></span> \
 <h2>{{=it.title}}</h2> \
 <form> \
 Created: {{=it.created}} \
-</form>', 
+</form> \
+{{??}} \
+<form class="form-horizontal" role="form"> \
+	<div class="form-group"> \
+		<label for="title" class="col-sm-4 control-label">Заголовок</label> \
+		<div class="col-sm-4"> \
+			<input type="text" name="title" class="input-sm form-control"> \
+		</div> \
+	</div> \
+	<div class="form-group"> \
+		<label for="shorttitle" class="col-sm-4 control-label">Если коротко</label> \
+		<div class="col-sm-4"> \
+			<input type="text" name="shorttitle" class="input-sm form-control"> \
+		</div> \
+	</div> \
+	<div class="form-group"> \
+		<label for="tagcolor" class="col-sm-4 control-label">Цвет (hex)</label> \
+		<div class="col-sm-4"> \
+			<input type="text" name="tagcolor" class="input-sm form-control"> \
+		</div> \
+	</div> \
+</form> \
+{{?}}', 
  task_full: ' \
 {{? it.task}} \
 <!-- Просмотр и редактирование задачи --> \
@@ -77,12 +101,12 @@ Created: {{=it.created}} \
 			<tbody> \
 				<tr> \
 					<td width="35%">Заголовок:</td> \
-					<td width="65%"><input type="text" name="title"></td> \
+					<td width="65%"><input type="text" name="title" class="input-sm form-control"></td> \
 				</tr> \
 				<tr> \
 					<td>Тип задачи:</td> \
 					<td> \
-						<select name="type"> \
+						<select name="type" class="input-sm form-control"> \
 							<option value="feature">feature</option> \
 							<option value="folder">folder</option> \
 							<option value="issue">issue</option> \
@@ -95,7 +119,7 @@ Created: {{=it.created}} \
 				<tr> \
 					<td>Проект:</td> \
 					<td> \
-						<select name="project"> \
+						<select name="project" class="input-sm form-control"> \
 						{{~it.projects :project:index}} \
 							<option value="{{=project.id}}">{{=project.title}}</option> \
 						{{~}} \
@@ -105,7 +129,7 @@ Created: {{=it.created}} \
 				<tr> \
 					<td>Исполнитель:</td> \
 					<td> \
-						<select name="assignee"> \
+						<select name="assignee" class="input-sm form-control"> \
 						{{~it.users :user:index}} \
 							<option value="{{=user.id}}">{{=user.firstname}} {{=user.lastname}}</option> \
 						{{~}} \
@@ -115,7 +139,7 @@ Created: {{=it.created}} \
 				<tr> \
 					<td>Приоритет:</td> \
 					<td> \
-						<select name="priority"> \
+						<select name="priority" class="input-sm form-control"> \
 							<option value="0">Minor</option> \
 							<option value="1">Major</option> \
 							<option value="2">Critical</option> \
@@ -125,7 +149,7 @@ Created: {{=it.created}} \
 				</tr> \
 				<tr> \
 					<td>Описание:</td> \
-					<td><textarea name="comment"></textarea></td> \
+					<td><textarea name="comment" class="input-sm form-control"></textarea></td> \
 				</tr> \
 			</tbody> \
 		</table> \

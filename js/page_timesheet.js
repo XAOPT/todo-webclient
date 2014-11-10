@@ -316,3 +316,37 @@ function init_timesheet_interface() {
 		});
 	});
 }
+
+$(document).ready(function() {
+	/* просмотр описания таска */
+	$("#content-wrapper").on('click', '.tt', function() {
+		var taskid = $(this).parent().data("taskid");
+
+		API.get.task({"id": taskid}, function(task) {
+			API.get.comment({"taskid": taskid}, function(comments){
+				API.get.project(function(projects){
+					var tpl_data = {
+						'task': task.items[0]
+					};
+
+					for (var i=0; i<comments.items.length; i++) {
+						comments.items[i].text = bb2html(comments.items[i].text);
+					}
+					tpl_data['comments'] = comments.items;
+
+					for (var i=0; i<projects.items.length; i++) {
+						if (projects.items[i].id == task.items[0].project) {
+							tpl_data['project'] = projects.items[i];
+						}
+					}
+
+					$(".main-wrapper").addClass("rpo");
+
+					$("#description").html(TEMPLATES.task_full(tpl_data));
+
+					make_task_editable("#description");
+				});
+			});
+		});
+	});
+});

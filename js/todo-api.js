@@ -115,9 +115,7 @@ API = {
 		calendar: function(params, cb) {
 			_api.params = params;
 
-			var url = "/calendar/";
-
-			_api.ajax('get', url, cb);
+			_api.ajax('get', "/calendar/", cb);
 		},
 		task: function(params, cb) {
 			if (typeof params === 'function')
@@ -126,9 +124,7 @@ API = {
 				_api.params = params;
 			}
 
-			var url = "/task/";
-
-			_api.ajax('get', url, cb);
+			_api.ajax('get', "/task/", cb);
 		},
 		timesheet: function(params, cb) {
 			if (typeof params === 'function')
@@ -137,9 +133,7 @@ API = {
 				_api.params = params;
 			}
 
-			var url = "/timesheet/";
-
-			_api.ajax('get', url, cb);
+			_api.ajax('get', "/timesheet/", cb);
 		},
 		comment: function(params, cb) {
 			if (typeof params === 'function')
@@ -148,25 +142,17 @@ API = {
 				_api.params = params;
 			}
 
-			var url = "/comment/";
-
-			_api.ajax('get', url, cb);
+			_api.ajax('get', "/comment/", cb);
 		},
 		convert: {
 			users: function(cb) {
-				var url = "/convert/users/";
-
-				_api.ajax('get', url, cb);
+				_api.ajax('get', "/convert/users/", cb);
 			},
 			projects: function(cb) {
-				var url = "/convert/projects/";
-
-				_api.ajax('get', url, cb);
+				_api.ajax('get', "/convert/projects/", cb);
 			},
 			tasks: function(cb) {
-				var url = "/convert/tasks/";
-
-				_api.ajax('get', url, cb);
+				_api.ajax('get', "/convert/tasks/", cb);
 			},
 		}
 	},
@@ -174,16 +160,18 @@ API = {
 		user: function(params) {
 			_api.params = params;
 
-			var url = "/user/";
-
-			_api.ajax('post', url);
+			_api.ajax('post', "/user/");
 		},
 		task: function(params) {
 			_api.params = params;
 
-			var url = "/task/";
+			_api.ajax('post', "/task/");
+		},
+		project: function(params, cb){
+			_api.params = params;
 
-			_api.ajax('post', url);
+			_api.clear_cache("/project/");
+			_api.ajax('post', "/project/", cb);
 		}
 	},
 	put: {
