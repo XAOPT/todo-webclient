@@ -15,7 +15,7 @@ $(document).ready(function(){
 </div>
 
 <div class="row">
-	<div class="col-sm-12 filter-options panel">
+	<div class="col-sm-12 filter-options panel" style='display: none;'>
 		<div class="panel-heading">
 			<span class="panel-title"><i class="panel-title-icon fa fa-comments-o"></i>Настройки фильтра</span>
 		</div>
@@ -38,48 +38,48 @@ $(document).ready(function(){
 	</div>
 </div>
 
-	<div class="row">
-		<div class="col-sm-12">
+<div class="row">
+	<div class="col-sm-12">
 
-			<div id="timesheet">
-				<div class="task-list">
+		<div id="timesheet">
+			<div class="task-list">
+				<table class="table table-bordered table-primary">
+					<thead>
+						<tr>
+							<th colspan='5'>Задачи по пользователям</th>
+						</tr>
+						<tr>
+							<th>Пр</th>
+							<th></th>
+							<th class='tt'>Название</th>
+							<th>Тр</th>
+							<th>Ф.тр</th>
+						</tr>
+					</thead>
+				</table>
+				<div class='wrapper'>
+					<table class="table table-bordered">
+						<tbody>
+						</tbody>
+					</table>
+				</div>
+			</div>
+			<div class="task-hours">
+				<div class="table-head">
 					<table class="table table-bordered table-primary">
 						<thead>
-							<tr>
-								<th colspan='5'>Задачи по пользователям</th>
-							</tr>
-							<tr>
-								<th>Пр</th>
-								<th></th>
-								<th class='tt'>Название</th>
-								<th>Тр</th>
-								<th>Ф.тр</th>
-							</tr>
 						</thead>
 					</table>
-					<div class='wrapper'>
-						<table class="table table-bordered">
-							<tbody>
-							</tbody>
-						</table>
-					</div>
 				</div>
-				<div class="task-hours">
-					<div class="table-head">
-						<table class="table table-bordered table-primary">
-							<thead>
-							</thead>
-						</table>
-					</div>
-					<div class="wrapper">
-						<table class="table table-bordered">
-							<thead>
-							</thead>
-							<tbody>
-							</tbody>
-						</table>
-					</div>
+				<div class="wrapper">
+					<table class="table table-bordered">
+						<thead>
+						</thead>
+						<tbody>
+						</tbody>
+					</table>
 				</div>
 			</div>
 		</div>
 	</div>
+</div>

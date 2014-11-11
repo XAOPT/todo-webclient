@@ -7,6 +7,7 @@
 	<link rel="stylesheet" href="css/font-awesome.min.css">
 	<link rel="stylesheet" href="css/bootstrap-editable.css">
 	<link rel="stylesheet" href="css/bootstrap-colorpicker.min.css">
+	<link rel="stylesheet" href="css/dropzone.css">
 	<link rel="stylesheet/less" href="css/menu.less">
 	<link rel="stylesheet/less" href="css/content_wrapper.less">
 	<link rel="stylesheet/less" href="css/timesheet.less">
@@ -24,6 +25,7 @@
 	<script src="js/page_users.js"></script>
 	<script src="js/page_projects.js"></script>
 	<script src="js/bootstrap-colorpicker.js"></script>
+	<script src="js/dropzone.js"></script>
 
 	<link href="http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,400,600,700,300&subset=latin" rel="stylesheet" type="text/css">
 </head>

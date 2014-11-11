@@ -58,7 +58,7 @@ Created: {{=it.created}} \
 <h2>{{=it.task.title}}</h2> \
 <div id="task_description" class="row"> \
 	<span class="fa fa-times close"></span> \
-	<div class="col-sm-12 filter-options panel"> \
+	<div class="panel"> \
 		<table id="user" class="table table-bordered table-striped"> \
 			<tbody> \
 				<tr> \
@@ -85,18 +85,19 @@ Created: {{=it.created}} \
 		</table> \
 	</div> \
 	{{? it.comments[0] }} \
-	<div class="col-sm-12 comment" id="comment" data-type="textarea" data-pk="{{=it.comments[0].id}}"> \
+	<div class="comment" id="comment" data-type="textarea" data-pk="{{=it.comments[0].id}}"> \
 		{{? typeof it.comments[0] !== "undefined"}} \
 		{{=it.comments[0].text}} \
 		{{?}} \
 	</div> \
 	{{?}} \
+	<form class="dropzone" id="my-awesome-dropzone"></form> \
 </div> \
 {{??}} \
 <!-- Добавление задачи --> \
 <form> \
 <div id="task_description" class="row"> \
-	<div class="col-sm-12 filter-options panel"> \
+	<div class="col-sm-12 panel"> \
 		<table id="user" class="table table-bordered table-striped"> \
 			<tbody> \
 				<tr> \

@@ -318,6 +318,7 @@ function init_timesheet_interface() {
 }
 
 $(document).ready(function() {
+
 	/* просмотр описания таска */
 	$("#content-wrapper").on('click', '.tt', function() {
 		var taskid = $(this).parent().data("taskid");
@@ -345,8 +346,13 @@ $(document).ready(function() {
 					$("#description").html(TEMPLATES.task_full(tpl_data));
 
 					make_task_editable("#description");
+					new Dropzone(".dropzone", {
+						dictDefaultMessage: "<i class='fa fa-cloud-upload'></i>Drop files in here<br><span class='dz-text-small'>or click to pick manually</span>",
+						url: API.url+"/task/1/attachment"
+					});
 				});
 			});
 		});
 	});
+
 });

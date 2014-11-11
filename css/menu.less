@@ -81,6 +81,78 @@ body {
 	height: 54px;
 }
 
+/* dropzone.js поле для закидывания файлов */
+.dropzone {
+
+	position: relative;
+	min-height: 284px;
+	border: 3px dashed #ddd;
+	border-radius: 3px;
+	vertical-align: middle;
+	width: 100%;
+	cursor: pointer;
+	padding: 0 15px 15px 0;
+	-webkit-transition: all .2s;
+	transition: all .2s;
+
+	&:hover {
+		.fa-cloud-upload {
+			background: #1d89cf;
+			color: #FFF;
+		}
+	}
+
+	.fa-cloud-upload {
+		display: block;
+		width: 70px;
+		height: 70px;
+		position: absolute;
+		left: 0;
+		top: 0;
+		text-align: center;
+		line-height: 70px;
+		font-size: 32px;
+		background: #eee;
+		color: #aaa;
+		border-radius: 2px;
+		-webkit-transition: all .2s;
+		transition: all .2s;
+	}
+	.dz-message {
+		background-image: none !important;
+
+		color: #555;
+		font-size: 20px;
+		font-weight: 600;
+		display: block;
+		min-height: 70px;
+		width: 300px;
+		position: absolute;
+		padding-left: 90px;
+		padding-top: 12px;
+		line-height: 22px;
+		top: 50%;
+		margin-top: -35px;
+		left: 50%;
+		margin-left: -150px;
+		-webkit-transition: all .2s;
+		transition: all .2s;
+
+		span {
+			display: block !important;
+		}
+
+		.dz-text-small {
+			font-size: 14px;
+			font-weight: 400;
+		}
+	}
+
+	.dz-filename {
+		display: none;
+	}
+}
+
 /* ---------------------USERS ------------------------- */
 
 .user_card {
@@ -641,7 +713,7 @@ body {
 	overflow: hidden;
 	position: absolute;
 	right: 0;
-	top: 89px;
+	top: 117px;
 	z-index: 100;
 	padding: 0px;
 
@@ -655,7 +727,7 @@ body {
 			padding: 20px 20px 20px 20px;
 			width: auto;
 			position: absolute;
-			top: 28px;
+			top: 0px;
 			left: @menu-width+@task-list-width+20px;;
 			right: 0px;
 			bottom: 0px;
