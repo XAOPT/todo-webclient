@@ -47,6 +47,42 @@ $(document).ready(function() {
 		}).open();
 	};
 
+	/* lightbox imitation */
+	$(document).on('click', '.lightbox img', function(){
+		var src = $(this).attr("src");
+		var img_real_width, img_real_height;
+		console.log(src);
+
+		$("<img/>").attr("src", src).load(function(){
+			img_real_width = this.width;
+			img_real_height = this.height;
+
+			var dialog = new BootstrapDialog({
+				"message": "<img src='"+src+"' class='lightbox_modal_image'>"
+			});
+
+			dialog.realize();
+			dialog.getModalHeader().hide();
+			dialog.getModalFooter().hide();
+			if (img_real_width > 600) {
+				img_real_width = 600;
+			}
+			dialog.getModal().find(".modal-dialog").css("width", img_real_width+30+"px");
+			dialog.open();
+		});
+	});
+
+	$(document).on('click', '.lightbox span', function(event) {
+		event.preventDefault();
+		var lightbox_box = $(this).parent();
+		var attachment_id = lightbox_box.data("id");
+
+		API.delete.task.attachment({"id": attachment_id}, function(){
+			lightbox_box.fadeOut().animate({width: 0}).remove();
+		});
+	});
+
+	/* --------- */
 
 	$(document).on('click', '.switcher', function(){
 		$(this).toggleClass('checked');

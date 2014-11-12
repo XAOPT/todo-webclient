@@ -327,7 +327,8 @@ $(document).ready(function() {
 			API.get.comment({"taskid": taskid}, function(comments){
 				API.get.project(function(projects){
 					var tpl_data = {
-						'task': task.items[0]
+						'task': task.items[0],
+						'attachments': []
 					};
 
 					for (var i=0; i<comments.items.length; i++) {
@@ -335,9 +336,19 @@ $(document).ready(function() {
 					}
 					tpl_data['comments'] = comments.items;
 
+					/// вот это вот шляпа про проект - поправить
 					for (var i=0; i<projects.items.length; i++) {
 						if (projects.items[i].id == task.items[0].project) {
 							tpl_data['project'] = projects.items[i];
+						}
+					}
+
+					// разберёмся с вложенными файлами
+					if (typeof task.items[0].attachments !== 'undefined') {
+						for (var i=0; i<task.items[0].attachments.length; i++) {
+							tpl_data.attachments[i] = task.items[0].attachments[i];
+							tpl_data.attachments[i].is_image = true;
+							tpl_data.attachments[i].full_url = API.url+task.items[0].attachments[i].url;
 						}
 					}
 
@@ -347,8 +358,8 @@ $(document).ready(function() {
 
 					make_task_editable("#description");
 					new Dropzone(".dropzone", {
-						dictDefaultMessage: "<i class='fa fa-cloud-upload'></i>Drop files in here<br><span class='dz-text-small'>or click to pick manually</span>",
-						url: API.url+"/task/1/attachment"
+						dictDefaultMessage: "<i class='fa fa-cloud-upload'></i>Перетащите сюда файл<br><span class='dz-text-small'>или нажмите для выбора из каталога</span>",
+						url: API.url+"/task/"+taskid+"/attachment"
 					});
 				});
 			});

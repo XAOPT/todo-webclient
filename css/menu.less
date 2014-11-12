@@ -153,6 +153,36 @@ body {
 	}
 }
 
+/* стили для lightbox-a */
+.lightbox_modal_image {
+	max-width: 600px;
+}
+.lightbox.thumbnail {
+	padding: 4px;
+	border-radius: 2px;
+	border: solid 1px #ddd;
+	height: 100px;
+	margin: 0 8px 0 0;
+	cursor: pointer;
+	display: inline-block;
+	position: relative;
+
+	&:hover {
+		border-color: #08c;
+	}
+	img {
+		max-width: 90px;
+		max-height: 90px;
+	}
+	span {
+		color: #d00;
+		font-size: 18px;
+		position: absolute;
+		top: -10px;
+		right: -5px;
+	}
+}
+
 /* ---------------------USERS ------------------------- */
 
 .user_card {

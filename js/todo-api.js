@@ -37,7 +37,7 @@ API = {
 		_api.cache_ajax = 0;
 		_api.params = {};
 
-		if (method == 'put' || method == 'post') {
+		if (method != 'get') {
 			data = JSON.stringify(data);
 		}
 
@@ -227,11 +227,20 @@ API = {
 			_api.clear_cache(url);
 			_api.ajax('put', url);
 		}
+	},
+	delete: {
+		task: function() {
+			console.log(456);
+		}
 	}
 }
 
-var _api = API;
+API.delete.task.attachment = function(params, cb) {
+	_api.params = params;
+	_api.ajax('delete', "/task/attachment/", cb);
+}
 
+var _api = API;
 function utf8_encode ( str_data ) {	// Encodes an ISO-8859-1 string to UTF-8
 	//
 	// +   original by: Webtoolkit.info (http://www.webtoolkit.info/)

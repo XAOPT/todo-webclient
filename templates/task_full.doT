@@ -34,6 +34,15 @@
 		</table>
 	</div>
 
+	{{~ it.attachments :attach:index}}
+		{{?attach.is_image}}
+			<div class="lightbox thumbnail" data-id="{{=attach.id}}">
+				<img src="{{=attach.full_url}}" alt="Click to view the lightbox">
+				<span class="fa fa-times"></span>
+			</div>
+		{{?}}
+	{{~}}
+
 	{{? it.comments[0] }}
 	<div class="comment" id="comment" data-type="textarea" data-pk="{{=it.comments[0].id}}">
 		{{? typeof it.comments[0] !== 'undefined'}}
