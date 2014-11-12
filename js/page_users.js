@@ -15,7 +15,9 @@ function init_users_interface() {
 					data[item.name] = item.value;
 				});
 
-				API.post.user(data);
+				API.post.user(data, function() {
+					$.growl("Пользователь добавлен!");
+				});
 			}
 		});
 	});
@@ -31,7 +33,9 @@ function init_users_interface() {
 					data[item.name] = item.value;
 				});
 
-				API.put.user(data);
+				API.put.user(data, function() {
+					$.growl("Пользователь удалён!");
+				});
 			}
 		});
 	});

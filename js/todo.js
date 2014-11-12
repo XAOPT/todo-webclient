@@ -47,6 +47,19 @@ $(document).ready(function() {
 		}).open();
 	};
 
+	/* дефолтные настройки для гроула */
+
+	$.growl(false, {
+		type: "success",
+		placement: {
+			align: "center"
+		},
+		animate: {
+			enter: 'animated bounceIn',
+			exit: 'animated bounceOut'
+		}
+	});
+
 	/* lightbox imitation */
 	$(document).on('click', '.lightbox img', function(){
 		var src = $(this).attr("src");
@@ -77,8 +90,11 @@ $(document).ready(function() {
 		var lightbox_box = $(this).parent();
 		var attachment_id = lightbox_box.data("id");
 
-		API.delete.task.attachment({"id": attachment_id}, function(){
-			lightbox_box.fadeOut().animate({width: 0}).remove();
+		API.delete.task.attachment({"id": attachment_id}, function(answer){
+			if (answer.status == 0) {
+				lightbox_box.fadeOut().animate({width: 0}).remove();
+				$.growl("Прикреплённый файл удалён!");
+			}
 		});
 	});
 

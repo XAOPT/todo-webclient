@@ -281,7 +281,9 @@ function init_timesheet_interface() {
 								data[item.name] = item.value;
 							});
 
-							API.post.task(data);
+							API.post.task(data, function() {
+								$.growl("Задача добавлена");
+							});
 						}
 					}
 				);

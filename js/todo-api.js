@@ -74,6 +74,8 @@ API = {
 					cb(answer);
 			},
 			error: function(error) {
+				$.growl("<b>"+error.responseJSON.ErrorCode+":</b> "+error.responseJSON.ErrorMessage, {type: "danger"});
+
 				console.log(error);
 			}
 		});
@@ -157,15 +159,15 @@ API = {
 		}
 	},
 	post: {
-		user: function(params) {
+		user: function(params, cb) {
 			_api.params = params;
 
-			_api.ajax('post', "/user/");
+			_api.ajax('post', "/user/", cb);
 		},
-		task: function(params) {
+		task: function(params, cb) {
 			_api.params = params;
 
-			_api.ajax('post', "/task/");
+			_api.ajax('post', "/task/", cb);
 		},
 		project: function(params, cb){
 			_api.params = params;
@@ -175,7 +177,7 @@ API = {
 		}
 	},
 	put: {
-		task: function(params) {
+		task: function(params, cb) {
 			_api.params = params;
 
 			var url = "/task/";
@@ -185,9 +187,9 @@ API = {
 			}
 
 			_api.clear_cache(url);
-			_api.ajax('put', url);
+			_api.ajax('put', url, cb);
 		},
-		comment: function(params){
+		comment: function(params, cb){
 			_api.params = params;
 
 			var url = "/comment/";
@@ -197,15 +199,15 @@ API = {
 			}
 
 			_api.clear_cache(url);
-			_api.ajax('put', url);
+			_api.ajax('put', url, cb);
 		},
-		calendar: function(params) {
+		calendar: function(params, cb) {
 			_api.params = params;
 
 			var url = "/calendar/";
 
 			_api.clear_cache(url);
-			_api.ajax('put', url);
+			_api.ajax('put', url, cb);
 		},
 		timesheet: function(params, cb) {
 			_api.params = params;
@@ -213,7 +215,7 @@ API = {
 			var url = "/timesheet/";
 
 			_api.clear_cache(url);
-			_api.ajax('put', url);
+			_api.ajax('put', url, cb);
 		},
 		user: function(params, cb) {
 			_api.params = params;
@@ -225,7 +227,7 @@ API = {
 			}
 
 			_api.clear_cache(url);
-			_api.ajax('put', url);
+			_api.ajax('put', url, cb);
 		}
 	},
 	delete: {

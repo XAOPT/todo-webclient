@@ -20,15 +20,17 @@ function init_projects_interface() {
 					});
 
 					// добавляем проект
-					API.post.project(data, function(){
+					API.post.project(data, function(answer) {
+						$.growl("Проект добавлен!");
+
 						// обновляем список проектов на экране
 						API.get.project(function(answer){
 							var html = TEMPLATES.projects_list({items: answer.items});
 
 							$(".projects-list").html(html);
+
 						});
 					});
-
 				}
 			}
 		);
