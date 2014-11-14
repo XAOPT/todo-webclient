@@ -2,9 +2,16 @@ var init_users_interface_done = false;
 function init_users_interface() {
 
 	var deleted = getParameterByName("deleted") || 0;
+	var pages_cnt;
 
 	API.get.user({"deleted": deleted}, function(answer){
-		var html = TEMPLATES.users_list({items: answer.items});
+		pages_cnt = Math.ceil(answer.items.length / 20 );
+
+		pages_cnt = (pages_cnt > 0)?new Array(pages_cnt):[];
+
+		answer.items = answer.items.slice(0,20);
+
+		var html = TEMPLATES.users_list({items: answer.items, pages: pages_cnt, active_page: 0});
 
 		$("#content-wrapper").append(html);
 	});
@@ -56,6 +63,20 @@ function init_users_interface() {
 					$.growl("Пользователь удалён!");
 				});
 			}
+		});
+	});
+
+	$("#content-wrapper").on('click', ".user-pagination A", function() {
+		event.preventDefault();
+
+		var page = $(this).data("page");
+
+		var deleted = getParameterByName("deleted") || 0;
+
+		API.get.user({"deleted": deleted, from: 20*page, count: 20}, function(answer){
+			var html = TEMPLATES.users_list({items: answer.items, pages: pages_cnt, active_page: page});
+
+			$(".user_list").replaceWith(html);
 		});
 	});
 

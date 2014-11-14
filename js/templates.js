@@ -217,8 +217,15 @@ Created: {{=it.created}} \
 <div class="panel panel-default user_list"> \
 	<div class="panel-heading"> \
 		<span class="panel-title"><i class="panel-title-icon fa fa-users"></i>Сотрудники</span> \
+		{{?it.pages.length > 0}} \
 		<div class="panel-heading-controls"> \
+			<ul class="user-pagination pagination pagination-xs"> \
+				{{~it.pages :page:index}} \
+				<li {{?index==it.active_page}}class="active"{{?}}><a href="#" data-page="{{=index}}">{{=index+1}}</a></li> \
+				{{~}} \
+			</ul> \
 		</div> \
+		{{?}} \
 	</div> \
 	<ul class="list-group"> \
 		{{~it.items :user:index}} \
