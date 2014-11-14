@@ -1,11 +1,28 @@
+var init_users_interface_done = false;
 function init_users_interface() {
-	API.get.user(function(answer){
+
+	var deleted = getParameterByName("deleted") || 0;
+
+	API.get.user({"deleted": deleted}, function(answer){
 		var html = TEMPLATES.users_list({items: answer.items});
 
 		$("#content-wrapper").append(html);
 	});
 
-	$("#content-wrapper").on('click', "a[href='#add-user']", function(event){
+	if (init_users_interface_done)
+		return;
+
+	$("#content-wrapper").on('dblclick', '.user_card', function() {
+		var this_id = $(this).data("id");
+		API.get.user({id: this_id}, function(answer){
+			BootstrapDialog.show({
+				title: "<h5>Профиль</h5>",
+				message: TEMPLATES.user_edit(answer.items[0])
+			});
+		});
+	});
+
+	$("#content-wrapper").on('click', "#add-user", function(event){
 		event.preventDefault();
 
 		BootstrapDialog.confirm(TEMPLATES.user_add(), {title: "Добавление пользователя"}, function(result, dialogRef){
@@ -22,9 +39,11 @@ function init_users_interface() {
 		});
 	});
 
-	$("#content-wrapper").on('click', ".remove", function(){
-		var userid = $(this).parent().data("id");
-		BootstrapDialog.confirm(TEMPLATES.user_delete({"userid": userid}), {title: "Удаление"}, function(result, dialogRef){
+	$("#content-wrapper").on('click', ".remove_user", function(){
+		var userid = $(this).data("id");
+		var confirm = $(this).data("confirm");
+
+		BootstrapDialog.confirm(confirm, {title: '<i class="fa fa-times-circle"></i>', type: "modal-alert"}, function(result, dialogRef){
 			if (result) {
 				data = {
 					"deleted": 1
@@ -39,4 +58,6 @@ function init_users_interface() {
 			}
 		});
 	});
+
+	init_users_interface_done = true;
 }

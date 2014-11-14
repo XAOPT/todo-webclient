@@ -11,9 +11,6 @@
 			$("#main-menu").on("click", "a", function(){
 				var a = $(this);
 
-				/*if ($("BODY").hasClass("mmc")) // здесь надо добавить решение для меню со вложенными пунктами
-					return false;*/
-
 				var LI = $(this).parent();
 
 				LI.siblings("LI").not(LI).each(function(){
@@ -31,15 +28,18 @@
 				a.parent().addClass("active");
 
 				$(".main-wrapper").removeClass("rpo");
-				$.ajax({
-					type: 'get',
-					url: a.attr("href"),
-					dataType: 'HTML',
-					success: function(answer) {
-						$("#content-wrapper").html(answer);
-						window.history.pushState({},"", '#'+a.attr("href"));
-					}
-				});
+
+				if (a.attr("href") !== "#") { // загружаем новую страницу только в том случае, если ссылка не пустая
+					window.history.pushState({},"", '#'+a.attr("href"));
+					$.ajax({
+						type: 'get',
+						url: a.attr("href"),
+						dataType: 'HTML',
+						success: function(answer) {
+							$("#content-wrapper").html(answer);
+						}
+					});
+				}
 
 				return false;
 			});
@@ -89,8 +89,16 @@
 			<img src="img/avatar1.jpg" alt="">
 		</div>
 		<ul class="navigation">
-			<li>
-				<a href="pages/users.php"><i class="menu-icon fa fa-users"></i><span class="mm-text mmc-dropdown-delay fadeIn">Сотрудники</span></a>
+			<li class="mm-dropdown">
+				<a href="#"><i class="menu-icon fa fa-users"></i><span class="mm-text mmc-dropdown-delay fadeIn">Сотрудники</span></a>
+				<ul class="mmc-dropdown-delay fadeInLeft">
+					<li>
+						<a href="pages/users.php?deleted=0"><span class="mm-text">Активные</span></a>
+					</li>
+					<li>
+						<a href="pages/users.php?deleted=1"><span class="mm-text">Заблокированные</span></a>
+					</li>
+				</ul>
 			</li>
 			<li>
 				<a href="pages/timesheet.php"><i class="menu-icon fa fa-table"></i><span class="mm-text mmc-dropdown-delay fadeIn">Timesheet</span></a>

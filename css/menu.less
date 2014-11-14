@@ -85,7 +85,7 @@ body {
 .dropzone {
 
 	position: relative;
-	min-height: 284px;
+	min-height: 204px;
 	border: 3px dashed #ddd;
 	border-radius: 3px;
 	vertical-align: middle;
@@ -132,7 +132,7 @@ body {
 		padding-top: 12px;
 		line-height: 22px;
 		top: 50%;
-		margin-top: -35px;
+		margin-top: -35px !important;
 		left: 50%;
 		margin-left: -150px;
 		-webkit-transition: all .2s;
@@ -180,6 +180,75 @@ body {
 		position: absolute;
 		top: -10px;
 		right: -5px;
+	}
+}
+
+/* расширяем бутстрап. кнопки в правом верхнем углу панелей */
+.panel-heading-controls {
+	margin-top: -2px;
+	margin-bottom: -200px;
+	float: right;
+}
+
+.user_list {
+	.avatar {
+		height: 24px;
+		width: 24px;
+		margin-right: 8px;
+	}
+}
+
+.modal-alert {
+
+	.modal-dialog {
+		width: 350px;
+	}
+
+	.bootstrap-dialog-close-button {
+		display: none !important;
+	}
+
+	.bootstrap-dialog-message {
+		margin: 0 0 15px 0;
+	}
+
+	.modal-content {
+		border: none;
+		border-radius: 2px;
+		-webkit-box-shadow: 0 1px 3px rgba(0,0,0,.1);
+		box-shadow: 0 1px 3px rgba(0,0,0,.1);
+		padding-bottom: 20px;
+	}
+
+	.modal-header {
+		background: #f8f8f8;
+		padding: 12px 20px;
+		border-top-right-radius: 2px;
+		border-top-left-radius: 2px;
+	}
+
+	.modal-body,
+	.modal-footer,
+	.modal-header,
+	.modal-title {
+		background: 0 0;
+		border: none;
+		margin: 0;
+		padding: 0 20px;
+		text-align: center!important;
+	}
+
+	.modal-header {
+		color: #fff;
+		margin-bottom: 20px;
+		padding: 25px 0 18px;
+		text-shadow: 0 1px 0 rgba(0,0,0,.15);
+		border-bottom: 4px solid rgba(0,0,0,.08);
+		background: #e66454;
+
+		.fa {
+			font-size: 90px;
+		}
 	}
 }
 

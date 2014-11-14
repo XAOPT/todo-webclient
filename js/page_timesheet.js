@@ -361,7 +361,10 @@ $(document).ready(function() {
 					make_task_editable("#description");
 					new Dropzone(".dropzone", {
 						dictDefaultMessage: "<i class='fa fa-cloud-upload'></i>Перетащите сюда файл<br><span class='dz-text-small'>или нажмите для выбора из каталога</span>",
-						url: API.url+"/task/"+taskid+"/attachment"
+						url: API.url+"/task/"+taskid+"/attachment",
+						error: function(file, error) {
+							$.growl("<b>"+error.ErrorCode+":</b> "+error.ErrorMessage, {type: "danger"});
+						}
 					});
 				});
 			});

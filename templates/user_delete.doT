@@ -1,4 +1,0 @@
-<form>
-	<input type="hidden" name="userid" value="{{=it.userid}}">
-	Вы действительно хотите удалить пользователя?
-</form>

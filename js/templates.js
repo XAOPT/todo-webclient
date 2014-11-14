@@ -84,6 +84,14 @@ Created: {{=it.created}} \
 			</tbody> \
 		</table> \
 	</div> \
+	{{? it.comments[0] }} \
+	<div class="comment" id="comment" data-type="textarea" data-pk="{{=it.comments[0].id}}"> \
+		{{? typeof it.comments[0] !== "undefined"}} \
+		{{=it.comments[0].text}} \
+		{{?}} \
+	</div> \
+	{{?}} \
+	<br /><br /> \
 	{{~ it.attachments :attach:index}} \
 		{{?attach.is_image}} \
 			<div class="lightbox thumbnail" data-id="{{=attach.id}}"> \
@@ -92,13 +100,6 @@ Created: {{=it.created}} \
 			</div> \
 		{{?}} \
 	{{~}} \
-	{{? it.comments[0] }} \
-	<div class="comment" id="comment" data-type="textarea" data-pk="{{=it.comments[0].id}}"> \
-		{{? typeof it.comments[0] !== "undefined"}} \
-		{{=it.comments[0].text}} \
-		{{?}} \
-	</div> \
-	{{?}} \
 	<form class="dropzone" id="my-awesome-dropzone"></form> \
 </div> \
 {{??}} \
@@ -213,23 +214,33 @@ Created: {{=it.created}} \
 	</td> \
 </tr>', 
  users_list: ' \
-{{~it.items :user:index}} \
-<div class="user_card" data-id="{{=user.id}}" > \
-	<div class="first_row"> \
-		<img class="avatar {{? user.deleted }}grayscale{{?}}" src="{{? user.email }}http://www.gravatar.com/avatar/{{=md5(user.email)}}?d=mm{{??}}img/avatar1.jpg{{?}}"> \
-		<div> \
-			<div class="name">{{=user.firstname}} {{=user.lastname}}</div> \
-			<div class="role">{{=user.role}}</div> \
+<div class="panel panel-default user_list"> \
+	<div class="panel-heading"> \
+		<span class="panel-title"><i class="panel-title-icon fa fa-users"></i>Сотрудники</span> \
+		<div class="panel-heading-controls"> \
 		</div> \
 	</div> \
-	<div class="second_row"> \
-		<div class="fa settings">100</div> \
-		<div class="fa projects">1</div> \
-		<div class="is_active">{{? user.deleted }}Fired{{??}}Active{{?}}</div> \
-	</div> \
-	<span class="fa fa-trash-o remove"></span> \
-</div> \
-{{~}}', 
+	<ul class="list-group"> \
+		{{~it.items :user:index}} \
+		<li class="list-group-item"> \
+			<div class="list-item-name"> \
+				<img class="avatar {{? user.deleted }}grayscale{{?}}" src="{{? user.email }}http://www.gravatar.com/avatar/{{=md5(user.email)}}?d=mm{{??}}img/avatar1.jpg{{?}}"> \
+				{{=user.firstname}} {{=user.lastname}} \
+				<div class="pull-right"> \
+					{{? user.email }} \
+					<span class="label label-default"> \
+						{{=user.email}} \
+					</span>&nbsp; \
+					{{?}} \
+					<button class="btn btn-info btn-sm" data-id="{{=user.id}}">Edit</button> \
+					<button class="btn btn-danger btn-sm remove_user" data-confirm="Вы собираетесь заблокировать пользователя {{=user.firstname}} {{=user.lastname}}. \
+			 			Вы уверены?" data-id="{{=user.id}}">Block</button> \
+				</div> \
+			</div> \
+		</li> \
+		{{~}} \
+	</ul> \
+</div>', 
  user_add: ' \
 <form class="form-horizontal" role="form"> \
 	<div class="form-group form-group-sm"> \
@@ -248,11 +259,6 @@ Created: {{=it.created}} \
 			</select> \
 		</div> \
 	</div> \
-</form>', 
- user_delete: ' \
-<form> \
-	<input type="hidden" name="userid" value="{{=it.userid}}"> \
-	Вы действительно хотите удалить пользователя? \
 </form>', 
  user_edit: ' \
 <div class="user_card" data-id="{{=it.id}}" > \

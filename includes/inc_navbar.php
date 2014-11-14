@@ -1,6 +1,6 @@
 <div id="main-navbar" class="navbar" role="navigation">
 	<!-- Main menu toggle -->
-	<button type="button" id="main-menu-toggle"><i class="navbar-icon fa fa-bars icon toogleMenu"></i></button>
+	<button type="button" id="main-menu-toggle"><i class="navbar-icon fa fa-bars icon"></i></button>
 
 	<div class="navbar-inner">
 		<!-- Main navbar header -->

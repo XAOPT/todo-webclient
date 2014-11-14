@@ -23,6 +23,7 @@ $(document).ready(function() {
 		new BootstrapDialog({
 			title: params.title || 'Подтвердите действие',
 			cssClass: params.cssClass || '',
+			type: params.type || 'type-primary',
 			message: message,
 			data: {
 				'callback': callback
@@ -85,16 +86,15 @@ $(document).ready(function() {
 		});
 	});
 
+	// нажатие на кнопку удаления аттача
 	$(document).on('click', '.lightbox span', function(event) {
 		event.preventDefault();
 		var lightbox_box = $(this).parent();
 		var attachment_id = lightbox_box.data("id");
 
 		API.delete.task.attachment({"id": attachment_id}, function(answer){
-			if (answer.status == 0) {
-				lightbox_box.fadeOut().animate({width: 0}).remove();
-				$.growl("Прикреплённый файл удалён!");
-			}
+			lightbox_box.fadeOut().animate({width: 0}).remove();
+			$.growl("Прикреплённый файл удалён!");
 		});
 	});
 
@@ -114,7 +114,7 @@ $(document).ready(function() {
 	/*left navigation */
 	mainMenu.init();
 
-	$(".toogleMenu").click(function(){
+	$("#main-menu-toggle").click(function(){
 		$("BODY").toggleClass("mmc");
 	});
 
@@ -131,17 +131,6 @@ $(document).ready(function() {
 		BootstrapDialog.show({
 			title: "<h5>Профиль</h5>",
 			message: $('<div></div>').load('profile.php')
-		});
-	});
-
-	/* users */
-	$("#content-wrapper").on('dblclick', '.user_card', function() {
-		var this_id = $(this).data("id");
-		API.get.user({id: this_id}, function(answer){
-			BootstrapDialog.show({
-				title: "<h5>Профиль</h5>",
-				message: TEMPLATES.user_edit(answer.items[0])
-			});
 		});
 	});
 
