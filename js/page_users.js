@@ -1,4 +1,3 @@
-var init_users_interface_done = false;
 function init_users_interface() {
 
 	var deleted = getParameterByName("deleted") || 0;
@@ -15,10 +14,9 @@ function init_users_interface() {
 
 		$("#content-wrapper").append(html);
 	});
+}
 
-	if (init_users_interface_done)
-		return;
-
+$(document).ready(function() {
 	$("#content-wrapper").on('dblclick', '.user_card', function() {
 		var this_id = $(this).data("id");
 		API.get.user({id: this_id}, function(answer){
@@ -47,17 +45,15 @@ function init_users_interface() {
 	});
 
 	$("#content-wrapper").on('click', ".remove_user", function(){
-		var userid = $(this).data("id");
+		var id = $(this).data("id");
 		var confirm = $(this).data("confirm");
 
 		BootstrapDialog.confirm(confirm, {title: '<i class="fa fa-times-circle"></i>', type: "modal-alert"}, function(result, dialogRef){
 			if (result) {
 				data = {
-					"deleted": 1
+					"deleted": 1,
+					"id": 1
 				};
-				dialogRef.getModal().find('form').serializeArray().map(function(item) {
-					data[item.name] = item.value;
-				});
 
 				API.put.user(data, function() {
 					$.growl("Пользователь удалён!");
@@ -79,6 +75,4 @@ function init_users_interface() {
 			$(".user_list").replaceWith(html);
 		});
 	});
-
-	init_users_interface_done = true;
-}
+});

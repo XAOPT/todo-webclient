@@ -11,6 +11,9 @@ $(document).ready(function() {
 <div class="page-header-menu">
 	<button class="btn btn-flat btn-sm btn-labeled btn-success" id="add-project-button"><span class="btn-label icon fa fa-plus"></span>Добавить</button>
 </div>
-<div id="projects" class="row">
-	<div class="projects-list col-md-2"></div>
+
+<div class="item-description">
+	<div class='bg' id="description">
+		<span class="fa fa-times close"></span>
+	</div>
 </div>

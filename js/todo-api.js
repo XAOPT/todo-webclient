@@ -97,8 +97,10 @@ API = {
 			_api.ajax('get', url, cb);
 		},
 		project: function (params, cb) {
-			if (typeof params === 'function')
+			if (typeof params === 'function') {
 				cb = params;
+				_api.cache_ajax = 180;
+			}
 			else {
 				_api.params = params;
 			}
@@ -107,9 +109,6 @@ API = {
 
 			if (typeof params.id !== 'undefined') {
 				url = url+params.id+"/";
-			}
-			else {
-				_api.cache_ajax = 180;
 			}
 
 			_api.ajax('get', url, cb);
@@ -224,6 +223,19 @@ API = {
 
 			if (typeof params.userid !== 'undefined') {
 				url = url+params.userid+"/";
+			}
+
+			_api.clear_cache(url);
+			_api.ajax('put', url, cb);
+		},
+		project: function(params, cb) {
+			_api.params = params;
+			console.log(params);
+
+			var url = "/project/";
+
+			if (typeof params.id !== 'undefined') {
+				url = url+params.id+"/";
 			}
 
 			_api.clear_cache(url);

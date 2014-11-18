@@ -1,5 +1,4 @@
 {{? it }}
-<span class="fa fa-times close"></span>
 <h2>{{=it.title}}</h2>
 <form>
 Created: {{=it.created}}

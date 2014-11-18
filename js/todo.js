@@ -106,9 +106,8 @@ $(document).ready(function() {
 		box.prop("checked", !box.prop("checked"));
 	});
 
-	$("#item-description").on('click', '.close', function() {
+	$(document).on('click', '.close', function() {
 		$(".main-wrapper").removeClass("rpo");
-		$("#description").html('');
 	});
 
 	/*left navigation */

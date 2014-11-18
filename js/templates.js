@@ -18,11 +18,33 @@ var TEMPLATES = {
 	</div> \
 </div>', 
  projects_list: ' \
-{{~it.items :project:index}} \
-	<div class="project-title {{? project.archived}}archived{{?}}" data-id="{{=project.id}}"> \
-		{{=project.title}} \
+<div class="panel panel-default project_list"> \
+	<div class="panel-heading"> \
+		<span class="panel-title"><i class="panel-title-icon fa fa-sitemap"></i>Проекты</span> \
 	</div> \
-{{~}}', 
+	<ul class="list-group"> \
+		{{~it.items :item:index}} \
+		<li class="list-group-item"> \
+			<div class="list-item-name"> \
+				{{?item.tagcolor}} \
+					<span class="tagcolor" style="background: #{{=item.tagcolor}}"></span> \
+				{{?}} \
+				<span class="project-edit" data-id="{{=item.id}}">{{=item.title}}</span> \
+				<div class="pull-right"> \
+					<button class="btn btn-info btn-sm project-edit" data-id="{{=item.id}}">Редактировать</button> \
+					{{?!item.archived}} \
+					<button class="btn btn-danger btn-sm archivate_project" data-confirm="Вы собираетесь заархивировать проект {{=item.title}}. \
+			 			Вы уверены?" data-id="{{=item.id}}" data-archived="1">В архив</button> \
+			 		{{??}} \
+					<button class="btn btn-danger btn-sm archivate_project" data-confirm="Вы собираетесь извлечь из архива проект {{=item.title}}. \
+			 			Вы уверены?" data-id="{{=item.id}}" data-archived="0">Оживить</button> \
+			 		{{?}} \
+				</div> \
+			</div> \
+		</li> \
+		{{~}} \
+	</ul> \
+</div>', 
  project_full: ' \
 {{? it }} \
 <span class="fa fa-times close"></span> \

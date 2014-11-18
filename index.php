@@ -2,7 +2,7 @@
 
 <?php include("includes/inc_head.php");?>
 
-<body class='main-wrapper'>
+<body class='main-wrapper rpo'>
 
 	<?php include("includes/inc_navbar.php");?>
 
@@ -27,11 +27,6 @@ TODO:
 1. НОТ! Авторизация
 2. Разграничение уровней доступа
 </pre>
-	</div>
-
-	<div id="item-description">
-		<div class='bg' id="description">
-		</div>
 	</div>
 
 

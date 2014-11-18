@@ -103,8 +103,16 @@
 			<li>
 				<a href="pages/timesheet.php"><i class="menu-icon fa fa-table"></i><span class="mm-text mmc-dropdown-delay fadeIn">Timesheet</span></a>
 			</li>
-			<li>
-				<a href="pages/projects.php"><i class="menu-icon fa fa-sitemap"></i><span class="mm-text mmc-dropdown-delay fadeIn">Проекты</span></a>
+			<li class="mm-dropdown">
+				<a href="#"><i class="menu-icon fa fa-sitemap"></i><span class="mm-text mmc-dropdown-delay fadeIn">Проекты</span></a>
+				<ul class="mmc-dropdown-delay fadeInLeft">
+					<li>
+						<a href="pages/projects.php?archived=0"><span class="mm-text">Активные</span></a>
+					</li>
+					<li>
+						<a href="pages/projects.php?archived=1"><span class="mm-text">Заблокированные</span></a>
+					</li>
+				</ul>
 			</li>
 			<li>
 				<a href="pages/convert.php"><i class="menu-icon fa fa-exchange"></i><span class="mm-text mmc-dropdown-delay fadeIn">Конвертирование</span></a>
