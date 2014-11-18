@@ -221,8 +221,8 @@ API = {
 
 			var url = "/user/";
 
-			if (typeof params.userid !== 'undefined') {
-				url = url+params.userid+"/";
+			if (typeof params.id !== 'undefined') {
+				url = url+params.id+"/";
 			}
 
 			_api.clear_cache(url);

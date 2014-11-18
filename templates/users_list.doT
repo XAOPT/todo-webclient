@@ -18,16 +18,20 @@
 		<li class="list-group-item">
 			<div class="list-item-name">
 				<img class="avatar {{? user.deleted }}grayscale{{?}}" src="{{? user.email }}http://www.gravatar.com/avatar/{{=md5(user.email)}}?d=mm{{??}}img/avatar1.jpg{{?}}">
-				{{=user.firstname}} {{=user.lastname}}
+				{{? user.firstname || user.lastname}}
+					{{=user.firstname}} {{=user.lastname}}
+				{{??}}
+					<i>Не подтвержён</i>
+				{{?}}
 				<div class="pull-right">
 					{{? user.email }}
 					<span class="label label-default">
 						{{=user.email}}
 					</span>&nbsp;
 					{{?}}
-					<button class="btn btn-info btn-sm" data-id="{{=user.id}}">Edit</button>
+					<button class="btn btn-info btn-sm edit_user" data-id="{{=user.id}}">Редактировать</button>
 					<button class="btn btn-danger btn-sm remove_user" data-confirm="Вы собираетесь заблокировать пользователя {{=user.firstname}} {{=user.lastname}}.
-			 			Вы уверены?" data-id="{{=user.id}}">Block</button>
+						Вы уверены?" data-id="{{=user.id}}" data-deleted="{{=user.deleted}}">{{? user.deleted }}Разблок{{??}}Блок{{?}}</button>
 				</div>
 			</div>
 		</li>

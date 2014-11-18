@@ -47,7 +47,6 @@ var TEMPLATES = {
 </div>', 
  project_full: ' \
 {{? it }} \
-<span class="fa fa-times close"></span> \
 <h2>{{=it.title}}</h2> \
 <form> \
 Created: {{=it.created}} \
@@ -254,16 +253,20 @@ Created: {{=it.created}} \
 		<li class="list-group-item"> \
 			<div class="list-item-name"> \
 				<img class="avatar {{? user.deleted }}grayscale{{?}}" src="{{? user.email }}http://www.gravatar.com/avatar/{{=md5(user.email)}}?d=mm{{??}}img/avatar1.jpg{{?}}"> \
-				{{=user.firstname}} {{=user.lastname}} \
+				{{? user.firstname || user.lastname}} \
+					{{=user.firstname}} {{=user.lastname}} \
+				{{??}} \
+					<i>Не подтвержён</i> \
+				{{?}} \
 				<div class="pull-right"> \
 					{{? user.email }} \
 					<span class="label label-default"> \
 						{{=user.email}} \
 					</span>&nbsp; \
 					{{?}} \
-					<button class="btn btn-info btn-sm" data-id="{{=user.id}}">Edit</button> \
+					<button class="btn btn-info btn-sm edit_user" data-id="{{=user.id}}">Редактировать</button> \
 					<button class="btn btn-danger btn-sm remove_user" data-confirm="Вы собираетесь заблокировать пользователя {{=user.firstname}} {{=user.lastname}}. \
-			 			Вы уверены?" data-id="{{=user.id}}">Block</button> \
+						Вы уверены?" data-id="{{=user.id}}" data-deleted="{{=user.deleted}}">{{? user.deleted }}Разблок{{??}}Блок{{?}}</button> \
 				</div> \
 			</div> \
 		</li> \
@@ -290,19 +293,40 @@ Created: {{=it.created}} \
 	</div> \
 </form>', 
  user_edit: ' \
-<div class="user_card" data-id="{{=it.id}}" > \
-	<div class="first_row"> \
-		<img class="avatar" src="img/avatar1.jpg"> \
-		<div> \
-			<div class="name">{{=it.firstname}} {{=it.lastname}}</div> \
-			<div class="role">{{=it.role}}</div> \
+<form class="form-horizontal" role="form"> \
+	<div class="form-group form-group-sm"> \
+		<label class="col-sm-2 control-label">Имя</label> \
+		<div class="col-sm-10"> \
+			<input type="text" name="firstname" class="form-control" value="{{= it.firstname}}"> \
 		</div> \
 	</div> \
-	<div class="second_row"> \
-		<div class="fa settings">100</div> \
-		<div class="fa projects">1</div> \
-		<div class="is_active">{{? it.deleted }}Fired{{??}}Active{{?}}</div> \
+	<div class="form-group form-group-sm"> \
+		<label class="col-sm-2 control-label">Фамилия</label> \
+		<div class="col-sm-10"> \
+			<input type="text" name="lastname" class="form-control" value="{{= it.lastname}}"> \
+		</div> \
 	</div> \
-	<span class="fa fa-trash-o remove"></span> \
-</div>', 
+	<div class="form-group form-group-sm"> \
+		<label class="col-sm-2 control-label">E-mail</label> \
+		<div class="col-sm-10"> \
+			<input type="text" name="email" class="form-control" value="{{= it.email}}"> \
+		</div> \
+	</div> \
+	<div class="form-group form-group-sm"> \
+		<label class="col-sm-2 control-label">Роль</label> \
+		<div class="col-sm-10"> \
+			<select name="role" class="form-control"> \
+				<option val="1">Admin</option> \
+				<option val="2">Manager</option> \
+				<option val="3">Worker</option> \
+			</select> \
+		</div> \
+	</div> \
+	<div class="form-group form-group-sm"> \
+		<div class="col-sm-2"></div> \
+		<div class="col-sm-10"> \
+			Добавлен: {{= it.created}} \
+		</div> \
+	</div> \
+</form>', 
  }
