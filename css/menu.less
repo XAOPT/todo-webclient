@@ -1,5 +1,4 @@
 @menu-width: 240px;
-@task-list-width: 290px; // DUPLICATE!!!
 
 .transition05s {
 	-webkit-transition: all .5s;
@@ -213,6 +212,28 @@ body {
 		height: 24px;
 		width: 24px;
 		margin-right: 8px;
+	}
+}
+
+.project_list {
+	.tagcolor {
+		display: inline-block;
+		width: 8px;
+		height: 8px;
+		margin: 0 3px 0 0;
+	}
+
+	.project-edit {
+		cursor: pointer;
+	}
+
+	.rpo & {
+		width: 275px;
+		overflow: hidden;
+
+		.pull-right {
+			display:none;
+		}
 	}
 }
 
@@ -823,14 +844,14 @@ body {
 	}
 }
 
-#item-description {
+.item-description {
 	display: block;
 	height: 100%;
 	width: 0px;
 	overflow: hidden;
 	position: absolute;
 	right: 0;
-	top: 117px;
+	top: 0px;
 	z-index: 100;
 	padding: 0px;
 
@@ -838,14 +859,25 @@ body {
 		background: #FFF;
 	}
 
+	.close {
+		position: absolute;
+		font-size: 20px;
+		right: 20px;
+	}
+
 	.rpo & {
-		width: 100%;
+		right: 0px;
+		left: 310px;
+		top: 0px;
+		bottom: 0px;
+		width: auto;
+
 		.bg {
 			padding: 20px 20px 20px 20px;
-			width: auto;
+			width: 100%;
 			position: absolute;
-			top: 0px;
-			left: @menu-width+@task-list-width+20px;;
+			top: 117px;
+			left: 0px;
 			right: 0px;
 			bottom: 0px;
 			border-left: solid 2px #ccc;
@@ -856,12 +888,6 @@ body {
 
 #task_description {
 	position: relative;
-
-	.close {
-		position: absolute;
-		font-size: 20px;
-		top: -30px; right: 20px;
-	}
 
 	.comment {
 		border: solid 1px #ccc;
