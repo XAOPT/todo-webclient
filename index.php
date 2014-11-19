@@ -9,11 +9,11 @@ else {
 }
 ?>
 
-<?php include("includes/inc_head.php");?>
-
 <script>
 var API_DOMAIN = "<?=API_DOMAIN?>";
 </script>
+
+<?php include("includes/inc_head.php");?>
 
 <body class='main-wrapper rpo'>
 
