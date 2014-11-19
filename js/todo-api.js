@@ -1,5 +1,5 @@
 API = {
-	url: "http://trunk.todo-server",
+	url: API_DOMAIN,
 	params: {},
 	cache_ajax: 0,
 	cache: {

@@ -1,6 +1,19 @@
 <html>
 
+<?php
+if ($_SERVER['REMOTE_ADDR'] == '127.0.0.1') {
+	include("includes/config_development.php");
+}
+else {
+	include("includes/config_production.php");
+}
+?>
+
 <?php include("includes/inc_head.php");?>
+
+<script>
+var API_DOMAIN = "<?=API_DOMAIN?>";
+</script>
 
 <body class='main-wrapper rpo'>
 

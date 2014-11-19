@@ -1,4 +1,14 @@
+<?php
+if ($_SERVER['REMOTE_ADDR'] == '127.0.0.1') {
+	include("../includes/config_development.php");
+}
+else {
+	include("../includes/config_production.php");
+}
+?>
+
 <?php include("../includes/inc_signin_head.php"); ?>
+
 
 <body class="page-signin">
 
