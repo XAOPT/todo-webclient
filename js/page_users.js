@@ -36,6 +36,7 @@ $(document).ready(function() {
 
 					API.put.user(data, function() {
 						$.growl("Пользователь отредактирован");
+						init_users_interface();
 					});
 				}
 			});
@@ -55,6 +56,7 @@ $(document).ready(function() {
 
 				API.post.user(data, function() {
 					$.growl("Пользователь добавлен!");
+					init_users_interface();
 				});
 			}
 		});

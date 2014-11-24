@@ -21,9 +21,9 @@
 		<label class="col-sm-2 control-label">Роль</label>
 		<div class="col-sm-10">
 			<select name="role" class="form-control">
-				<option val='1'>Admin</option>
-				<option val='2'>Manager</option>
-				<option val='3'>Worker</option>
+				<option val='3' {{? it.role=="Worker"}}SELECTED{{?}}>Worker</option>
+				<option val='2' {{? it.role=="Manager"}}SELECTED{{?}}>Manager</option>
+				<option val='1' {{? it.role=="Admin"}}SELECTED{{?}}>Admin</option>
 			</select>
 		</div>
 	</div>
