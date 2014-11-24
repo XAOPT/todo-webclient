@@ -119,12 +119,11 @@ function renderTimesheet() {
 						day_kind = this.global_exceptions[j].kind; // глобальные исключения для календаря
 					}
 
-					var hours = (typeof current_task_days[j] !== 'undefined')?current_task_days[j].worktimeSeconds/3600:"&nbsp;";
-
 					tpl_data.task[i].days[j-this.from] = {
 						"day": j,
 						"day_kind": day_kind,
-						"hours": hours
+						"hours": (typeof current_task_days[j] !== 'undefined')?current_task_days[j].worktimeSeconds/3600:"&nbsp;",
+						"comment": (typeof current_task_days[j] !== 'undefined')?current_task_days[j].comment:""
 					};
 				}
 			}
@@ -370,5 +369,4 @@ $(document).ready(function() {
 			});
 		});
 	});
-
 });

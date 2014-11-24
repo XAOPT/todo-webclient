@@ -24,12 +24,14 @@
 					LI.find("UL:first").slideDown("fast", function(){LI.addClass("open"); LI.find("UL:first").removeAttr('style');})
 				}
 
-				$("#main-menu li").removeClass("active");
-				a.parent().addClass("active");
-
 				$(".main-wrapper").removeClass("rpo");
 
 				if (a.attr("href") !== "#") { // загружаем новую страницу только в том случае, если ссылка не пустая
+					$("#main-menu li").removeClass("active");
+					a.parent().addClass("active");
+
+					a.parents(".mm-dropdown").addClass("open"); // откроем все родительские раскладывающиеся менюшки
+
 					window.history.pushState({},"", '#'+a.attr("href"));
 					$.ajax({
 						type: 'get',

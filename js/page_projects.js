@@ -61,7 +61,6 @@ $(document).ready(function() {
 		API.get.project({id: this_id}, function(answer){
 			$(".main-wrapper").addClass("rpo");
 
-			console.log(123, answer);
 			$("#description").html(TEMPLATES.project_full(answer.item));
 		});
 	});

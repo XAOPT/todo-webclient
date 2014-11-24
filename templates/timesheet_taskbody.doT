@@ -2,7 +2,7 @@
 {{~it.task :task:index}}
 	<tr data-taskid="{{=task.taskid}}" data-userid="{{=task.userid}}">
 	{{~task.days :day:day_index}}
-		<td data-day="{{=day.day}}" class="{{=day.day_kind}}">{{=day.hours}}</td>
+		<td data-day="{{=day.day}}" class="{{=day.day_kind}}{{? day.comment !== ''}} commented{{?}}">{{=day.hours}}</td>
 	{{~}}
 	</tr>
 {{~}}

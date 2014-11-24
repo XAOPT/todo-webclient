@@ -5,8 +5,6 @@
 <h2>{{=it.task.title}}</h2>
 
 <div id="task_description" class="row">
-	<span class="fa fa-times close"></span>
-
 	<div class="panel">
 		<table id="user" class="table table-bordered table-striped">
 			<tbody>

@@ -83,3 +83,8 @@ $(document).ready(function(){
 		</div>
 	</div>
 </div>
+
+<div class="item-description" style="z-index: 50;">
+	<div class='bg' id="description"></div>
+	<span class="fa fa-times close"></span>
+</div>
