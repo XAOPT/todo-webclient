@@ -1,3 +1,27 @@
+var editable_sources = {
+	"priority": [
+		{value: 0, text: "Minor"},
+		{value: 1, text: "Major"},
+		{value: 2, text: "Critical"},
+		{value: 3, text: "Blocker"}
+	],
+	"type": [
+		{value: "feature", text: "feature"},
+		{value: "folder", text: "folder"},
+		{value: "issue", text: "issue"},
+		{value: "milestone", text: "milestone"},
+		{value: "task", text: "task"},
+		{value: "testcase", text: "testcase"}
+	],
+	"status": [
+		{value: "canceled", text: "canceled"},
+		{value: "closed", text: "closed"},
+		{value: "finished", text: "finished"},
+		{value: "inprogress", text: "inprogress"},
+		{value: "open", text: "open"},
+		{value: "reopened", text: "reopened"}
+	]
+};
 /*
 	эта функция оживляет форму с таском. делает её доступной для редактирования. используется в нескольких местах: например при добавлении нового и просмотре старого таска
 */
@@ -14,12 +38,7 @@ function make_task_editable(parent_selector) {
 
 	// приоритет
 	$(parent_selector+' #priority').editable({
-		source: [
-			{value: 0, text: "Minor"},
-			{value: 1, text: "Major"},
-			{value: 2, text: "Critical"},
-			{value: 3, text: "Blocker"}
-		],
+		source: editable_sources.priority,
 		url: function(params) {
 			API.put.task({id: params.pk, priority: params.value});
 		}
@@ -27,14 +46,7 @@ function make_task_editable(parent_selector) {
 
 	// тип задачи
 	$(parent_selector+' #type').editable({
-		source: [
-			{value: "feature", text: "feature"},
-			{value: "folder", text: "folder"},
-			{value: "issue", text: "issue"},
-			{value: "milestone", text: "milestone"},
-			{value: "task", text: "task"},
-			{value: "testcase", text: "testcase"}
-		],
+		source: editable_sources.type,
 		url: function(params) {
 			API.put.task({id: params.pk, type: params.value});
 		}
@@ -42,14 +54,7 @@ function make_task_editable(parent_selector) {
 
 	//  статус задачи
 	$(parent_selector+' #status').editable({
-		source: [
-			{value: "canceled", text: "canceled"},
-			{value: "closed", text: "closed"},
-			{value: "finished", text: "finished"},
-			{value: "inprogress", text: "inprogress"},
-			{value: "open", text: "open"},
-			{value: "reopened", text: "reopened"}
-		],
+		source: editable_sources.status,
 		url: function(params) {
 			API.put.task({id: params.pk, status: params.value});
 		}
@@ -157,6 +162,7 @@ function renderTimesheet() {
 
 	this.drawTimesheetCalendar = function()
 	{
+		$(".task-hours table.table-primary thead").html('');
 		var row1 = "<tr>";
 		var row2 = "<tr>";
 		var column_counter = 0;
@@ -217,12 +223,24 @@ function renderTimesheet() {
 			/* извлечём всех пользователей */
 			API.get.user({"deleted":"0", "id": 39}, function(users){
 				for (var i=0; i < users.items.length; i++) {
+					$(".task-list .wrapper table tbody, .task-hours .wrapper table tbody").html(''); // зачистим для начала табличку
 					$(".task-list .wrapper table tbody").append("<tr data-holderid='"+users.items[i].id+"'></tr>");
 					$(".task-hours .wrapper table tbody").append("<tr data-holderid='"+users.items[i].id+"'></tr>");
 
 					(function(i){
-						/* получим все задачи для Итого пользователя с фильтрацией по проектам */
-						API.get.task({"assignee": users.items[i].id, "status": ["open","inprogress"], "project":[3,19,21,24,25,28,33]}, function(task_answer){
+						/* определимся с параметрами фильтрации задач */
+						var filterSettings = xeditableSerialize("#timesheetFilter");
+
+						var filter = {};
+
+						filter.project  = (typeof filterSettings.filter_projects !== 'undefined')?filterSettings.filter_projects:[3,19,21,24,25,28,33];
+						filter.assignee = (typeof filterSettings.filter_assignee !== 'undefined')?filterSettings.filter_assignee:users.items[i].id;
+						filter.status   = (typeof filterSettings.filter_status !== 'undefined')?filterSettings.filter_status:["open","inprogress"];
+						filter.assignee   = (typeof filterSettings.filter_assignee !== 'undefined')?filterSettings.filter_assignee:[39];
+						if (typeof filterSettings.filter_priority !== 'undefined') filter.priority = filterSettings.filter_priority;
+
+						/* получим все задачи для i-того пользователя с фильтрацией по проектам */
+						API.get.task(filter, function(task_answer){
 
 							/* получим для этого пользователя исключения в календаре */
 							API.get.calendar({"userid": users.items[i].id, "from": this.from, "count": this.count}, function(calendar){
@@ -245,7 +263,7 @@ function renderTimesheet() {
 	});
 }
 
-function init_timesheet_interface() {
+function init_timesheet_interface(cb) {
 	var prev_top = 0;
 	$(".task-hours .wrapper").scroll(function () {
 		var scrollTop = $(this).scrollTop();
@@ -292,28 +310,66 @@ function init_timesheet_interface() {
 		make_task_editable(".modal")
 	});
 
-	API.get.project(function(answer) {
-		var source = [];
-		for (var i=0; i<answer.items.length; i++)
-		{
-			source[i] = {
-				value: answer.items[i].id,
-				text: answer.items[i].title
-			};
-		}
-		$('#filter_projects').editable({
-			"placement": "left",
-			"source": source,
-			"url": "/post.php"
-		});
+	API.get.user.clientSettings({"id": 39}, function(user){
 
-		$('#filter_user_groups').editable({
-			"placement": "left",
-			"source": [
-				{value: 'worker', text: 'worker'},
-				{value: 'manager', text: 'manager'},
-				{value: 'admin', text: 'admin'}
-			]
+		API.get.project(function(answer) {
+			API.get.user({"deleted": 0}, function(user_list){
+				var project_source = [];
+				var assignee_source = [];
+
+				for (var i=0; i<answer.items.length; i++)
+				{
+					project_source[i] = {
+						value: answer.items[i].id,
+						text: answer.items[i].title
+					};
+				}
+				for (var i=0; i<user_list.items.length; i++)
+				{
+					assignee_source[i] = {
+						value: user_list.items[i].id,
+						text: user_list.items[i].firstname + ' ' + user_list.items[i].lastname
+					};
+				}
+
+				$('#timesheetFilter #filter_user_groups').editable({
+					"placement": "left",
+					"source": [
+						{value: 'worker', text: 'worker'},
+						{value: 'manager', text: 'manager'},
+						{value: 'admin', text: 'admin'}
+					],
+					"value": (typeof user.clientSettings.filter_user_groups !== 'undefined')?user.clientSettings.filter_user_groups:null
+				});
+
+				$('#timesheetFilter #filter_projects').editable({
+					"placement": "left",
+					"source": project_source,
+					"value": (typeof user.clientSettings.filter_projects !== 'undefined')?user.clientSettings.filter_projects:null
+				});
+
+				$('#timesheetFilter #filter_assignee').editable({
+					"placement": "left",
+					"source": assignee_source,
+					"value": (typeof user.clientSettings.filter_assignee !== 'undefined')?user.clientSettings.filter_assignee:39
+				});
+
+				// приоритет
+				$("#timesheetFilter #filter_priority").editable({
+					"placement": "left",
+					source: editable_sources.priority,
+					"value": (typeof user.clientSettings.filter_priority !== 'undefined')?user.clientSettings.filter_priority:null
+				});
+
+				//  статус задачи
+				$("#timesheetFilter #filter_status").editable({
+					"placement": "left",
+					source: editable_sources.status,
+					"value": (typeof user.clientSettings.filter_status !== 'undefined')?user.clientSettings.filter_status:null
+				});
+
+				cb();
+			});
 		});
 	});
 }
@@ -367,6 +423,17 @@ $(document).ready(function() {
 					});
 				});
 			});
+		});
+	});
+
+	$("#content-wrapper").on('click', "#saveTimesheetFilter", function() {
+		var data = xeditableSerialize("#timesheetFilter");
+
+		data['id'] = 39; // HACK!!!!!!!!!!!!
+
+		API.put.user.clientSettings(data, function(){
+			renderTimesheet();
+			$(".filter-options").slideToggle();
 		});
 	});
 });

@@ -1,7 +1,7 @@
 <script>
 $(document).ready(function(){
-	init_timesheet_interface();
-	renderTimesheet();
+	init_timesheet_interface(renderTimesheet);
+
 });
 </script>
 
@@ -20,20 +20,34 @@ $(document).ready(function(){
 			<span class="panel-title"><i class="panel-title-icon fa fa-comments-o"></i>Настройки фильтра</span>
 		</div>
 		<div class="panel-body">
+			<form id="timesheetFilter">
 			<table id="user" class="table table-bordered table-striped" style="clear: both">
 				<tbody>
 					<tr>
 						<td width="35%">Группы пользователей</td>
-						<td width="65%"><a href="#" id="filter_user_groups" data-type="checklist" class="editable editable-click" data-title="Выберите группы">Выбор</a></td>
+						<td width="65%"><a href="#" id="filter_user_groups" data-type="checklist" class="editable editable-click" data-title="Выберите группы"></a></td>
 					</tr>
 					<tr>
 						<td>Проекты</td>
-						<td><a href="#" id="filter_projects" data-type="checklist" data-title="Укажите проекты" class="editable editable-click" data-original-title="" title="">Выбор</a></td>
+						<td><a href="#" id="filter_projects" data-type="checklist" data-title="Укажите проекты" class="editable editable-click"></a></td>
+					</tr>
+					<tr>
+						<td>Пользователи</td>
+						<td><a href="#" id="filter_assignee" data-type="checklist" class="editable editable-click"></a></td>
+					</tr>
+					<tr>
+						<td>Приоритет</td>
+						<td><a href="#" id="filter_priority" data-type="checklist" class="editable editable-click"></a></td>
+					</tr>
+					<tr>
+						<td>Статус</td>
+						<td><a href="#" id="filter_status" data-type="checklist" class="editable editable-click"></a></td>
 					</tr>
 				</tbody>
 			</table>
 			<div class="alert alert-warning">Внимание! Большой список пользователей и проектов может привезти к замедлению работы страницы!</div>
-			<button class="btn btn-flat btn-sm btn-success">OK</button>
+			<input type='submit' class="btn btn-flat btn-sm btn-success" id="saveTimesheetFilter">
+			</form>
 		</div>
 	</div>
 </div>

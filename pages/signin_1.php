@@ -20,10 +20,10 @@ else {
 	<div class="signin-container">
 		<!-- Левая часть -->
 		<div class="signin-info">
-			<a href="index.php" class="logo">
+			<span href="index.php" class="logo">
 				<img src="../img/logo-18x18.png" alt="" style="margin-top: -5px;">&nbsp;
 				Админка
-			</a>
+			</span>
 			<div class="slogan">
 				Просто. Гибко. Удобно.
 			</div>

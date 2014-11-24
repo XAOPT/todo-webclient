@@ -249,6 +249,26 @@ API = {
 	}
 }
 
+API.get.user.clientSettings = function(params, cb) {
+	if (typeof params.id === 'undefined')
+		return;
+
+	_api.ajax('get', "/user/"+params.id+'/clientSettings/', cb);
+}
+
+API.put.user.clientSettings = function(params, cb) {
+	_api.params = params;
+
+	var url = "/user/";
+
+	if (typeof params.id !== 'undefined') {
+		url = url+params.id+"/";
+		delete params.id;
+	}
+
+	_api.ajax('put', url+'clientSettings/', cb);
+}
+
 API.delete.task.attachment = function(params, cb) {
 	_api.params = params;
 	_api.ajax('delete', "/task/attachment/", cb);
@@ -486,9 +506,27 @@ function bb2html(bb) {
 	return bb;
 }
 
+/*
+	возвращает значение query-параметра адресной строки по его имени
+*/
 function getParameterByName(name) {
     name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
     var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
         results = regex.exec(window.location.href);
     return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
+}
+
+/*
+	получает значения всех полей, к которым применён jquery плагин "bootstrap x-editable" внутри элемента с селектором selector
+*/
+function xeditableSerialize(selector) {
+	var data = {};
+	$(selector+" .editable").editable().each(function(item, obj){
+		var id = $(obj).attr('id');
+
+		var edit_data = $('#'+id).editable().data().editable;
+		if (edit_data.value)
+			data[id] = edit_data.value;
+	});
+	return data;
 }
