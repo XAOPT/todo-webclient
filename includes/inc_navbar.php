@@ -43,8 +43,8 @@
 
 							<!-- NOTIFICATIONS -->
 
-							<div class="dropdown-menu widget-notifications no-padding" style="width: 300px">
-								<div class="slimScrollDiv" style="position: relative; overflow: hidden; width: auto; height: 250px;"><div class="notifications-list" id="main-navbar-notifications" style="overflow: hidden; width: auto; height: 250px;">
+							<div class="dropdown-menu widget-notifications no-padding">
+								<div class="notifications-list" id="main-navbar-notifications">
 
 									<div class="notification">
 										<div class="notification-title text-danger">SYSTEM</div>
@@ -81,7 +81,7 @@
 										<div class="notification-icon fa fa-hdd-o bg-warning"></div>
 									</div> <!-- / .notification -->
 
-								</div><div class="slimScrollBar" style="width: 7px; position: absolute; top: 0px; opacity: 0.4; display: block; border-top-left-radius: 7px; border-top-right-radius: 7px; border-bottom-right-radius: 7px; border-bottom-left-radius: 7px; z-index: 99; right: 1px; background: rgb(0, 0, 0);"></div><div class="slimScrollRail" style="width: 7px; height: 100%; position: absolute; top: 0px; display: none; border-top-left-radius: 7px; border-top-right-radius: 7px; border-bottom-right-radius: 7px; border-bottom-left-radius: 7px; opacity: 0.2; z-index: 90; right: 1px; background: rgb(51, 51, 51);"></div></div> <!-- / .notifications-list -->
+								</div> <!-- / .notifications-list -->
 								<a href="#" class="notifications-link">MORE NOTIFICATIONS</a>
 							</div> <!-- / .dropdown-menu -->
 						</li>
@@ -95,7 +95,7 @@
 							<!-- MESSAGES -->
 
 							<div class="dropdown-menu widget-messages-alt no-padding" style="width: 300px;">
-								<div class="slimScrollDiv" style="position: relative; overflow: hidden; width: auto; height: 250px;"><div class="messages-list" id="main-navbar-messages" style="overflow: hidden; width: auto; height: 250px;">
+								<div class="messages-list" id="main-navbar-messages" style="overflow: hidden; width: auto; height: 250px;">
 
 									<div class="message">
 										<img src="img/avatar1.jpg" alt="" class="message-avatar">
@@ -105,7 +105,7 @@
 											&nbsp;&nbsp;·&nbsp;&nbsp;
 											2h ago
 										</div>
-									</div> <!-- / .message -->
+									</div>
 
 									<div class="message">
 										<img src="img/avatar1.jpg" alt="" class="message-avatar">
@@ -115,9 +115,9 @@
 											&nbsp;&nbsp;·&nbsp;&nbsp;
 											2h ago
 										</div>
-									</div> <!-- / .message -->
+									</div>
 
-								</div><div class="slimScrollBar" style="width: 7px; position: absolute; top: 0px; opacity: 0.4; display: block; border-top-left-radius: 7px; border-top-right-radius: 7px; border-bottom-right-radius: 7px; border-bottom-left-radius: 7px; z-index: 99; right: 1px; background: rgb(0, 0, 0);"></div><div class="slimScrollRail" style="width: 7px; height: 100%; position: absolute; top: 0px; display: none; border-top-left-radius: 7px; border-top-right-radius: 7px; border-bottom-right-radius: 7px; border-bottom-left-radius: 7px; opacity: 0.2; z-index: 90; right: 1px; background: rgb(51, 51, 51);"></div></div> <!-- / .messages-list -->
+								</div> <!-- / .messages-list -->
 								<a href="#" class="messages-link">MORE MESSAGES</a>
 							</div> <!-- / .dropdown-menu -->
 						</li>

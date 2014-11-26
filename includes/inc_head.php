@@ -11,6 +11,7 @@
 	<link rel="stylesheet" href="css/animate.css">
 	<link rel="stylesheet/less" href="css/menu.less">
 	<link rel="stylesheet/less" href="css/content_wrapper.less">
+	<link rel="stylesheet/less" href="css/navbar.less">
 	<link rel="stylesheet/less" href="css/timesheet.less">
 
 	<script src="js/jquery-2.1.1.min.js"></script>
