@@ -13,6 +13,23 @@ else {
 var API_DOMAIN = "<?=API_DOMAIN?>";
 </script>
 
+<?php
+if (isset($_COOKIE['session_token']) && isset($_COOKIE['session_user']))
+{
+	echo "
+	<script>
+		var SESSION_KEY = '{$_COOKIE['session_token']}';
+		var SESSION_USER = '{$_COOKIE['session_user']}';
+	</script>
+	";
+}
+else {
+	include("includes/inc_signin_head.php");
+	include("pages/signin_1.php");
+	exit;
+}
+?>
+
 <?php include("includes/inc_head.php");?>
 
 <body class='main-wrapper rpo'>
