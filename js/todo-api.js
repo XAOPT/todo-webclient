@@ -258,6 +258,8 @@ API.get.user.clientSettings = function(params, cb) {
 	if (typeof params.id === 'undefined')
 		return;
 
+	_api.cache_ajax = 180;
+
 	_api.ajax('get', "/user/"+params.id+'/clientSettings/', cb);
 }
 
@@ -270,6 +272,8 @@ API.put.user.clientSettings = function(params, cb) {
 		url = url+params.id+"/";
 		delete params.id;
 	}
+
+	_api.cache_ajax = 0;
 
 	_api.ajax('put', url+'clientSettings/', cb);
 }

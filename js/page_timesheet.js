@@ -158,6 +158,7 @@ function renderTimesheet() {
 		}
 
 		$(".task-list .wrapper table tbody tr[data-holderid='"+user.id+"']").replaceWith(html);
+
 	}
 
 	this.drawTimesheetCalendar = function()
@@ -215,50 +216,62 @@ function renderTimesheet() {
 		this.drawTimesheetCalendar();
 
 		/* теперь отрисуем задачи */
-		API.get.project(function(answer) {
-			for (var i=0; i<answer.items.length; i++) {
-				this.projects[answer.items[i].id] = answer.items[i];
-			}
+		API.get.user.clientSettings({"id": 39}, function(clientSettings) {
+			clientSettings = clientSettings.clientSettings;
 
-			/* извлечём всех пользователей */
-			API.get.user({"deleted":"0", "id": 39}, function(users){
-				for (var i=0; i < users.items.length; i++) {
-					$(".task-list .wrapper table tbody, .task-hours .wrapper table tbody").html(''); // зачистим для начала табличку
-					$(".task-list .wrapper table tbody").append("<tr data-holderid='"+users.items[i].id+"'></tr>");
-					$(".task-hours .wrapper table tbody").append("<tr data-holderid='"+users.items[i].id+"'></tr>");
-
-					(function(i){
-						/* определимся с параметрами фильтрации задач */
-						var filterSettings = xeditableSerialize("#timesheetFilter");
-
-						var filter = {};
-
-						filter.project  = (typeof filterSettings.filter_projects !== 'undefined')?filterSettings.filter_projects:[3,19,21,24,25,28,33];
-						filter.assignee = (typeof filterSettings.filter_assignee !== 'undefined')?filterSettings.filter_assignee:users.items[i].id;
-						filter.status   = (typeof filterSettings.filter_status !== 'undefined')?filterSettings.filter_status:["open","inprogress"];
-						filter.assignee   = (typeof filterSettings.filter_assignee !== 'undefined')?filterSettings.filter_assignee:[39];
-						if (typeof filterSettings.filter_priority !== 'undefined') filter.priority = filterSettings.filter_priority;
-
-						/* получим все задачи для i-того пользователя с фильтрацией по проектам */
-						API.get.task(filter, function(task_answer){
-
-							/* получим для этого пользователя исключения в календаре */
-							API.get.calendar({"userid": users.items[i].id, "from": this.from, "count": this.count}, function(calendar){
-								var user_exceptions = {};
-								for (var j=0; j<calendar.items.length; j++) {
-									user_exceptions[calendar.items[j].day] = calendar.items[j];
-								}
-
-								/* отрисуем список задач пользователя на основе полученных данных */
-								this.drawUserTasks(users.items[i], task_answer.items);
-
-								/* и таблицу с часами тоже нарисуем */
-								this.drawUserTimesheet({"userid": users.items[i].id, "tasks": task_answer.items, "user_exceptions": user_exceptions});
-							});
-						});
-					})(i);
+			API.get.project(function(answer) {
+				for (var i=0; i<answer.items.length; i++) {
+					this.projects[answer.items[i].id] = answer.items[i];
 				}
-			})
+
+				//{"filter_projects":[],"filter_priority":[],"filter_assignee":["42"]}
+				var user_request_params = {
+					deleted: 0
+				};
+
+				user_request_params.id = (typeof clientSettings.filter_assignee !== 'undefined' )?clientSettings.filter_assignee:39;
+
+				/* извлечём всех пользователей */
+				API.get.user(user_request_params, function(users){
+
+					for (var i=0; i < users.items.length; i++) {
+
+						if (i == 0)
+							$(".task-list .wrapper table tbody, .task-hours .wrapper table tbody").html(''); // зачистим для начала табличку
+
+						$(".task-list .wrapper table tbody").append("<tr data-holderid='"+users.items[i].id+"'></tr>");
+						$(".task-hours .wrapper table tbody").append("<tr data-holderid='"+users.items[i].id+"'></tr>");
+
+						(function(i){
+							/* определимся с параметрами фильтрации задач */
+							var filter = {};
+
+							filter.project  = (typeof clientSettings.filter_projects !== 'undefined')?clientSettings.filter_projects:[3,19,21,24,25,28,33];
+							filter.assignee = (typeof clientSettings.filter_assignee !== 'undefined')?clientSettings.filter_assignee:users.items[i].id;
+							filter.status   = (typeof clientSettings.filter_status !== 'undefined')?clientSettings.filter_status:["open","inprogress"];
+							filter.assignee   = users.items[i].id;
+							if (typeof clientSettings.filter_priority !== 'undefined') filter.priority = clientSettings.filter_priority;
+
+							/* получим все задачи для i-того пользователя с фильтрацией по проектам */
+							API.get.task(filter, function(task_answer){
+								/* получим для этого пользователя исключения в календаре */
+								API.get.calendar({"userid": users.items[i].id, "from": this.from, "count": this.count}, function(calendar){
+									var user_exceptions = {};
+									for (var j=0; j<calendar.items.length; j++) {
+										user_exceptions[calendar.items[j].day] = calendar.items[j];
+									}
+
+									/* отрисуем список задач пользователя на основе полученных данных */
+									this.drawUserTasks(users.items[i], task_answer.items);
+
+									/* и таблицу с часами тоже нарисуем */
+									this.drawUserTimesheet({"userid": users.items[i].id, "tasks": task_answer.items, "user_exceptions": user_exceptions});
+								});
+							});
+						})(i);
+					}
+				});
+			});
 		});
 	});
 }
@@ -310,8 +323,9 @@ function init_timesheet_interface(cb) {
 		make_task_editable(".modal")
 	});
 
-	API.get.user.clientSettings({"id": 39}, function(user){
+	API.get.user.clientSettings({"id": 39}, function(user) {
 
+		// извлекаем данные для формирования фильтра
 		API.get.project(function(answer) {
 			API.get.user({"deleted": 0}, function(user_list){
 				var project_source = [];

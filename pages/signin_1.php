@@ -2,14 +2,14 @@
 
 	<div id="page-signin-bg">
 		<div class="overlay"></div>
-		<img src="../img/signin-bg-1.jpg" alt="">
+		<img src="img/signin-bg-1.jpg" alt="">
 	</div>
 
 	<div class="signin-container">
 		<!-- Левая часть -->
 		<div class="signin-info">
 			<span href="index.php" class="logo">
-				<img src="../img/logo-18x18.png" alt="" style="margin-top: -5px;">&nbsp;
+				<img src="img/logo-18x18.png" alt="" style="margin-top: -5px;">&nbsp;
 				Админка
 			</span>
 			<div class="slogan">
