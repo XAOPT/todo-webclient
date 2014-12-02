@@ -73,6 +73,7 @@ function statusChangeCallback(response) {
 
 		API.ajax_error = function(error){
 			$(".signin_error").html("Аккаунт, который можно связать с фейсбуком, не найден.").fadeIn();
+			FB.logout();
 		};
 
 		API.post.auth.fb(data, function(answer){
@@ -93,8 +94,9 @@ function statusChangeCallback(response) {
 window.fbAsyncInit = function() {
 	FB.init({
 		appId   : '391488224350326',
+		cookie  : true,
 		xfbml   : true,  // parse social plugins on this page
-		version : 'v2.2'
+		version : 'v2.1'
 	});
 
 	/*FB.getLoginStatus(function(response) {

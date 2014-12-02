@@ -85,10 +85,10 @@
 		<div class="animated fadeIn" id="menu-content-info">
 			<div class="hello-text">
 				<span class="text-slim">Привет,</span>
-				<span class="text-semibold">Manager</span>
+				<span class="text-semibold"></span>
 			</div>
 
-			<img src="img/avatar1.jpg" alt="">
+			<img id="mainmenu_avatar" src="#" alt="">
 		</div>
 		<ul class="navigation">
 			<li class="mm-dropdown">

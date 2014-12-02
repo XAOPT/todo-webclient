@@ -16,7 +16,7 @@
 
 		<div id="main-navbar-collapse" class="collapse navbar-collapse main-navbar-collapse">
 			<div>
-				<ul class="nav navbar-nav">
+				<!-- <ul class="nav navbar-nav">
 					<li>
 						<a href="#">Главная</a>
 					</li>
@@ -29,7 +29,7 @@
 							<li><a href="#">Третий пункт меню</a></li>
 						</ul>
 					</li>
-				</ul> <!-- / .navbar-nav -->
+				</ul> --> <!-- / .navbar-nav -->
 
 				<div class="right clearfix">
 					<ul class="nav navbar-nav pull-right right-navbar-nav">
@@ -131,8 +131,8 @@
 
 						<li class="dropdown">
 							<a href="#" class="dropdown-toggle user-menu" data-toggle="dropdown">
-								<img src="img/avatar1.jpg" alt="">
-								<span>Divo Manager</span>
+								<img id="navbar_avatar" src="#" alt="">
+								<span id="navbar_name">Divo Manager</span>
 							</a>
 							<ul class="dropdown-menu">
 								<li><a href="#" class="profileDialog">Профиль</a></li>

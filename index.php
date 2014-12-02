@@ -14,23 +14,28 @@ var API_DOMAIN = "<?=API_DOMAIN?>";
 </script>
 
 <?php
-if (isset($_COOKIE['session_token']) && isset($_COOKIE['session_user']))
+if (isset($_COOKIE['session_token']) && isset($_COOKIE['session_user']) && !empty($_COOKIE['session_token']) && !empty($_COOKIE['session_user']))
 {
+	include("includes/inc_head.php");
 	echo "
 	<script>
-		var SESSION_KEY = '{$_COOKIE['session_token']}';
-		var SESSION_USER = '{$_COOKIE['session_user']}';
+		var todo_session_key = '{$_COOKIE['session_token']}';
+		var todo_session_user = '{$_COOKIE['session_user']}';
 	</script>
 	";
 }
 else {
+	echo "
+	<script>
+		var todo_session_key = '';
+		var todo_session_user = '';
+	</script>
+	";
 	include("includes/inc_signin_head.php");
 	include("pages/signin_1.php");
 	exit;
 }
 ?>
-
-<?php include("includes/inc_head.php");?>
 
 <body class='main-wrapper rpo'>
 
@@ -43,8 +48,6 @@ else {
 <pre>
 TODO:
 
-НОТ! Авторизация!
-
 Задачи:
 1. Отображение в виде дерева
 
@@ -53,7 +56,7 @@ TODO:
 
 Общее:
 1. Разграничение уровней доступа
-2. Сделат ьсистему более мощного кеширования АПИ, учитывающее параметры запроса
+2. Сделать систему более мощного кеширования АПИ, учитывающее параметры запроса
 </pre>
 	</div>
 

@@ -1,4 +1,5 @@
 API = {
+	me: {},
 	url: API_DOMAIN,
 	params: {},
 	cache_ajax: 0,
@@ -10,7 +11,11 @@ API = {
 		}
 		*/
 	},
-
+	not_authed: function(){
+		$.cookie('session_token', "");
+		$.cookie('session_user', "");
+		window.location = "/";
+	},
 	clear_cache: function(element) {
 		if (typeof this.cache[element] !== 'undefined') {
 			delete this.cache[element];
@@ -36,6 +41,11 @@ API = {
 		console.log(error);
 	},
 	ajax: function(method, url, cb) {
+		if ((typeof todo_session_key === 'undefined' || typeof todo_session_user === 'undefined') && url !== '/auth/fb/') {
+			API.not_authed();
+			return;
+		}
+
 		var data = _api.params;
 		var cache_ajax = _api.cache_ajax;
 
@@ -59,6 +69,10 @@ API = {
 			}
 		}
 
+		if (typeof todo_session_key !== 'undefined' && typeof todo_session_user !== 'undefined') {
+			url += "?auth_token="+todo_session_key+"&session_user="+todo_session_user;
+		}
+
 		$.ajax({
 			type: method,
 			url: _api.url+url,
@@ -79,9 +93,31 @@ API = {
 					cb(answer);
 			},
 			error: function(error) {
-				API.ajax_error(error)
+				if (typeof error.status !== 'undefined'
+					&& error.status == '401'
+					)
+				{
+					API.not_authed();
+					return;
+				}
+
+				API.ajax_error(error);
 			}
 		});
+	},
+	get_me: function(cb) {
+		if (typeof API.me.id !== 'undefined') {
+			cb();
+		}
+		else if (typeof todo_session_user !== 'undefined') {
+			API.get.user({id: todo_session_user}, function(users) {
+				API.me = users.items[0];
+				cb();
+			});
+		}
+		else {
+			API.not_authed();
+		}
 	},
 	/*---------------------------- */
 

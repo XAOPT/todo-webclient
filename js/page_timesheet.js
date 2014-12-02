@@ -216,7 +216,7 @@ function renderTimesheet() {
 		this.drawTimesheetCalendar();
 
 		/* теперь отрисуем задачи */
-		API.get.user.clientSettings({"id": 39}, function(clientSettings) {
+		API.get.user.clientSettings({"id": API.me.id}, function(clientSettings) {
 			clientSettings = clientSettings.clientSettings;
 
 			API.get.project(function(answer) {
@@ -323,7 +323,7 @@ function init_timesheet_interface(cb) {
 		make_task_editable(".modal")
 	});
 
-	API.get.user.clientSettings({"id": 39}, function(user) {
+	API.get.user.clientSettings({"id": API.me.id}, function(user) {
 
 		// извлекаем данные для формирования фильтра
 		API.get.project(function(answer) {
@@ -365,7 +365,7 @@ function init_timesheet_interface(cb) {
 				$('#timesheetFilter #filter_assignee').editable({
 					"placement": "left",
 					"source": assignee_source,
-					"value": (typeof user.clientSettings.filter_assignee !== 'undefined')?user.clientSettings.filter_assignee:39
+					"value": (typeof user.clientSettings.filter_assignee !== 'undefined')?user.clientSettings.filter_assignee:API.me.id
 				});
 
 				// приоритет
@@ -382,7 +382,9 @@ function init_timesheet_interface(cb) {
 					"value": (typeof user.clientSettings.filter_status !== 'undefined')?user.clientSettings.filter_status:null
 				});
 
-				cb();
+				API.get_me(function(){
+					renderTimesheet();
+				});
 			});
 		});
 	});
@@ -443,11 +445,12 @@ $(document).ready(function() {
 	$("#content-wrapper").on('click', "#saveTimesheetFilter", function() {
 		var data = xeditableSerialize("#timesheetFilter");
 
-		data['id'] = 39; // HACK!!!!!!!!!!!!
-
-		API.put.user.clientSettings(data, function(){
-			renderTimesheet();
-			$(".filter-options").slideToggle();
+		API.get_me(function(){
+			data['id'] = API.me.id;
+			API.put.user.clientSettings(data, function(){
+				renderTimesheet();
+				$(".filter-options").slideToggle();
+			});
 		});
 	});
 });

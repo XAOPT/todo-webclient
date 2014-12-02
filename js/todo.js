@@ -49,6 +49,15 @@ $(document).ready(function() {
 		}).open();
 	};
 
+	/**/
+
+	API.get_me(function(){
+		$(".hello-text > .text-semibold").html(API.me.firstname);
+		$("#navbar_name").html(API.me.firstname + ' ' + API.me.lastname);
+		$("#navbar_avatar, #mainmenu_avatar").attr("src", "http://www.gravatar.com/avatar/"+md5(API.me.email)+"?d=mm");
+	});
+
+
 	/* дефолтные настройки для гроула */
 
 	$.growl(false, {
