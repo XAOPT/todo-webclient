@@ -12,8 +12,8 @@ API = {
 		*/
 	},
 	not_authed: function(){
-		$.cookie('session_token', "");
-		$.cookie('session_user', "");
+		$.cookie('session_token', "", { expires: 0 });
+		$.cookie('session_user', "", { expires: 0 });
 		window.location = "/";
 	},
 	clear_cache: function(element) {

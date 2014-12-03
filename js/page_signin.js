@@ -47,8 +47,8 @@ $(document).ready(function(){
 
 		API.post.auth({"email": email, "pwd": pwd}, function(answer){
 			if (typeof answer.auth_token !== 'undefined' && typeof answer.userid !== 'undefined') {
-				$.cookie('session_token', answer.auth_token, { expires: 7, path: '/' });
-				$.cookie('session_user', answer.userid, { expires: 7, path: '/' });
+				$.cookie('session_token', answer.auth_token, { expires: 7 });
+				$.cookie('session_user', answer.userid, { expires: 7 });
 				location.reload();
 			}
 		});
