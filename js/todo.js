@@ -143,6 +143,10 @@ $(document).ready(function() {
 		});
 	});
 
+	$("#logoutButton").click(function(event){
+		API.not_authed();
+	});
+
 	/* timesheet */
 
 	$("#content-wrapper").on('dblclick', '.timesheet-day', function() {

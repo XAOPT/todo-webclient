@@ -296,7 +296,12 @@ API.get.user.clientSettings = function(params, cb) {
 
 	_api.cache_ajax = 180;
 
-	_api.ajax('get', "/user/"+params.id+'/clientSettings/', cb);
+	_api.ajax('get', "/user/"+params.id+'/clientSettings/', function(answer){
+		if (typeof answer !== 'undefined' && typeof answer.clientSettings !== 'undefined')
+			cb(answer.clientSettings);
+		else
+			cb({});
+	});
 }
 
 API.put.user.clientSettings = function(params, cb) {

@@ -139,7 +139,7 @@
 								<li><a href="#">Аккаунт</a></li>
 								<li><a href="#"><i class="dropdown-icon fa fa-cog"></i>&nbsp;&nbsp;Настройки</a></li>
 								<li class="divider"></li>
-								<li><a href="pages-signin.php"><i class="dropdown-icon fa fa-power-off"></i>&nbsp;&nbsp;Выход</a></li>
+								<li><a id="logoutButton" href="#"><i class="dropdown-icon fa fa-power-off"></i>&nbsp;&nbsp;Выход</a></li>
 							</ul>
 						</li>
 					</ul> <!-- / .navbar-nav -->

@@ -37,7 +37,7 @@ $(document).ready(function(){
 		return false;
 	});
 
-	$(document).on('click', '.signin-btn', function(){
+	$(document).on('click', '.signin-submit', function(){
 		email = $("input[name='signin_username']").val();
 		pwd   = $("input[name='signin_password']").val();
 
@@ -52,6 +52,12 @@ $(document).ready(function(){
 				location.reload();
 			}
 		});
+	});
+
+	$("input[name='signin_username'], input[name='signin_password']").keypress(function(e) {
+    	if(e.which == 13) {
+        	$('.signin-submit').click();
+    	}
 	});
 });
 

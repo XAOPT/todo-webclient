@@ -14,44 +14,6 @@ $(document).ready(function(){
 </div>
 
 <div class="row">
-	<div class="col-sm-12 filter-options panel" style='display: none;'>
-		<div class="panel-heading">
-			<span class="panel-title"><i class="panel-title-icon fa fa-comments-o"></i>Настройки фильтра</span>
-		</div>
-		<div class="panel-body">
-			<form id="timesheetFilter">
-			<table id="user" class="table table-bordered table-striped" style="clear: both">
-				<tbody>
-					<tr>
-						<td width="35%">Группы пользователей</td>
-						<td width="65%"><a href="#" id="filter_user_groups" data-type="checklist" class="editable editable-click" data-title="Выберите группы"></a></td>
-					</tr>
-					<tr>
-						<td>Проекты</td>
-						<td><a href="#" id="filter_projects" data-type="checklist" data-title="Укажите проекты" class="editable editable-click"></a></td>
-					</tr>
-					<tr>
-						<td>Пользователи</td>
-						<td><a href="#" id="filter_assignee" data-type="checklist" class="editable editable-click"></a></td>
-					</tr>
-					<tr>
-						<td>Приоритет</td>
-						<td><a href="#" id="filter_priority" data-type="checklist" class="editable editable-click"></a></td>
-					</tr>
-					<tr>
-						<td>Статус</td>
-						<td><a href="#" id="filter_status" data-type="checklist" class="editable editable-click"></a></td>
-					</tr>
-				</tbody>
-			</table>
-			<div class="alert alert-warning">Внимание! Большой список пользователей и проектов может привезти к замедлению работы страницы!</div>
-			<input type='submit' class="btn btn-flat btn-sm btn-success" id="saveTimesheetFilter">
-			</form>
-		</div>
-	</div>
-</div>
-
-<div class="row">
 	<div class="col-sm-12">
 
 		<div id="timesheet">

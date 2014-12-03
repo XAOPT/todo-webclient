@@ -217,7 +217,6 @@ function renderTimesheet() {
 
 		/* теперь отрисуем задачи */
 		API.get.user.clientSettings({"id": API.me.id}, function(clientSettings) {
-			clientSettings = clientSettings.clientSettings;
 
 			API.get.project(function(answer) {
 				for (var i=0; i<answer.items.length; i++) {
@@ -229,7 +228,7 @@ function renderTimesheet() {
 					deleted: 0
 				};
 
-				user_request_params.id = (typeof clientSettings.filter_assignee !== 'undefined' )?clientSettings.filter_assignee:39;
+				user_request_params.id = (typeof clientSettings.filter_assignee !== 'undefined' )?clientSettings.filter_assignee:API.me.id;
 
 				/* извлечём всех пользователей */
 				API.get.user(user_request_params, function(users){
@@ -291,8 +290,87 @@ function init_timesheet_interface(cb) {
 		}
 	});
 
+	/* нажатие на кнопку настройки фильтра задач */
 	$("#toggle-filter-options").click(function(){
-		$(".filter-options").slideToggle();
+		BootstrapDialog.confirm(TEMPLATES.task_filter(), {
+				title: "<h5>Настройки фильтра</h5>"
+			}, function(result, dialogRef) {
+				/* если пользователь нажал кнопку "добавить" - сабмитим форму */
+				if (result) {
+					var data = xeditableSerialize("#timesheetFilter");
+
+					API.get_me(function(){
+						data['id'] = API.me.id;
+						API.put.user.clientSettings(data, function(){
+							renderTimesheet();
+							//$(".filter-options").slideToggle();
+						});
+					});
+				}
+			}
+		);
+
+		API.get.user.clientSettings({"id": API.me.id}, function(clientSettings) {
+
+			// извлекаем данные для формирования фильтра
+			API.get.project(function(answer) {
+				API.get.user({"deleted": 0}, function(user_list){
+					var project_source = [];
+					var assignee_source = [];
+
+					for (var i=0; i<answer.items.length; i++)
+					{
+						project_source[i] = {
+							value: answer.items[i].id,
+							text: answer.items[i].title
+						};
+					}
+					for (var i=0; i<user_list.items.length; i++)
+					{
+						assignee_source[i] = {
+							value: user_list.items[i].id,
+							text: user_list.items[i].firstname + ' ' + user_list.items[i].lastname
+						};
+					}
+
+					$('#timesheetFilter #filter_user_groups').editable({
+						"placement": "left",
+						"source": [
+							{value: 'worker', text: 'worker'},
+							{value: 'manager', text: 'manager'},
+							{value: 'admin', text: 'admin'}
+						],
+						"value": (typeof clientSettings.filter_user_groups !== 'undefined')?clientSettings.filter_user_groups:null
+					});
+
+					$('#timesheetFilter #filter_projects').editable({
+						"placement": "left",
+						"source": project_source,
+						"value": (typeof clientSettings.filter_projects !== 'undefined')?clientSettings.filter_projects:null
+					});
+
+					$('#timesheetFilter #filter_assignee').editable({
+						"placement": "left",
+						"source": assignee_source,
+						"value": (typeof clientSettings.filter_assignee !== 'undefined')?clientSettings.filter_assignee:API.me.id
+					});
+
+					// приоритет
+					$("#timesheetFilter #filter_priority").editable({
+						"placement": "left",
+						source: editable_sources.priority,
+						"value": (typeof clientSettings.filter_priority !== 'undefined')?clientSettings.filter_priority:null
+					});
+
+					//  статус задачи
+					$("#timesheetFilter #filter_status").editable({
+						"placement": "left",
+						source: editable_sources.status,
+						"value": (typeof clientSettings.filter_status !== 'undefined')?clientSettings.filter_status:null
+					});
+				});
+			});
+		});
 	});
 
 	/* кнопка добавления таска. открывает диалог и оживляет его */
@@ -320,73 +398,11 @@ function init_timesheet_interface(cb) {
 			});
 		});
 
-		make_task_editable(".modal")
+		make_task_editable(".modal");
 	});
 
-	API.get.user.clientSettings({"id": API.me.id}, function(user) {
-
-		// извлекаем данные для формирования фильтра
-		API.get.project(function(answer) {
-			API.get.user({"deleted": 0}, function(user_list){
-				var project_source = [];
-				var assignee_source = [];
-
-				for (var i=0; i<answer.items.length; i++)
-				{
-					project_source[i] = {
-						value: answer.items[i].id,
-						text: answer.items[i].title
-					};
-				}
-				for (var i=0; i<user_list.items.length; i++)
-				{
-					assignee_source[i] = {
-						value: user_list.items[i].id,
-						text: user_list.items[i].firstname + ' ' + user_list.items[i].lastname
-					};
-				}
-
-				$('#timesheetFilter #filter_user_groups').editable({
-					"placement": "left",
-					"source": [
-						{value: 'worker', text: 'worker'},
-						{value: 'manager', text: 'manager'},
-						{value: 'admin', text: 'admin'}
-					],
-					"value": (typeof user.clientSettings.filter_user_groups !== 'undefined')?user.clientSettings.filter_user_groups:null
-				});
-
-				$('#timesheetFilter #filter_projects').editable({
-					"placement": "left",
-					"source": project_source,
-					"value": (typeof user.clientSettings.filter_projects !== 'undefined')?user.clientSettings.filter_projects:null
-				});
-
-				$('#timesheetFilter #filter_assignee').editable({
-					"placement": "left",
-					"source": assignee_source,
-					"value": (typeof user.clientSettings.filter_assignee !== 'undefined')?user.clientSettings.filter_assignee:API.me.id
-				});
-
-				// приоритет
-				$("#timesheetFilter #filter_priority").editable({
-					"placement": "left",
-					source: editable_sources.priority,
-					"value": (typeof user.clientSettings.filter_priority !== 'undefined')?user.clientSettings.filter_priority:null
-				});
-
-				//  статус задачи
-				$("#timesheetFilter #filter_status").editable({
-					"placement": "left",
-					source: editable_sources.status,
-					"value": (typeof user.clientSettings.filter_status !== 'undefined')?user.clientSettings.filter_status:null
-				});
-
-				API.get_me(function(){
-					renderTimesheet();
-				});
-			});
-		});
+	API.get_me(function(){
+		renderTimesheet();
 	});
 }
 
@@ -432,24 +448,12 @@ $(document).ready(function() {
 					make_task_editable("#description");
 					new Dropzone(".dropzone", {
 						dictDefaultMessage: "<i class='fa fa-cloud-upload'></i>Перетащите сюда файл<br><span class='dz-text-small'>или нажмите для выбора из каталога</span>",
-						url: API.url+"/task/"+taskid+"/attachment",
+						url: API.url+"/task/"+taskid+"/attachment?auth_token="+todo_session_key+"&session_user="+todo_session_user,
 						error: function(file, error) {
 							$.growl("<b>"+error.ErrorCode+":</b> "+error.ErrorMessage, {type: "danger"});
 						}
 					});
 				});
-			});
-		});
-	});
-
-	$("#content-wrapper").on('click', "#saveTimesheetFilter", function() {
-		var data = xeditableSerialize("#timesheetFilter");
-
-		API.get_me(function(){
-			data['id'] = API.me.id;
-			API.put.user.clientSettings(data, function(){
-				renderTimesheet();
-				$(".filter-options").slideToggle();
 			});
 		});
 	});

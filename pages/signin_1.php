@@ -44,7 +44,7 @@
 			</div>
 
 			<div class="form-actions">
-				<input type="button" value="Войти" class="signin-btn bg-primary">
+				<input type="button" value="Войти" class="signin-submit signin-btn bg-primary">
 				<a href="#" class="forgot-password" id="forgot-password-link">Забыли пароль?</a>
 			</div>
 			<!-- / Форма -->
