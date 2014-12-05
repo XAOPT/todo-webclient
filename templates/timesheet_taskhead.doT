@@ -1,5 +1,5 @@
 <tr>
-	<td colspan="5" class="user">
+	<td colspan="2" class="user">
 	<img class="avatar {{? it.user.deleted }}grayscale{{?}}" src="{{? it.user.email }}http://www.gravatar.com/avatar/{{=md5(it.user.email)}}?d=mm{{??}}img/avatar1.jpg{{?}}">
 	{{=it.user.firstname}} {{=it.user.lastname}}
 	</td>
@@ -7,9 +7,6 @@
 {{~it.tasks :task:index}}
 <tr data-taskid="{{=task.params.id}}">
 	<td class="tp" style="background-color: {{=task.project_tagcolor}}">{{=task.project_shorttitle}}</td>
-	<td></td>
 	<td class="tt priority-{{=task.params.priority}}">{{=task.params.title}}</td>
-	<td></td>
-	<td></td>
 </tr>
 {{~}}

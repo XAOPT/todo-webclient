@@ -65,8 +65,8 @@ function renderTimesheet() {
 	instance = this;
 	this.current_timestamp = new Date().getTime();
 	this.current_day = parseInt(current_timestamp/86400/1000);
-	this.from = current_day - 30*4;
-	this.count = 131;
+	this.from = current_day - 30*3;
+	this.count = 100;
 	this.projects = {};
 
 	this.is_weakend = function(day_int) {

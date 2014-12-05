@@ -1,6 +1,6 @@
 <tr class="timesheet_summary">
 	{{~it.summary :hours:day_index}}
-	<td>{{?hours>0}}{{=hours}}{{?}}</td>
+	<td>{{?hours>0}}{{=hours}}{{??}}&nbsp;{{?}}</td>
 	{{~}}
 </tr>
 

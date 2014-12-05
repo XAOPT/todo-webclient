@@ -35,22 +35,22 @@
 		z-index: 600;
 		position: absolute;
 		height: 100%;
+		padding-bottom: 18px;
 
 		.wrapper {
 			overflow: hidden;
 		}
 
-		td, th {
-			width: 20px;
+		table {
+			width: @task-list-width;
 		}
-
 		// ячейка с названием задачи в левой колонке
-		td.tt {
-			max-width: 80px;
+		td.tt, th.tt {
 			text-align: left;
-			font-size: 11px;
 			padding-left: 4px;
 			cursor: pointer;
+			width: 230px;
+			max-width: 230px;
 
 			&.priority-3 {
 				padding-left: 20px;
@@ -71,8 +71,9 @@
 			}
 		}
 
-		td.tp {
+		td.tp, th.tp {
 			color: #FFF;
+			width: 50px;
 		}
 
 		// строка с именем пользователя в левой колонке

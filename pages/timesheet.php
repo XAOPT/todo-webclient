@@ -21,14 +21,11 @@ $(document).ready(function(){
 				<table class="table table-bordered table-primary">
 					<thead>
 						<tr>
-							<th colspan='5'>Задачи по пользователям</th>
+							<th colspan='2'>Задачи по пользователям</th>
 						</tr>
 						<tr>
-							<th>Пр</th>
-							<th></th>
+							<th class='tp'>Пр</th>
 							<th class='tt'>Название</th>
-							<th>Тр</th>
-							<th>Ф.тр</th>
 						</tr>
 					</thead>
 				</table>
