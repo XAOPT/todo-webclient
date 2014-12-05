@@ -1,8 +1,5 @@
 <div class="row">
 	<div class="col-sm-12 filter-options panel">
-		<div class="panel-heading">
-			<span class="panel-title"><i class="panel-title-icon fa fa-comments-o"></i>Настройки фильтра</span>
-		</div>
 		<div class="panel-body">
 			<form id="timesheetFilter">
 			<table id="user" class="table table-bordered table-striped" style="clear: both">

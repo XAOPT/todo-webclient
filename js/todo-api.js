@@ -304,6 +304,15 @@ API.get.user.clientSettings = function(params, cb) {
 	});
 }
 
+API.get.timesheet.summary = function(params, cb) {
+	if (typeof params.userid === 'undefined')
+		return;
+
+	_api.params = params;
+
+	_api.ajax('get', "/timesheet/"+params.userid+'/summary/', cb);
+}
+
 API.put.user.clientSettings = function(params, cb) {
 	_api.params = params;
 

@@ -1,4 +1,9 @@
-<tr><td colspan="{{=it.day_count}}">&nbsp;</td></tr>
+<tr class="timesheet_summary">
+	{{~it.summary :hours:day_index}}
+	<td>{{?hours>0}}{{=hours}}{{?}}</td>
+	{{~}}
+</tr>
+
 {{~it.task :task:index}}
 	<tr data-taskid="{{=task.taskid}}" data-userid="{{=task.userid}}">
 	{{~task.days :day:day_index}}

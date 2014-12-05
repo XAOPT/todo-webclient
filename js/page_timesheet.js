@@ -81,84 +81,97 @@ function renderTimesheet() {
 	{
 		var tpl_data = {
 			"day_count": this.count,
-			"task": []
+			"task": [],
+			"summary": []
 		};
+
 		if (params.tasks.length == 0) {
 			$(".task-hours .wrapper table tbody tr[data-holderid='"+params.userid+"']").replaceWith("<tr><td colspan="+this.count+">&nbsp;</td></tr>");
 			return;
 		}
 
-		var task_ids = [];
+		var task_ids = []; // соберём айдишники тасков, чтобы отправить их в апи для получения часов
 		for (var i=0; i<params.tasks.length; i++) {
 			task_ids[i] = params.tasks[i].id;
 		}
 
-		API.get.timesheet({"userid": params.userid, "taskid":task_ids}, function(answer) {
+		API.get.timesheet.summary({"userid": params.userid, "from": this.from, "count": this.count}, function(answer) {
 
-			for (var i=0; i < answer.taskid.length; i++) {
-
-				var current_task = answer.taskid[i];
-
-				var current_task_days = {};
-
-				var length = answer.items.length;
-				for (var j = 0; j < length; j++) {
-					if (current_task == answer.items[j].taskid)
-						current_task_days[answer.items[j].day] = answer.items[j];
-				}
-
-				tpl_data.task[i] = {
-					"taskid": answer.taskid[i],
-					"userid": answer.userid,
-					"days": []
-				};
-
-				for (var j = this.from; j < this.from + this.count; j++) {
-
-					var day_kind = this.is_weakend(j);
-
-					if (typeof params.user_exceptions[j] !== 'undefined') {
-						day_kind = params.user_exceptions[j].kind; // пользовательские исключения для календаря выше в приоритете
-					}
-					else if (typeof this.global_exceptions[j] !== 'undefined') {
-						day_kind = this.global_exceptions[j].kind; // глобальные исключения для календаря
-					}
-
-					tpl_data.task[i].days[j-this.from] = {
-						"day": j,
-						"day_kind": day_kind,
-						"hours": (typeof current_task_days[j] !== 'undefined')?current_task_days[j].worktimeSeconds/3600:"&nbsp;",
-						"comment": (typeof current_task_days[j] !== 'undefined')?current_task_days[j].comment:""
-					};
-				}
+			var items = answer.items;
+			for (var i=0; i < items.length; i++){
+				tpl_data.summary[items[i].day-this.from] = items[i].worktimeSeconds/3600;
 			}
 
-			html = TEMPLATES.timesheet_taskbody(tpl_data);
+			for (i=0; i<this.count; i++) {
+				if (typeof tpl_data.summary[i] === 'undefined')
+					tpl_data.summary[i] = 0;
+			}
+			console.log(tpl_data);
 
-			$(".task-hours .wrapper table tbody tr[data-holderid='"+params.userid+"']").replaceWith(html);
-			$(".task-hours .wrapper").animate({scrollLeft: 9999}, 0);
+			API.get.timesheet({"userid": params.userid, "taskid":task_ids}, function(answer) {
+
+				for (var i=0; i < answer.taskid.length; i++) {
+
+					var current_task = answer.taskid[i];
+
+					var current_task_days = {};
+
+					var length = answer.items.length;
+					for (var j = 0; j < length; j++) {
+						if (current_task == answer.items[j].taskid)
+							current_task_days[answer.items[j].day] = answer.items[j];
+					}
+
+					tpl_data.task[i] = {
+						"taskid": answer.taskid[i],
+						"userid": answer.userid,
+						"days": []
+					};
+
+					for (var j = this.from; j < this.from + this.count; j++) {
+
+						var day_kind = this.is_weakend(j);
+
+						if (typeof params.user_exceptions[j] !== 'undefined') {
+							day_kind = params.user_exceptions[j].kind; // пользовательские исключения для календаря выше в приоритете
+						}
+						else if (typeof this.global_exceptions[j] !== 'undefined') {
+							day_kind = this.global_exceptions[j].kind; // глобальные исключения для календаря
+						}
+
+						tpl_data.task[i].days[j-this.from] = {
+							"day": j,
+							"day_kind": day_kind,
+							"hours": (typeof current_task_days[j] !== 'undefined')?current_task_days[j].worktimeSeconds/3600:"&nbsp;",
+							"comment": (typeof current_task_days[j] !== 'undefined')?current_task_days[j].comment:""
+						};
+					}
+				}
+
+				html = TEMPLATES.timesheet_taskbody(tpl_data);
+
+				$(".task-hours .wrapper table tbody tr[data-holderid='"+params.userid+"']").replaceWith(html);
+				$(".task-hours .wrapper").animate({scrollLeft: 9999}, 0);
+			});
 		});
-
-
 	}
 
-	this.drawUserTasks = function(user,tasks)
+	this.drawUserTasks = function(user, tasks)
 	{
-		var html = '';
-		html += TEMPLATES.timesheet_taskhead_user(user);
+		var tpl_data = {
+			"user": user,
+			"tasks": []
+		};
 
 		for (var i=0; i<tasks.length; i++) {
-			var tpl_data = {
-				"tagcolor": (typeof this.projects[tasks[i].project] !== 'undefined')?this.projects[tasks[i].project].tagcolor:'',
-				"shorttitle": (typeof this.projects[tasks[i].project] !== 'undefined')?this.projects[tasks[i].project].shorttitle:'',
-				"task": tasks[i]
+			tpl_data.tasks[i] = {
+				"project_tagcolor": (typeof this.projects[tasks[i].project] !== 'undefined')?this.projects[tasks[i].project].tagcolor:'',
+				"project_shorttitle": (typeof this.projects[tasks[i].project] !== 'undefined')?this.projects[tasks[i].project].shorttitle:'',
+				"params": tasks[i]
 			}
-
-			html += TEMPLATES.timesheet_taskhead(tpl_data);
 		}
 
-		$(".task-list .wrapper table tbody tr[data-holderid='"+user.id+"']").replaceWith(html);
-
+		$(".task-list .wrapper table tbody tr[data-holderid='"+user.id+"']").replaceWith(TEMPLATES.timesheet_taskhead(tpl_data));
 	}
 
 	this.drawTimesheetCalendar = function()
@@ -454,6 +467,73 @@ $(document).ready(function() {
 						}
 					});
 				});
+			});
+		});
+	});
+
+	/* форма изменения типа дня на выходной-рабочий */
+	$("#content-wrapper").on('dblclick', '.timesheet-day', function() {
+		var day = $(this).data("day");
+		var day_kind = $(this).data("kind");
+
+		API.get.calendar({"from": day, "count": 1}, function(answer) {
+			day_kind = (typeof answer.items[0] !== 'undefined')?answer.items[0].kind:day_kind;
+
+			BootstrapDialog.confirm(TEMPLATES.calendar_edit({day: day, kind: day_kind}), function(result, dialogRef){
+				if (result) {
+					data = {};
+					dialogRef.getModal().find('form').serializeArray().map(function(item) {
+						if (item.name == 'dayoff' && item.value == 'on')
+							data['kind'] = 'dayoff';
+						else
+							data[item.name] = item.value;
+					});
+
+					if (typeof data['kind'] === 'undefined')
+						data['kind'] = 'workday';
+
+					API.put.calendar(data);
+
+					// изменим стиль у выбранной ячейки дня
+					$(".task-hours table thead").find("TH[data-day="+data.day+"]").removeClass("workday, dayoff").addClass(data.kind);
+				}
+			});
+		});
+	});
+
+	/* форма редактирования количества часов потраченных на выполнение задачи в какой-то день + комментарий */
+	$("#content-wrapper").on('dblclick', '.task-hours td', function() {
+		var day = $(this).data("day");
+		var taskid = $(this).parent().data("taskid");
+		var userid = $(this).parent().data("userid");
+
+		API.get.timesheet({"from": day, "count": 1, "userid": userid, "taskid": taskid}, function(answer) {
+
+			var tpl_data = {
+				'day': day,
+				'taskid': taskid,
+				'userid': userid,
+				'item': answer.items[0]
+			};
+
+			if (typeof answer.items[0] != 'undefined') {
+				tpl_data.item.worktimeHours = tpl_data.item.worktimeSeconds/3600;
+			}
+
+			BootstrapDialog.confirm(TEMPLATES.timesheet_edit(tpl_data), function(result, dialogRef){
+				if (result) {
+					data = {};
+					dialogRef.getModal().find('form').serializeArray().map(function(item) {
+						if (item.name == 'worktimeHours')
+							data['worktimeSeconds'] = item.value*3600;
+
+						data[item.name] = item.value;
+					});
+
+					API.put.timesheet(data, function(data){
+						renderTimesheet();
+					}.call(this, data));
+				}
 			});
 		});
 	});
