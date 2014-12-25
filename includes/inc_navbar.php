@@ -9,7 +9,7 @@
 			<!-- Logo -->
 			<a href="index.php" class="navbar-brand">
 				<div><img src="img/logo-18x18.png"></div>
-				Тестовый сервер
+				Todo
 			</a>
 
 		</div> <!-- / .navbar-header -->

@@ -271,7 +271,6 @@ API = {
 		},
 		project: function(params, cb) {
 			_api.params = params;
-			console.log(params);
 
 			var url = "/project/";
 

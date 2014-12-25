@@ -492,10 +492,9 @@ $(document).ready(function() {
 					if (typeof data['kind'] === 'undefined')
 						data['kind'] = 'workday';
 
-					API.put.calendar(data);
-
-					// изменим стиль у выбранной ячейки дня
-					$(".task-hours table thead").find("TH[data-day="+data.day+"]").removeClass("workday, dayoff").addClass(data.kind);
+					API.put.calendar(data, function(){
+						renderTimesheet();
+					});
 				}
 			});
 		});

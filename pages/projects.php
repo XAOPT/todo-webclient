@@ -4,11 +4,6 @@ $(document).ready(function() {
 });
 </script>
 
-<div class="item-description">
-	<div class='bg' id="description"></div>
-	<span class="fa fa-times close"></span>
-</div>
-
 <div class="page-header">
 	<h1>Проекты</h1>
 </div>
