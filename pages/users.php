@@ -1,6 +1,6 @@
 <script>
 $(document).ready(function(){
-	init_users_interface();
+	init_users_interface(true);
 });
 </script>
 

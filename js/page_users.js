@@ -1,6 +1,11 @@
 var user_pages_cnt = -1;
 var current_page = 0;
-function init_users_interface() {
+function init_users_interface(flash_setting) {
+
+	if (typeof flash_setting !== 'undefined' && flash_setting) {
+		user_pages_cnt = -1;
+		current_page = 0;
+	}
 
 	var deleted = getParameterByName("deleted") || 0;
 
