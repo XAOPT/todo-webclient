@@ -289,17 +289,12 @@ API = {
 	}
 }
 
-API.get.user.clientSettings = function(params, cb) {
-	if (typeof params.id === 'undefined')
-		return;
-
+API.get.user.clientSettings = function(cb)
+{
 	_api.cache_ajax = 180;
 
-	_api.ajax('get', "/user/"+params.id+'/clientSettings/', function(answer){
-		if (typeof answer !== 'undefined' && typeof answer.clientSettings !== 'undefined')
-			cb(answer.clientSettings);
-		else
-			cb({});
+	_api.ajax('get', "/user/clientSettings/", function(answer){
+		cb(answer.clientSettings);
 	});
 }
 
@@ -312,19 +307,8 @@ API.get.timesheet.summary = function(params, cb) {
 	_api.ajax('get', "/timesheet/"+params.userid+'/summary/', cb);
 }
 
-API.put.user.clientSettings = function(params, cb) {
-	_api.params = params;
-
-	var url = "/user/";
-
-	if (typeof params.id !== 'undefined') {
-		url = url+params.id+"/";
-		delete params.id;
-	}
-
-	_api.cache_ajax = 0;
-
-	_api.ajax('put', url+'clientSettings/', cb);
+API.put.user.clientSettings = function(cb) {
+	_api.ajax('put', "/user/clientSettings/", cb);
 }
 
 API.delete.task.attachment = function(params, cb) {

@@ -229,7 +229,7 @@ function renderTimesheet() {
 		this.drawTimesheetCalendar();
 
 		/* теперь отрисуем задачи */
-		API.get.user.clientSettings({"id": API.me.id}, function(clientSettings) {
+		API.get.user.clientSettings(function(clientSettings) {
 
 			API.get.project(function(answer) {
 				for (var i=0; i<answer.items.length; i++) {
@@ -313,8 +313,7 @@ function init_timesheet_interface(cb) {
 					var data = xeditableSerialize("#timesheetFilter");
 
 					API.get_me(function(){
-						data['id'] = API.me.id;
-						API.put.user.clientSettings(data, function(){
+						API.put.user.clientSettings(function(){
 							renderTimesheet();
 							//$(".filter-options").slideToggle();
 						});
@@ -323,7 +322,7 @@ function init_timesheet_interface(cb) {
 			}
 		);
 
-		API.get.user.clientSettings({"id": API.me.id}, function(clientSettings) {
+		API.get.user.clientSettings(function(clientSettings) {
 
 			// извлекаем данные для формирования фильтра
 			API.get.project(function(answer) {
