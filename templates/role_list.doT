@@ -1,0 +1,26 @@
+<div class="panel panel-default">
+	<div class="panel-heading">
+		<span class="panel-title"><i class="panel-title-icon fa fa-users"></i>Роли</span>
+	</div>
+	<ul class="list-group">
+
+		{{~it.items :role:index}}
+		<li class="list-group-item">
+			<div class="list-item-name">
+				{{? role.name }}
+					{{=role.name}}
+				{{??}}
+					&nbsp;
+				{{?}}
+				<div class="pull-right">
+					<button class="btn btn-info btn-sm edit_role" data-id="{{=role.id}}">Редактировать</button>
+					{{? role.sysrole == 0}}
+					<button class="btn btn-danger btn-sm remove_role" data-confirm="Вы собираетесь удалить группу {{=role.name}}.
+						Вы уверены?" data-id="{{=role.id}}">Удалить</button>
+					{{?}}
+				</div>
+			</div>
+		</li>
+		{{~}}
+	</ul>
+</div>

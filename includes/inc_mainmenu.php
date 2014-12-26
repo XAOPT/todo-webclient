@@ -100,6 +100,9 @@
 					<li>
 						<a href="pages/users.php?deleted=1"><span class="mm-text">Заблокированные</span></a>
 					</li>
+					<li>
+						<a href="pages/role.php"><span class="mm-text">Группы пользователей</span></a>
+					</li>
 				</ul>
 			</li>
 			<li>

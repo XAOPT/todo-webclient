@@ -26,6 +26,7 @@
 	<script src="js/page_timesheet.js"></script>
 	<script src="js/page_users.js"></script>
 	<script src="js/page_projects.js"></script>
+	<script src="js/page_role.js"></script>
 	<script src="js/bootstrap-colorpicker.js"></script>
 	<script src="js/dropzone.js"></script>
 	<script src="js/bootstrap-growl.min.js"></script>

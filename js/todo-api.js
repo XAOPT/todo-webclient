@@ -182,6 +182,9 @@ API = {
 
 			_api.ajax('get', "/comment/", cb);
 		},
+		role: function(cb) {
+			_api.ajax('get', "/role/", cb);
+		},
 		convert: {
 			users: function(cb) {
 				_api.ajax('get', "/convert/users/", cb);
