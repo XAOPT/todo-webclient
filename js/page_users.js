@@ -1,16 +1,28 @@
-var user_pages_cnt;
+var user_pages_cnt = -1;
+var current_page = 0;
 function init_users_interface() {
 
 	var deleted = getParameterByName("deleted") || 0;
 
-	API.get.user({"deleted": deleted}, function(answer){
-		user_pages_cnt = Math.ceil(answer.items.length / 20 );
+	// если это первое открытие страницы пользователей за время сессии - надо подгрузить всех, посчитать их количество и всё такое
+	if (user_pages_cnt == -1)
+		var options = {"deleted": deleted};
+	else
+		var options = {"deleted": deleted, from: 20*current_page, count: 20};
 
-		user_pages_cnt = (user_pages_cnt > 0)?new Array(user_pages_cnt):[];
+	API.get.user(options, function(answer) {
 
-		answer.items = answer.items.slice(0,20);
+		// если это первое открытие страницы пользователей за время сессии
+		if (user_pages_cnt == -1) {
 
-		var html = TEMPLATES.users_list({items: answer.items, pages: user_pages_cnt, active_page: 0});
+			user_pages_cnt = Math.ceil(answer.items.length / 20 );
+
+			user_pages_cnt = (user_pages_cnt > 0)?new Array(user_pages_cnt):[];
+
+			answer.items = answer.items.slice(0,20);
+		}
+
+		var html = TEMPLATES.users_list({items: answer.items, pages: user_pages_cnt, active_page: current_page});
 
 		$(".user_list").replaceWith(html);
 	});
@@ -87,14 +99,8 @@ $(document).ready(function() {
 	$("#content-wrapper").on('click', ".user-pagination A", function() {
 		event.preventDefault();
 
-		var page = $(this).data("page");
+		current_page = $(this).data("page");
 
-		var deleted = getParameterByName("deleted") || 0;
-
-		API.get.user({"deleted": deleted, from: 20*page, count: 20}, function(answer){
-			var html = TEMPLATES.users_list({items: answer.items, pages: user_pages_cnt, active_page: page});
-
-			$(".user_list").replaceWith(html);
-		});
+		init_users_interface();
 	});
 });
