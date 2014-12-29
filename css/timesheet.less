@@ -1,12 +1,5 @@
-.user-select-none {
-	-webkit-touch-callout: none;
-	-webkit-user-select: none;
-	-khtml-user-select: none;
-	-moz-user-select: none;
-	-ms-user-select: none;
-	user-select: none;
-}
-/*------------*/
+@import "functions";
+
 #timesheet {
 	@task-list-width: 290px;
 
@@ -49,6 +42,7 @@
 			width: 230px;
 			max-width: 230px;
 
+			&.active,
 			&:hover {
 				background-color: #fdffd2;
 			}
@@ -74,7 +68,7 @@
 
 		td.tp, th.tp {
 			color: #FFF;
-			width: 50px;
+			width: 30px;
 		}
 
 		// строка с именем пользователя в левой колонке

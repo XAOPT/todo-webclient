@@ -13,8 +13,8 @@
 					&nbsp;
 				{{?}}
 				<div class="pull-right">
-					<button class="btn btn-info btn-sm edit_role" data-id="{{=role.id}}">Редактировать</button>
 					{{? role.sysrole == 0}}
+					<button class="btn btn-info btn-sm edit_role" data-id="{{=role.id}}">Редактировать</button>
 					<button class="btn btn-danger btn-sm remove_role" data-confirm="Вы собираетесь удалить группу {{=role.name}}.
 						Вы уверены?" data-id="{{=role.id}}">Удалить</button>
 					{{?}}

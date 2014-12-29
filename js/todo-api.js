@@ -182,8 +182,17 @@ API = {
 
 			_api.ajax('get', "/comment/", cb);
 		},
-		role: function(cb) {
-			_api.ajax('get', "/role/", cb);
+		role: function(params, cb) {
+			if (typeof params === 'function')
+				cb = params;
+
+			var url = "/role/";
+
+			if (typeof params.id !== 'undefined') {
+				url = url+params.id+"/";
+			}
+
+			_api.ajax('get', url, cb);
 		},
 		convert: {
 			users: function(cb) {
@@ -206,6 +215,11 @@ API = {
 			_api.params = params;
 
 			_api.ajax('post', "/user/", cb);
+		},
+		role: function(params, cb) {
+			_api.params = params;
+
+			_api.ajax('post', "/role/", cb);
 		},
 		task: function(params, cb) {
 			_api.params = params;
@@ -272,6 +286,18 @@ API = {
 			_api.clear_cache(url);
 			_api.ajax('put', url, cb);
 		},
+		role: function(params, cb) {
+			_api.params = params;
+
+			var url = "/role/";
+
+			if (typeof params.id !== 'undefined') {
+				url = url+params.id+"/";
+			}
+
+			_api.clear_cache(url);
+			_api.ajax('put', url, cb);
+		},
 		project: function(params, cb) {
 			_api.params = params;
 
@@ -286,6 +312,12 @@ API = {
 		}
 	},
 	delete: {
+		role: function(params, cb) {
+			if (typeof params.id === 'undefined')
+				cb();
+
+			_api.ajax('delete', "/role/"+params.id+"/", cb);
+		},
 		task: function() {
 			console.log(456);
 		}
@@ -310,7 +342,9 @@ API.get.timesheet.summary = function(params, cb) {
 	_api.ajax('get', "/timesheet/"+params.userid+'/summary/', cb);
 }
 
-API.put.user.clientSettings = function(cb) {
+API.put.user.clientSettings = function(params, cb) {
+	_api.params = params;
+
 	_api.ajax('put', "/user/clientSettings/", cb);
 }
 

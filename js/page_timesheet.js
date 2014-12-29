@@ -186,9 +186,7 @@ function renderTimesheet() {
 
 		for (var i = this.from; i < this.from + this.count; i++) {
 			date    = new Date(i*86400*1000);
-			var month   = months[date.getMonth()-1];
 			var day     = date.getDate();
-
 			var day_kind = this.is_weakend(i);
 
 			if (typeof this.global_exceptions[i] !== 'undefined') {
@@ -207,11 +205,12 @@ function renderTimesheet() {
 				column_counter++;
 			}
 
+			var month   = months[date.getMonth()];
 			prev_day = day;
 		}
 
 		row1 += "</tr>";
-		row2 += "<th colspan='"+column_counter+"'>"+months[date.getMonth()];+"</th>"
+		row2 += "<th colspan='"+column_counter+"'>"+months[date.getMonth()]+"</th>"
 		row2 += "</tr>";
 		$(".task-hours table.table-primary thead").append(row2, row1);
 		$(".task-hours .table-head").animate({scrollLeft: 9999}, 0);
@@ -313,9 +312,8 @@ function init_timesheet_interface(cb) {
 					var data = xeditableSerialize("#timesheetFilter");
 
 					API.get_me(function(){
-						API.put.user.clientSettings(function(){
+						API.put.user.clientSettings(data, function(){
 							renderTimesheet();
-							//$(".filter-options").slideToggle();
 						});
 					});
 				}
@@ -423,6 +421,8 @@ $(document).ready(function() {
 	/* просмотр описания таска */
 	$("#content-wrapper").on('click', '.tt', function() {
 		var taskid = $(this).parent().data("taskid");
+		$('.tt').removeClass("active");
+		$(this).addClass("active");
 
 		API.get.task({"id": taskid}, function(task) {
 			API.get.comment({"taskid": taskid}, function(comments){
@@ -457,8 +457,9 @@ $(document).ready(function() {
 
 					$("#description").html(TEMPLATES.task_full(tpl_data));
 
-					make_task_editable("#description");
-					new Dropzone(".dropzone", {
+					make_task_editable("#description"); // подчистим концы от предыдущих инициализаций dropzone
+					$(".dz-hidden-input").remove();
+					$(".dropzone").dropzone({
 						dictDefaultMessage: "<i class='fa fa-cloud-upload'></i>Перетащите сюда файл<br><span class='dz-text-small'>или нажмите для выбора из каталога</span>",
 						url: API.url+"/task/"+taskid+"/attachment?auth_token="+todo_session_key+"&session_user="+todo_session_user,
 						error: function(file, error) {

@@ -2,9 +2,9 @@
 
 <!-- Просмотр и редактирование задачи -->
 
-<h2>{{=it.task.title}}</h2>
+<h3>{{=it.task.title}}</h3>
 
-<div id="task_description" class="row">
+<div id="task_description">
 	<div class="panel">
 		<table id="user" class="table table-bordered table-striped">
 			<tbody>

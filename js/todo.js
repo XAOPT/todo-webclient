@@ -13,7 +13,14 @@ $(document).ready(function() {
 	BootstrapDialog.prototype.updateAnimate = function(){return;};
 	BootstrapDialog.configDefaultOptions({ onshown: function() {
 		$("input[type=checkbox]").replaceWith(function(){
-			return TEMPLATES.dom_checkbox({'checked': $(this).prop("checked"), 'theme': $(this).attr('class')});
+			var data = {
+				'checked': $(this).prop("checked"),
+				'theme': $(this).attr('class'),
+				'name': $(this).attr('name'),
+				'value': $(this).attr('value')?$(this).attr('value'):false
+			};
+
+			return TEMPLATES.dom_checkbox(data);
 		});
 	} });
 
