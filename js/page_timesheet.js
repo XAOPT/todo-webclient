@@ -457,8 +457,9 @@ $(document).ready(function() {
 
 					$("#description").html(TEMPLATES.task_full(tpl_data));
 
-					make_task_editable("#description"); // подчистим концы от предыдущих инициализаций dropzone
-					$(".dz-hidden-input").remove();
+					make_task_editable("#description");
+
+					$(".dz-hidden-input").remove(); // подчистим концы от предыдущих инициализаций dropzone
 					$(".dropzone").dropzone({
 						dictDefaultMessage: "<i class='fa fa-cloud-upload'></i>Перетащите сюда файл<br><span class='dz-text-small'>или нажмите для выбора из каталога</span>",
 						url: API.url+"/task/"+taskid+"/attachment?auth_token="+todo_session_key+"&session_user="+todo_session_user,
@@ -524,10 +525,15 @@ $(document).ready(function() {
 					data = {};
 					dialogRef.getModal().find('form').serializeArray().map(function(item) {
 						if (item.name == 'worktimeHours')
-							data['worktimeSeconds'] = item.value*3600;
+							data['worktimeSeconds'] = item.value.replace(/,/, '.')*3600;
 
 						data[item.name] = item.value;
 					});
+
+					if (typeof data['worktimeSeconds'] !== 'undefined' && data['worktimeSeconds'] > 3600*20) {
+						$.growl("Вы указали недопустимое количество часов", {type: "danger"});
+						return;
+					}
 
 					API.put.timesheet(data, function(data){
 						renderTimesheet();
