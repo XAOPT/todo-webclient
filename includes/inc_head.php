@@ -31,5 +31,11 @@
 	<script src="js/dropzone.js"></script>
 	<script src="js/bootstrap-growl.min.js"></script>
 
+	<link rel="stylesheet" href="css/summernote/codemirror.css" />
+	<script type="text/javascript" src="js/summernote/codemirror.js"></script>
+	<script type="text/javascript" src="js/summernote/formatting.min.js"></script>
+	<link href="css/summernote/summernote.css" rel="stylesheet">
+	<script type="text/javascript" src="js/summernote/summernote.min.js"></script>
+
 	<link href="http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,400,600,700,300&subset=latin" rel="stylesheet" type="text/css">
 </head>

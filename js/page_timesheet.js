@@ -28,12 +28,18 @@ var editable_sources = {
 function make_task_editable(parent_selector) {
 
 	// редактирование описания задачи
-	$(parent_selector+' #comment').editable({
-		mode: "inline",
-		showbuttons: "bottom",
-		url: function(params) {
-			API.put.comment({id: params.pk, text: params.value});
-		}
+	$(parent_selector+' #comment').click(function() {
+		$(this).summernote({
+			height: 300,                 // set editor height
+			minHeight: null,             // set minimum height of editor
+			maxHeight: null,             // set maximum height of editor
+			toolbar: [
+				['style', ['bold', 'italic', 'underline','clear','strikethrough']],
+				['color', ['color']],
+				['insert', ['ul','table','hr','link']],
+				['misc', ['codeview']],
+			]
+		}).after("<button class='btn btn-flat btn-sm btn-labeled btn-success' id='save_comment'>Сохранить</button>");
 	});
 
 	// приоритет
@@ -540,6 +546,22 @@ $(document).ready(function() {
 					}.call(this, data));
 				}
 			});
+		});
+	});
+
+	/**/
+	$("#content-wrapper").on('click', '#save_comment', function() {
+		$(this).remove();
+		var params = {
+			id: $('#comment').data('pk'),
+			text: $('#comment').code()
+		};
+
+		$('#comment').destroy();
+		$('#comment').html(params.text);
+
+		API.put.comment(params, function(){
+			$.growl("Описание отредактировано");
 		});
 	});
 });
