@@ -1,6 +1,16 @@
 
 $(document).ready(function() {
 
+	$.summernote.options.toolbar = [
+		['style', ['bold', 'italic', 'underline','clear','strikethrough']],
+		['color', ['color']],
+		['insert', ['ul','table','hr','link']],
+		['misc', ['codeview']],
+	];
+	$.summernote.options.height = 300;
+	$.summernote.options.minHeight = null;
+	$.summernote.options.maxHeight = null;
+
 	$.fn.editable.defaults.mode = 'popup';
 	$.fn.editable.defaults.placement = 'left';
 	$.fn.editableform.buttons = '<button type="submit" class="btn btn-primary btn-sm editable-submit"><i class="fa fa-fw fa-check"></i></button><button type="button" class="btn btn-default btn-sm editable-cancel"><i class="fa fa-fw fa-times"></i></button>';
@@ -24,11 +34,23 @@ $(document).ready(function() {
 		});
 	} });
 
+	BootstrapDialog.prototype.open = function(cb) {
+        !this.isRealized() && this.realize();
+        this.getModal().modal('show');
+        this.updateZIndex();
+        this.setOpened(true);
+
+        if (typeof cb != 'undefined')
+        	cb();
+
+        return this;
+    }
+
 	BootstrapDialog.confirm = function(message, params, callback) {
 		if (typeof params === 'function')
 			callback = params;
 
-		new BootstrapDialog({
+		var dialog = new BootstrapDialog({
 			title: params.title || 'Подтвердите действие',
 			cssClass: params.cssClass || '',
 			type: params.type || 'type-primary',
@@ -53,7 +75,14 @@ $(document).ready(function() {
 					}
 				}
 			]
-		}).open();
+		});
+
+		if (typeof params.afterRender !== 'undefined') {
+			dialog.open(params.afterRender);
+		}
+		else {
+			dialog.open();
+		}
 	};
 
 	/**/

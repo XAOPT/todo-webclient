@@ -29,17 +29,7 @@ function make_task_editable(parent_selector) {
 
 	// редактирование описания задачи
 	$(parent_selector+' #comment').click(function() {
-		$(this).summernote({
-			height: 300,                 // set editor height
-			minHeight: null,             // set minimum height of editor
-			maxHeight: null,             // set maximum height of editor
-			toolbar: [
-				['style', ['bold', 'italic', 'underline','clear','strikethrough']],
-				['color', ['color']],
-				['insert', ['ul','table','hr','link']],
-				['misc', ['codeview']],
-			]
-		}).after("<button class='btn btn-flat btn-sm btn-labeled btn-success' id='save_comment'>Сохранить</button>");
+		$(this).summernote().after("<button class='btn btn-flat btn-sm btn-labeled btn-success' id='save_comment'>Сохранить</button>");
 	});
 
 	// приоритет
@@ -396,7 +386,10 @@ function init_timesheet_interface(cb) {
 				/* отрисуем диалог */
 				BootstrapDialog.confirm(TEMPLATES.task_full({projects: projects.items, users: users.items}), {
 						title: "<h5>Добавить задачу</h5>",
-						cssClass: 'wide'
+						cssClass: 'wide',
+						afterRender: function() {
+							$("textarea[name='comment']").summernote({height: null});
+						}
 					}, function(result, dialogRef) {
 						/* если пользователь нажал кнопку "добавить" - сабмитим форму */
 						if (result) {
@@ -405,16 +398,20 @@ function init_timesheet_interface(cb) {
 								data[item.name] = item.value;
 							});
 
-							API.post.task(data, function() {
-								$.growl("Задача добавлена");
+							API.post.task(data, function(answer) {
+								var comment =  dialogRef.getModal().find("textarea[name='comment']").code();
+								dialogRef.getModal().find("textarea[name='comment']").destroy();
+
+								API.post.comment({taskid: answer.id, text: comment}, function(){
+									$.growl("Задача добавлена");
+									renderTimesheet();
+								});
 							});
 						}
 					}
 				);
 			});
 		});
-
-		make_task_editable(".modal");
 	});
 
 	API.get_me(function(){
@@ -549,7 +546,7 @@ $(document).ready(function() {
 		});
 	});
 
-	/**/
+	/* нажатие на описание задачи перевод в режим редактирования описания */
 	$("#content-wrapper").on('click', '#save_comment', function() {
 		$(this).remove();
 		var params = {
@@ -560,8 +557,19 @@ $(document).ready(function() {
 		$('#comment').destroy();
 		$('#comment').html(params.text);
 
-		API.put.comment(params, function(){
-			$.growl("Описание отредактировано");
-		});
+		if (typeof params.id === 'undefined' || params.id == 0) {
+			params.taskid = $('#comment').data('taskid');
+
+			API.post.comment(params, function(answer){
+				$('#comment').data('pk', answer.id);
+				console.log($('#comment').data('taskid'));
+				$.growl("Комментарий добавлен");
+			});
+		}
+		else {
+			API.put.comment(params, function(){
+				$.growl("Описание отредактировано");
+			});
+		}
 	});
 });

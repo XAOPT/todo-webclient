@@ -231,6 +231,11 @@ API = {
 
 			_api.clear_cache("/project/");
 			_api.ajax('post', "/project/", cb);
+		},
+		comment: function(params, cb){
+			_api.params = params;
+
+			_api.ajax('post', "/comment/", cb);
 		}
 	},
 	put: {
