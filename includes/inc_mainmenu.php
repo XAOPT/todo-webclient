@@ -73,7 +73,7 @@
 			);
 
 			var after_hash = window.location.hash;
-			after_hash = after_hash.substring(1,(after_hash.length))
+			after_hash = after_hash.substring(1, after_hash.length);
 
 			$(".navigation a[href='"+after_hash+"']").click();
 		}
@@ -101,7 +101,7 @@
 						<a href="pages/users.php?deleted=1"><span class="mm-text">Заблокированные</span></a>
 					</li>
 					<li>
-						<a href="pages/role.php"><span class="mm-text">Группы пользователей</span></a>
+						<a href="pages/role.php"><span class="mm-text">Роли пользователей</span></a>
 					</li>
 				</ul>
 			</li>

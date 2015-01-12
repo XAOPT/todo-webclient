@@ -54,6 +54,8 @@ $(document).ready(function(){
 
 				$(".report-body").html(TEMPLATES.report_table_head({"projects": projects}));
 
+				$('span').tooltip();
+
 				for (var i=0; i<users.length; i++) {
 
 					(function(i){

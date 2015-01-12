@@ -122,16 +122,29 @@ API = {
 	/*---------------------------- */
 
 	get: {
-		user: function(params, cb) {
+		calendar: function(params, cb) {
+			_api.params = params;
+
+			_api.ajax('get', "/calendar/", cb);
+		},
+		comment: function(params, cb) {
+			if (typeof params === 'function')
+				cb = params;
+			else {
+				_api.params = params;
+			}
+
+			_api.ajax('get', "/comment/", cb);
+		},
+		microtask: function(params, cb) {
 			if (typeof params === 'function') {
 				cb = params;
-				_api.cache_ajax = 180;
 			}
 			else {
 				_api.params = params;
 			}
 
-			_api.ajax('get', "/user/", cb);
+			_api.ajax('get', "/microtask/", cb);
 		},
 		project: function (params, cb) {
 			if (typeof params === 'function') {
@@ -142,14 +155,19 @@ API = {
 				_api.params = params;
 			}
 
-			var url = "/project/";
+			_api.ajax('get', "/project/", cb);
+		},
+		role: function(params, cb) {
+			if (typeof params === 'function')
+				cb = params;
+
+			var url = "/role/";
+
+			if (typeof params.id !== 'undefined') {
+				url = url+params.id+"/";
+			}
 
 			_api.ajax('get', url, cb);
-		},
-		calendar: function(params, cb) {
-			_api.params = params;
-
-			_api.ajax('get', "/calendar/", cb);
 		},
 		task: function(params, cb) {
 			if (typeof params === 'function')
@@ -169,26 +187,16 @@ API = {
 
 			_api.ajax('get', "/timesheet/", cb);
 		},
-		comment: function(params, cb) {
-			if (typeof params === 'function')
+		user: function(params, cb) {
+			if (typeof params === 'function') {
 				cb = params;
+				_api.cache_ajax = 180;
+			}
 			else {
 				_api.params = params;
 			}
 
-			_api.ajax('get', "/comment/", cb);
-		},
-		role: function(params, cb) {
-			if (typeof params === 'function')
-				cb = params;
-
-			var url = "/role/";
-
-			if (typeof params.id !== 'undefined') {
-				url = url+params.id+"/";
-			}
-
-			_api.ajax('get', url, cb);
+			_api.ajax('get', "/user/", cb);
 		},
 		convert: {
 			users: function(cb) {
@@ -207,10 +215,21 @@ API = {
 			_api.params = params;
 			_api.ajax('post', "/auth/", cb);
 		},
-		user: function(params, cb) {
+		comment: function(params, cb){
 			_api.params = params;
 
-			_api.ajax('post', "/user/", cb);
+			_api.ajax('post', "/comment/", cb);
+		},
+		microtask: function(params, cb) {
+			_api.params = params;
+
+			_api.ajax('post', "/microtask/", cb);
+		},
+		project: function(params, cb){
+			_api.params = params;
+
+			_api.clear_cache("/project/");
+			_api.ajax('post', "/project/", cb);
 		},
 		role: function(params, cb) {
 			_api.params = params;
@@ -222,27 +241,17 @@ API = {
 
 			_api.ajax('post', "/task/", cb);
 		},
-		project: function(params, cb){
+		user: function(params, cb) {
 			_api.params = params;
 
-			_api.clear_cache("/project/");
-			_api.ajax('post', "/project/", cb);
+			_api.ajax('post', "/user/", cb);
 		},
-		comment: function(params, cb){
-			_api.params = params;
-
-			_api.ajax('post', "/comment/", cb);
-		}
 	},
 	put: {
-		task: function(params, cb) {
+		calendar: function(params, cb) {
 			_api.params = params;
 
-			var url = "/task/";
-
-			if (typeof params.id !== 'undefined') {
-				url = url+params.id+"/";
-			}
+			var url = "/calendar/";
 
 			_api.clear_cache(url);
 			_api.ajax('put', url, cb);
@@ -259,10 +268,49 @@ API = {
 			_api.clear_cache(url);
 			_api.ajax('put', url, cb);
 		},
-		calendar: function(params, cb) {
+		microtask: function(params, cb) {
 			_api.params = params;
 
-			var url = "/calendar/";
+			var url = "/microtask/";
+
+			if (typeof params.id !== 'undefined') {
+				url = url+params.id+"/";
+			}
+
+			_api.ajax('put', url, cb);
+		},
+		project: function(params, cb) {
+			_api.params = params;
+
+			var url = "/project/";
+
+			if (typeof params.id !== 'undefined') {
+				url = url+params.id+"/";
+			}
+
+			_api.clear_cache(url);
+			_api.ajax('put', url, cb);
+		},
+		role: function(params, cb) {
+			_api.params = params;
+
+			var url = "/role/";
+
+			if (typeof params.id !== 'undefined') {
+				url = url+params.id+"/";
+			}
+
+			_api.clear_cache(url);
+			_api.ajax('put', url, cb);
+		},
+		task: function(params, cb) {
+			_api.params = params;
+
+			var url = "/task/";
+
+			if (typeof params.id !== 'undefined') {
+				url = url+params.id+"/";
+			}
 
 			_api.clear_cache(url);
 			_api.ajax('put', url, cb);
@@ -286,33 +334,15 @@ API = {
 
 			_api.clear_cache(url);
 			_api.ajax('put', url, cb);
-		},
-		role: function(params, cb) {
-			_api.params = params;
-
-			var url = "/role/";
-
-			if (typeof params.id !== 'undefined') {
-				url = url+params.id+"/";
-			}
-
-			_api.clear_cache(url);
-			_api.ajax('put', url, cb);
-		},
-		project: function(params, cb) {
-			_api.params = params;
-
-			var url = "/project/";
-
-			if (typeof params.id !== 'undefined') {
-				url = url+params.id+"/";
-			}
-
-			_api.clear_cache(url);
-			_api.ajax('put', url, cb);
 		}
 	},
 	delete: {
+		microtask: function(params, cb) {
+			if (typeof params.id === 'undefined')
+				cb();
+
+			_api.ajax('delete', "/microtask/"+params.id+"/", cb);
+		},
 		role: function(params, cb) {
 			if (typeof params.id === 'undefined')
 				cb();

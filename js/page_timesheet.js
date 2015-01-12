@@ -428,46 +428,49 @@ $(document).ready(function() {
 
 		API.get.task({"id": taskid}, function(task) {
 			API.get.comment({"taskid": taskid}, function(comments){
-				API.get.project(function(projects){
-					var tpl_data = {
-						'task': task.items[0],
-						'attachments': []
-					};
+				API.get.microtask({"taskid": taskid}, function(microtask){
+					API.get.project(function(projects){
+						var tpl_data = {
+							'task': task.items[0],
+							'microtask': microtask.items,
+							'attachments': []
+						};
 
-					for (var i=0; i<comments.items.length; i++) {
-						comments.items[i].text = bb2html(comments.items[i].text);
-					}
-					tpl_data['comments'] = comments.items;
-
-					/// вот это вот шляпа про проект - поправить
-					for (var i=0; i<projects.items.length; i++) {
-						if (projects.items[i].id == task.items[0].project) {
-							tpl_data['project'] = projects.items[i];
+						for (var i=0; i<comments.items.length; i++) {
+							comments.items[i].text = bb2html(comments.items[i].text);
 						}
-					}
+						tpl_data['comments'] = comments.items;
 
-					// разберёмся с вложенными файлами
-					if (typeof task.items[0].attachments !== 'undefined') {
-						for (var i=0; i<task.items[0].attachments.length; i++) {
-							tpl_data.attachments[i] = task.items[0].attachments[i];
-							tpl_data.attachments[i].is_image = true;
-							tpl_data.attachments[i].full_url = API.url+task.items[0].attachments[i].url;
+						/// вот это вот шляпа про проект - поправить
+						for (var i=0; i<projects.items.length; i++) {
+							if (projects.items[i].id == task.items[0].project) {
+								tpl_data['project'] = projects.items[i];
+							}
 						}
-					}
 
-					$(".main-wrapper").addClass("rpo");
-
-					$("#description").html(TEMPLATES.task_full(tpl_data));
-
-					make_task_editable("#description");
-
-					$(".dz-hidden-input").remove(); // подчистим концы от предыдущих инициализаций dropzone
-					$(".dropzone").dropzone({
-						dictDefaultMessage: "<i class='fa fa-cloud-upload'></i>Перетащите сюда файл<br><span class='dz-text-small'>или нажмите для выбора из каталога</span>",
-						url: API.url+"/task/"+taskid+"/attachment?auth_token="+todo_session_key+"&session_user="+todo_session_user,
-						error: function(file, error) {
-							$.growl("<b>"+error.ErrorCode+":</b> "+error.ErrorMessage, {type: "danger"});
+						// разберёмся с вложенными файлами
+						if (typeof task.items[0].attachments !== 'undefined') {
+							for (var i=0; i<task.items[0].attachments.length; i++) {
+								tpl_data.attachments[i] = task.items[0].attachments[i];
+								tpl_data.attachments[i].is_image = true;
+								tpl_data.attachments[i].full_url = API.url+task.items[0].attachments[i].url;
+							}
 						}
+
+						$(".main-wrapper").addClass("rpo");
+
+						$("#description").html(TEMPLATES.task_full(tpl_data));
+
+						make_task_editable("#description");
+
+						$(".dz-hidden-input").remove(); // подчистим концы от предыдущих инициализаций dropzone
+						$(".dropzone").dropzone({
+							dictDefaultMessage: "<i class='fa fa-cloud-upload'></i>Перетащите сюда файл<br><span class='dz-text-small'>или нажмите для выбора из каталога</span>",
+							url: API.url+"/task/"+taskid+"/attachment?auth_token="+todo_session_key+"&session_user="+todo_session_user,
+							error: function(file, error) {
+								$.growl("<b>"+error.ErrorCode+":</b> "+error.ErrorMessage, {type: "danger"});
+							}
+						});
 					});
 				});
 			});
@@ -569,5 +572,54 @@ $(document).ready(function() {
 				$.growl("Описание отредактировано");
 			});
 		}
+	});
+
+	/* нажатие на кнопочку добавления микротаска */
+	$(document).on('click', '.add-microtask', function() {
+		$(this).hide();
+		var params = {
+			id: $(this).data('taskid')
+		};
+
+		$(".add-microtask-detail").show();
+	});
+
+	$(document).on('click', '.create-microtask', function() {
+		$(".add-microtask-detail").hide();
+
+		var params = {
+			taskid: $(this).data('taskid'),
+			text: $("input[name='microtask-text']").val()
+		};
+
+		API.post.microtask(params, function(answer){
+			$(".add-microtask").show();
+			$("input[name='microtask-text']").val('');
+			$(".microtask_list").append(' \
+				<div class="microtask"> \
+					<input type="checkbox" class="microtask_checkbox" data-pk="'+answer.id+'"> \
+					<label>'+params.text+'</label> \
+				</div> \
+			');
+		});
+	});
+
+	$(document).on('click', '.microtask_checkbox', function(){
+		var checkbox = $(this);
+		var params = {
+			id: checkbox.parent().data("pk"),
+			status: (checkbox.is(":checked"))?"finished":"open"
+		};
+
+		API.put.microtask(params, function(){
+			checkbox.parent().toggleClass("checked");
+		});
+	});
+
+	$(document).on('click', '.microtask_remove', function(){
+		var microtask = $(this).parent();
+		API.delete.microtask({id: microtask.data("pk")}, function() {
+			microtask.remove();
+		});
 	});
 });

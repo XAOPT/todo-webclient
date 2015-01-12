@@ -32,6 +32,24 @@
 		</table>
 	</div>
 
+	<!-- microtask -->
+	<div class="microtask_list">
+		{{~it.microtask :mt:index}}
+		<div class="microtask {{?mt.status=='finished'}}checked{{?}}" data-pk="{{=mt.id}}">
+			<input type="checkbox" class="microtask_checkbox" {{?mt.status=='finished'}}CHECKED{{?}}>
+			<label>{{=mt.text}}</label>
+			<span class="fa fa-remove microtask_remove"></span>
+		</div>
+		{{~}}
+	</div>
+
+	<button class="btn btn-flat btn-xs btn-labeled btn-default add-microtask"><span class="btn-label icon fa fa-toggle-down"></span>Добавить микротаск</button>
+	<div class="add-microtask-detail" style="display: none;">
+		<input type="text" name="microtask-text">
+		<button class="btn btn-flat btn-xs btn-labeled btn-success create-microtask" data-taskid="{{=it.task.id}}"><span class="btn-label icon fa fa-plus-circle"></span></button>
+	</div>
+	<!-- -->
+
 	{{? it.comments[0] }}
 	<div class="comment" id="comment" data-type="textarea" data-pk="{{=it.comments[0].id}}">
 		{{? typeof it.comments[0] !== 'undefined'}}

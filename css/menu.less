@@ -35,7 +35,7 @@ h3 {
 .dropzone {
 
 	position: relative;
-	min-height: 204px;
+	min-height: 104px;
 	border: 3px dashed #ddd;
 	border-radius: 3px;
 	vertical-align: middle;
@@ -825,13 +825,13 @@ h3 {
 		position: absolute;
 		font-size: 20px;
 		right: 30px;
-		top: 130px;
+		top: 16px;
 	}
 
 	.rpo & {
 		right: 0px;
 		left: 310px;
-		top: 0px;
+		top: 117px;
 		bottom: 0px;
 		width: auto;
 
@@ -839,7 +839,7 @@ h3 {
 			padding: 20px 20px 20px 20px;
 			width: 100%;
 			position: absolute;
-			top: 117px;
+			top: 0px;
 			left: 0px;
 			right: 0px;
 			bottom: 0px;
@@ -858,6 +858,27 @@ h3 {
 		padding: 15px;
 		margin-top: 15px;
 		border-radius: 5px;
+	}
+
+	.microtask_list {
+		.microtask {
+			.microtask_remove {
+				display: none;
+			}
+
+			&.checked {
+				label {
+					text-decoration: line-through;
+				}
+			}
+
+			&:hover {
+				.microtask_remove {
+					display: inline;
+					cursor: pointer;
+				}
+			}
+		}
 	}
 }
 
