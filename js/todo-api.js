@@ -144,10 +144,6 @@ API = {
 
 			var url = "/project/";
 
-			if (typeof params.id !== 'undefined') {
-				url = url+params.id+"/";
-			}
-
 			_api.ajax('get', url, cb);
 		},
 		calendar: function(params, cb) {

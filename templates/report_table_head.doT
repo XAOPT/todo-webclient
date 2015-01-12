@@ -1,0 +1,15 @@
+<table border=1>
+	<thead>
+	<tr>
+		<th></th>
+		{{~it.projects :proj:index}}
+			<th style="background: #{{=proj.tagcolor}}">
+				{{=proj.title}}
+			</th>
+		{{~}}
+		<th>Всего</th>
+	</tr>
+	</thead>
+	<tbody>
+	</tbody>
+</table>

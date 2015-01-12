@@ -13,6 +13,7 @@
 	<link rel="stylesheet/less" href="css/content_wrapper.less">
 	<link rel="stylesheet/less" href="css/navbar.less">
 	<link rel="stylesheet/less" href="css/timesheet.less">
+	<link rel="stylesheet/less" href="css/bootstrap-datepicker.less">
 
 	<script src="js/jquery-2.1.1.min.js"></script>
 	<script src="js/bootstrap.min.js"></script>
@@ -27,9 +28,11 @@
 	<script src="js/page_users.js"></script>
 	<script src="js/page_projects.js"></script>
 	<script src="js/page_role.js"></script>
+	<script src="js/page_report.js"></script>
 	<script src="js/bootstrap-colorpicker.js"></script>
 	<script src="js/dropzone.js"></script>
 	<script src="js/bootstrap-growl.min.js"></script>
+	<script src="js/bootstrap-datepicker.js"></script>
 
 	<link rel="stylesheet" href="css/summernote/codemirror.css" />
 	<script type="text/javascript" src="js/summernote/codemirror.js"></script>

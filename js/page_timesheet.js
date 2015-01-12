@@ -102,7 +102,6 @@ function renderTimesheet() {
 				if (typeof tpl_data.summary[i] === 'undefined')
 					tpl_data.summary[i] = 0;
 			}
-			console.log(tpl_data);
 
 			API.get.timesheet({"userid": params.userid, "taskid":task_ids}, function(answer) {
 
@@ -562,7 +561,6 @@ $(document).ready(function() {
 
 			API.post.comment(params, function(answer){
 				$('#comment').data('pk', answer.id);
-				console.log($('#comment').data('taskid'));
 				$.growl("Комментарий добавлен");
 			});
 		}

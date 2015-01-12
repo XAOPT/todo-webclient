@@ -1,0 +1,13 @@
+<tr>
+	<td style="white-space: nowrap;">
+		<b>{{=it.user.firstname}} {{=it.user.lastname}}</b>
+	</td>
+	{{~it.sorted_hours :hour}}
+	<td align="center">
+		{{=hour}}
+	</td>
+	{{~}}
+	<td align="center">
+		<b>{{=it.total}}</b>
+	</td>
+</tr>

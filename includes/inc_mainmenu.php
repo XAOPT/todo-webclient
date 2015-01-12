@@ -120,6 +120,9 @@
 				</ul>
 			</li>
 			<li>
+				<a href="pages/report.php"><i class="menu-icon fa fa-calculator"></i><span class="mm-text mmc-dropdown-delay fadeIn">Отчёты</span></a>
+			</li>
+			<li>
 				<a href="pages/convert.php"><i class="menu-icon fa fa-exchange"></i><span class="mm-text mmc-dropdown-delay fadeIn">Конвертирование</span></a>
 			</li>
 			<!-- <li class="mm-dropdown">

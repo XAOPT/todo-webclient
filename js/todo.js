@@ -1,15 +1,17 @@
 
 $(document).ready(function() {
 
-	$.summernote.options.toolbar = [
-		['style', ['bold', 'italic', 'underline','clear','strikethrough']],
-		['color', ['color']],
-		['insert', ['ul','table','hr','link']],
-		['misc', ['codeview']],
-	];
-	$.summernote.options.height = 300;
-	$.summernote.options.minHeight = null;
-	$.summernote.options.maxHeight = null;
+	$.extend($.summernote.options, {
+		toolbar: [
+			['style', ['bold', 'italic', 'underline','clear','strikethrough']],
+			['color', ['color']],
+			['insert', ['ul','table','hr','link']],
+			['misc', ['codeview']],
+		],
+		height: 300,
+		minHeight: null,
+		maxHeight: null
+	});
 
 	$.fn.editable.defaults.mode = 'popup';
 	$.fn.editable.defaults.placement = 'left';
@@ -111,7 +113,6 @@ $(document).ready(function() {
 	$(document).on('click', '.lightbox img', function(){
 		var src = $(this).attr("src");
 		var img_real_width, img_real_height;
-		console.log(src);
 
 		$("<img/>").attr("src", src).load(function(){
 			img_real_width = this.width;

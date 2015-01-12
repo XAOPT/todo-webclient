@@ -1,0 +1,21 @@
+<div class="row">
+	<div class="col-sm-2"></div>
+	<div class="col-sm-5">Пользователи</div>
+	<div class="col-sm-5">Проекты</div>
+</div>
+<div class="row">
+	<div class="datepicker col-sm-2"></div>
+	<div class="report_filter_users col-sm-5">
+		{{~it.users :user:index}}
+		<input type="checkbox" name="users" value="{{=user.id}}" CHECKED><label>{{=user.firstname}} {{=user.lastname}}</label><br />
+		{{~}}
+	</div>
+
+	<div class="report_filter_projects col-sm-5">
+		{{~it.projects :project:index}}
+		<input type="checkbox" name="projects" value="{{=project.id}}" CHECKED><label>{{=project.title}}</label><br />
+		{{~}}
+	</div>
+</div>
+
+<button class="btn btn-flat btn-sm btn-labeled btn-success" id="build_report">Показать</button>
