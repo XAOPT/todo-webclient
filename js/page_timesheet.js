@@ -427,49 +427,56 @@ $(document).ready(function() {
 		$(this).addClass("active");
 
 		API.get.task({"id": taskid}, function(task) {
-			API.get.comment({"taskid": taskid}, function(comments){
-				API.get.microtask({"taskid": taskid}, function(microtask){
-					API.get.project(function(projects){
-						var tpl_data = {
-							'task': task.items[0],
-							'microtask': microtask.items,
-							'attachments': []
-						};
+			API.get.comment({"taskid": taskid}, function(comments) {
+				API.get.microtask({"taskid": taskid}, function(microtask) {
+					API.get.project(function(projects) {
+						API.get.user({id: task.items[0].createdby}, function(createdby){
+							var tpl_data = {
+								'task': task.items[0],
+								'microtask': microtask.items,
+								'attachments': []
+							};
 
-						for (var i=0; i<comments.items.length; i++) {
-							comments.items[i].text = bb2html(comments.items[i].text);
-						}
-						tpl_data['comments'] = comments.items;
+							tpl_data.task.createdby = createdby.items[0];
 
-						/// вот это вот шляпа про проект - поправить
-						for (var i=0; i<projects.items.length; i++) {
-							if (projects.items[i].id == task.items[0].project) {
-								tpl_data['project'] = projects.items[i];
+							for (var i=0; i<comments.items.length; i++) {
+								comments.items[i].text = bb2html(comments.items[i].text);
 							}
-						}
+							tpl_data['comments'] = comments.items;
 
-						// разберёмся с вложенными файлами
-						if (typeof task.items[0].attachments !== 'undefined') {
-							for (var i=0; i<task.items[0].attachments.length; i++) {
-								tpl_data.attachments[i] = task.items[0].attachments[i];
-								tpl_data.attachments[i].is_image = true;
-								tpl_data.attachments[i].full_url = API.url+task.items[0].attachments[i].url;
+							/// вот это вот шляпа про проект - поправить
+							for (var i=0; i<projects.items.length; i++) {
+								if (projects.items[i].id == task.items[0].project) {
+									tpl_data['project'] = projects.items[i];
+								}
 							}
-						}
 
-						$(".main-wrapper").addClass("rpo");
-
-						$("#description").html(TEMPLATES.task_full(tpl_data));
-
-						make_task_editable("#description");
-
-						$(".dz-hidden-input").remove(); // подчистим концы от предыдущих инициализаций dropzone
-						$(".dropzone").dropzone({
-							dictDefaultMessage: "<i class='fa fa-cloud-upload'></i>Перетащите сюда файл<br><span class='dz-text-small'>или нажмите для выбора из каталога</span>",
-							url: API.url+"/task/"+taskid+"/attachment?auth_token="+todo_session_key+"&session_user="+todo_session_user,
-							error: function(file, error) {
-								$.growl("<b>"+error.ErrorCode+":</b> "+error.ErrorMessage, {type: "danger"});
+							// разберёмся с вложенными файлами
+							if (typeof task.items[0].attachments !== 'undefined') {
+								for (var i=0; i<task.items[0].attachments.length; i++) {
+									tpl_data.attachments[i] = task.items[0].attachments[i];
+									tpl_data.attachments[i].is_image = true;
+									tpl_data.attachments[i].full_url = API.url+task.items[0].attachments[i].url;
+								}
 							}
+
+							$(".main-wrapper").addClass("rpo");
+
+							console.log(tpl_data);
+
+							$("#description").html(TEMPLATES.task_full(tpl_data));
+
+							make_task_editable("#description");
+
+							// dropzone
+							$(".dz-hidden-input").remove(); // подчистим концы от предыдущих инициализаций dropzone
+							$(".dropzone").dropzone({
+								dictDefaultMessage: "<i class='fa fa-cloud-upload'></i>Перетащите сюда файл<br><span class='dz-text-small'>или нажмите для выбора из каталога</span>",
+								url: API.url+"/task/"+taskid+"/attachment?auth_token="+todo_session_key+"&session_user="+todo_session_user,
+								error: function(file, error) {
+									$.growl("<b>"+error.ErrorCode+":</b> "+error.ErrorMessage, {type: "danger"});
+								}
+							});
 						});
 					});
 				});
@@ -507,7 +514,7 @@ $(document).ready(function() {
 	});
 
 	/* форма редактирования количества часов потраченных на выполнение задачи в какой-то день + комментарий */
-	$("#content-wrapper").on('dblclick', '.task-hours td', function() {
+	$("#content-wrapper").on('click', '.task-hours td', function() {
 		var day = $(this).data("day");
 		var taskid = $(this).parent().data("taskid");
 		var userid = $(this).parent().data("userid");

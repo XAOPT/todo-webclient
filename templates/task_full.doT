@@ -5,48 +5,55 @@
 <h3>{{=it.task.title}}</h3>
 
 <div id="task_description">
-	<div class="panel">
-		<table id="user" class="table table-bordered table-striped">
-			<tbody>
-				<tr>
-					<td width="35%">Тип задачи:</td>
-					<td width="65%"><a href="#" id="type" data-type="select" class="editable editable-click" data-pk="{{=it.task.id}}" data-value="{{=it.task.type}}"></a></td>
-				</tr>
-				<tr>
-					<td>Проект:</td>
-					<td><a href="#" id="project" data-type="select" class="editable editable-click">{{=it.project.title}}</a></td>
-				</tr>
-				<tr>
-					<td>Приоритет:</td>
-					<td><a href="#" id="priority" data-type="select" class="editable editable-click" data-pk="{{=it.task.id}}" data-value="{{=it.task.priority}}"></a></td>
-				</tr>
-				<tr>
-					<td>Статус:</td>
-					<td><a href="#" id="status" data-type="select" class="editable editable-click" data-pk="{{=it.task.id}}" data-value="{{=it.task.status}}"></a></td>
-				</tr>
-				<tr>
-					<td>Создан:</td>
-					<td>{{=it.task.created}}</td>
-				</tr>
-			</tbody>
-		</table>
+	<div class="row">
+		<div class="col-sm-6">
+			<table id="user" class="table table-bordered table-striped">
+				<tbody>
+					<tr>
+						<td width="35%">Тип задачи:</td>
+						<td width="65%"><a href="#" id="type" data-type="select" class="editable editable-click" data-pk="{{=it.task.id}}" data-value="{{=it.task.type}}"></a></td>
+					</tr>
+					<tr>
+						<td>Проект:</td>
+						<td><a href="#" id="project" data-type="select" class="editable editable-click">{{=it.project.title}}</a></td>
+					</tr>
+					<tr>
+						<td>Приоритет:</td>
+						<td><a href="#" id="priority" data-type="select" class="editable editable-click" data-pk="{{=it.task.id}}" data-value="{{=it.task.priority}}"></a></td>
+					</tr>
+					<tr>
+						<td>Статус:</td>
+						<td><a href="#" id="status" data-type="select" class="editable editable-click" data-pk="{{=it.task.id}}" data-value="{{=it.task.status}}"></a></td>
+					</tr>
+					<tr>
+						<td>Создан:</td>
+						<td>{{=it.task.created}} {{?typeof it.task.createdby !== 'undefined'}}({{=it.task.createdby.firstname}} {{=it.task.createdby.lastname}}){{?}}</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		<div class="col-sm-6">
+			<form class="dropzone" id="my-awesome-dropzone"></form>
+		</div>
 	</div>
 
 	<!-- microtask -->
-	<div class="microtask_list">
-		{{~it.microtask :mt:index}}
-		<div class="microtask {{?mt.status=='finished'}}checked{{?}}" data-pk="{{=mt.id}}">
-			<input type="checkbox" class="microtask_checkbox" {{?mt.status=='finished'}}CHECKED{{?}}>
-			<label>{{=mt.text}}</label>
-			<span class="fa fa-remove microtask_remove"></span>
+	<div>
+		<div class="microtask_list">
+			{{~it.microtask :mt:index}}
+			<div class="microtask {{?mt.status=='finished'}}checked{{?}}" data-pk="{{=mt.id}}">
+				<input type="checkbox" class="microtask_checkbox" {{?mt.status=='finished'}}CHECKED{{?}}>
+				<label>{{=mt.text}}</label>
+				<span class="fa fa-remove microtask_remove"></span>
+			</div>
+			{{~}}
 		</div>
-		{{~}}
-	</div>
 
-	<button class="btn btn-flat btn-xs btn-labeled btn-default add-microtask"><span class="btn-label icon fa fa-toggle-down"></span>Добавить микротаск</button>
-	<div class="add-microtask-detail" style="display: none;">
-		<input type="text" name="microtask-text">
-		<button class="btn btn-flat btn-xs btn-labeled btn-success create-microtask" data-taskid="{{=it.task.id}}"><span class="btn-label icon fa fa-plus-circle"></span></button>
+		<button class="btn btn-flat btn-xs btn-labeled btn-default add-microtask"><span class="btn-label icon fa fa-toggle-down"></span>Добавить микротаск</button>
+		<div class="add-microtask-detail" style="display: none;">
+			<input type="text" name="microtask-text">
+			<button class="btn btn-flat btn-xs btn-labeled btn-success create-microtask" data-taskid="{{=it.task.id}}"><span class="btn-label icon fa fa-plus-circle"></span></button>
+		</div>
 	</div>
 	<!-- -->
 
@@ -69,8 +76,6 @@
 			</div>
 		{{?}}
 	{{~}}
-
-	<form class="dropzone" id="my-awesome-dropzone"></form>
 </div>
 {{??}}
 

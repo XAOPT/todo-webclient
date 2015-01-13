@@ -35,15 +35,15 @@
 					<ul class="nav navbar-nav pull-right right-navbar-nav">
 
 						<li class="nav-icon-btn nav-icon-btn-danger dropdown">
-							<a href="#notifications" class="dropdown-toggle" data-toggle="dropdown">
+							<!-- <a href="#notifications" class="dropdown-toggle" data-toggle="dropdown">
 								<span class="label">5</span>
 								<i class="nav-icon fa fa-bullhorn"></i>
 								<span class="small-screen-text">Notifications</span>
-							</a>
+							</a> -->
 
 							<!-- NOTIFICATIONS -->
 
-							<div class="dropdown-menu widget-notifications no-padding">
+							<!-- <div class="dropdown-menu widget-notifications no-padding">
 								<div class="notifications-list" id="main-navbar-notifications">
 
 									<div class="notification">
@@ -51,50 +51,49 @@
 										<div class="notification-description"><strong>Error 500</strong>: Syntax error in index.php at line <strong>461</strong>.</div>
 										<div class="notification-ago">12h ago</div>
 										<div class="notification-icon fa fa-hdd-o bg-danger"></div>
-									</div> <!-- / .notification -->
-
+									</div>
 									<div class="notification">
 										<div class="notification-title text-info">STORE</div>
 										<div class="notification-description">You have <strong>9</strong> new orders.</div>
 										<div class="notification-ago">12h ago</div>
 										<div class="notification-icon fa fa-truck bg-info"></div>
-									</div> <!-- / .notification -->
+									</div>
 
 									<div class="notification">
 										<div class="notification-title text-default">CRON DAEMON</div>
 										<div class="notification-description">Job <strong>"Clean DB"</strong> has been completed.</div>
 										<div class="notification-ago">12h ago</div>
 										<div class="notification-icon fa fa-clock-o bg-default"></div>
-									</div> <!-- / .notification -->
+									</div>
 
 									<div class="notification">
 										<div class="notification-title text-success">SYSTEM</div>
 										<div class="notification-description">Server <strong>up</strong>.</div>
 										<div class="notification-ago">12h ago</div>
 										<div class="notification-icon fa fa-hdd-o bg-success"></div>
-									</div> <!-- / .notification -->
+									</div>
 
 									<div class="notification">
 										<div class="notification-title text-warning">SYSTEM</div>
 										<div class="notification-description"><strong>Warning</strong>: Processor load <strong>92%</strong>.</div>
 										<div class="notification-ago">12h ago</div>
 										<div class="notification-icon fa fa-hdd-o bg-warning"></div>
-									</div> <!-- / .notification -->
+									</div>
 
-								</div> <!-- / .notifications-list -->
+								</div>
 								<a href="#" class="notifications-link">MORE NOTIFICATIONS</a>
-							</div> <!-- / .dropdown-menu -->
+							</div> -->
 						</li>
 						<li class="nav-icon-btn nav-icon-btn-success dropdown">
-							<a href="#messages" class="dropdown-toggle" data-toggle="dropdown">
+							<!-- <a href="#messages" class="dropdown-toggle" data-toggle="dropdown">
 								<span class="label">10</span>
 								<i class="nav-icon fa fa-envelope"></i>
 								<span class="small-screen-text">Income messages</span>
-							</a>
+							</a> -->
 
 							<!-- MESSAGES -->
 
-							<div class="dropdown-menu widget-messages-alt no-padding" style="width: 300px;">
+							<!-- <div class="dropdown-menu widget-messages-alt no-padding" style="width: 300px;">
 								<div class="messages-list" id="main-navbar-messages" style="overflow: hidden; width: auto; height: 250px;">
 
 									<div class="message">
@@ -117,9 +116,9 @@
 										</div>
 									</div>
 
-								</div> <!-- / .messages-list -->
+								</div>
 								<a href="#" class="messages-link">MORE MESSAGES</a>
-							</div> <!-- / .dropdown-menu -->
+							</div> --> <!-- / .dropdown-menu -->
 						</li>
 
 
