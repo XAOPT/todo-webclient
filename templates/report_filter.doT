@@ -4,11 +4,11 @@
 		<div class="panel">
 			<div class="panel-heading">
 				Пользователи
-				<button class="btn btn-flat btn-xs btn-primary pull-right">Снять выделение</button>
+				<button class="btn btn-flat btn-xs btn-primary pull-right report-remove-checks" data-target="report_filter_users">Снять выделение</button>
 			</div>
 			<div class="report_filter_users panel-body">
 				{{~it.users :user:index}}
-				<input type="checkbox" name="users" value="{{=user.id}}" CHECKED><label>{{=user.firstname}} {{=user.lastname}}</label><br />
+				<label class="checkbox"><input type="checkbox" name="users" value="{{=user.id}}" CHECKED>{{=user.firstname}} {{=user.lastname}}</label><br />
 				{{~}}
 			</div>
 		</div>
@@ -17,11 +17,11 @@
 		<div class="panel">
 			<div class="panel-heading">
 				Проекты
-				<button class="btn btn-flat btn-xs btn-primary pull-right">Снять выделение</button>
+				<button class="btn btn-flat btn-xs btn-primary pull-right report-remove-checks" data-target="report_filter_projects">Снять выделение</button>
 			</div>
 			<div class="report_filter_projects panel-body">
 				{{~it.projects :project:index}}
-				<input type="checkbox" name="projects" value="{{=project.id}}" CHECKED><label>{{=project.title}}</label><br />
+				<label class="checkbox"><input type="checkbox" name="projects" value="{{=project.id}}" CHECKED>{{=project.title}}</label><br />
 				{{~}}
 			</div>
 		</div>

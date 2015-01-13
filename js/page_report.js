@@ -23,6 +23,31 @@ function build_report_filter()
 }
 
 $(document).ready(function(){
+
+	/* нажатие на кнопку "снять выделение", "выбрать всех" */
+	$(document).on('click', '.report-remove-checks, .report-add-checks', function() {
+		var button = $(this);
+		var target_class = $(this).data('target');
+
+		if (typeof target_class === 'undefined')
+			return;
+
+		button.toggleClass('report-remove-checks');
+		button.toggleClass('report-add-checks');
+
+		if (button.hasClass('report-remove-checks')) {
+			button.html('Снять выделение');
+			$("."+target_class).find("input[type='checkbox']").prop('checked', true);
+		}
+		else {
+			button.html('Выделить');
+			$("."+target_class).find("input[type='checkbox']").prop('checked', false);
+		}
+
+
+	});
+
+	/* нажатие на кнопку построения отчёта */
 	$(document).on('click', '#build_report', function(){
 		var filter_users = [];
 		var filter_projects = [];
