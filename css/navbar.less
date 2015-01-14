@@ -36,6 +36,35 @@
 		width: 56px;
 		overflow: hidden;
 		z-index: 1034;
+
+		.navbar-icon {
+			left:26px;
+			font-size: 14px;
+
+			margin: -23px 0 0 0;
+			padding: 0;
+			position: absolute;
+			z-index: 1035;
+			line-height: 46px;
+
+			.transition02s();
+
+			&:after {
+				content:"\f0d9";
+				right:16px;
+
+				display: block;
+				font-size: 10px;
+				line-height: 46px;
+				position: absolute;
+				top: 0;
+
+				.mmc & {
+					content:"\f0da";
+					right: -8px;
+				}
+			}
+		}
 	}
 
 	.dropdown-menu {

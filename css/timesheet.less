@@ -138,9 +138,136 @@
 	}
 }
 
+#task_description {
+	position: relative;
 
-/* правка стиля для плагина x-editable */
-.editable-checklist {
-	max-height: 300px;
-	overflow-y: scroll
+	.comment {
+		border: solid 1px #ccc;
+		background: #eee;
+		padding: 15px;
+		margin-top: 15px;
+		border-radius: 5px;
+	}
+
+	.microtask_list {
+		.microtask {
+			.microtask_remove {
+				display: none;
+			}
+
+			&.checked {
+				label {
+					text-decoration: line-through;
+				}
+			}
+
+			&:hover {
+				.microtask_remove {
+					display: inline;
+					cursor: pointer;
+				}
+			}
+		}
+	}
+
+	/* dropzone.js поле для закидывания файлов */
+	.dropzone {
+
+		position: relative;
+		min-height: 104px;
+		border: 3px dashed #ddd;
+		border-radius: 3px;
+		vertical-align: middle;
+		width: 100%;
+		cursor: pointer;
+		padding: 0 15px 15px 0;
+		-webkit-transition: all .2s;
+		transition: all .2s;
+
+		&:hover {
+			.fa-cloud-upload {
+				background: #1d89cf;
+				color: #FFF;
+			}
+		}
+
+		.fa-cloud-upload {
+			display: block;
+			width: 70px;
+			height: 70px;
+			position: absolute;
+			left: 0;
+			top: 0;
+			text-align: center;
+			line-height: 70px;
+			font-size: 32px;
+			background: #eee;
+			color: #aaa;
+			border-radius: 2px;
+			-webkit-transition: all .2s;
+			transition: all .2s;
+		}
+		.dz-message {
+			background-image: none !important;
+
+			color: #555;
+			font-size: 20px;
+			font-weight: 600;
+			display: block;
+			min-height: 70px;
+			width: 100%;
+			position: absolute;
+			padding-left: 90px;
+			padding-top: 12px;
+			line-height: 22px;
+			top: 50%;
+			margin-top: -35px !important;
+			left: 50%;
+			-webkit-transition: all .2s;
+			transition: all .2s;
+
+			span {
+				display: block !important;
+			}
+
+			.dz-text-small {
+				font-size: 14px;
+				font-weight: 400;
+			}
+		}
+
+		.dz-filename {
+			display: none;
+		}
+	}
+}
+
+/* стили для lightbox-a */
+.lightbox_modal_image {
+	max-width: 600px;
+}
+.lightbox.thumbnail {
+	padding: 4px;
+	border-radius: 2px;
+	border: solid 1px #ddd;
+	height: 100px;
+	margin: 0 8px 0 0;
+	cursor: pointer;
+	display: inline-block;
+	position: relative;
+
+	&:hover {
+		border-color: #08c;
+	}
+	img {
+		max-width: 90px;
+		max-height: 90px;
+	}
+	span {
+		color: #d00;
+		font-size: 18px;
+		position: absolute;
+		top: -10px;
+		right: -5px;
+	}
 }

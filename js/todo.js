@@ -1,3 +1,81 @@
+/* контроллер левого меню */
+var mainMenu = {
+	submenu_locker: false,
+	hide_submenu: function() {
+		setTimeout(function(){
+			if (!mainMenu.submenu_locker)
+				$(".mmc-dropdown-open-ul").remove();
+		},1000);
+	},
+	init: function() {
+		$("#main-menu").on("click", "a", function(){
+			var a = $(this);
+
+			var LI = $(this).parent();
+
+			LI.siblings("LI").not(LI).each(function(){
+				$(this).find("UL:first").slideUp("fast", function(){$(this).removeClass("open")}.bind($(this)));
+			});
+
+			if (LI.hasClass("open")) {
+				LI.find("UL:first").slideUp("fast", function(){LI.removeClass("open")});
+			}
+			else {
+				LI.find("UL:first").slideDown("fast", function(){LI.addClass("open"); LI.find("UL:first").removeAttr('style');})
+			}
+
+			$(".main-wrapper").removeClass("rpo");
+
+			if (a.attr("href") !== "#") { // загружаем новую страницу только в том случае, если ссылка не пустая
+				$("#main-menu li").removeClass("active");
+				a.parent().addClass("active");
+
+				a.parents(".mm-dropdown").addClass("open"); // откроем все родительские раскладывающиеся менюшки
+
+				window.history.pushState({},"", a.attr("href"));
+				$.ajax({
+					type: 'get',
+					url: window.location.hash.substring(1, window.location.hash.length),
+					dataType: 'HTML',
+					success: function(answer) {
+						$("#content-wrapper").html(answer);
+					}
+				});
+			}
+
+			return false;
+		});
+
+		$("#main-menu").on({
+			mouseenter: function() {
+				mainMenu.submenu_locker = true;
+			},
+			mouseleave: function() {
+				mainMenu.submenu_locker = false;
+				mainMenu.hide_submenu();
+			}
+		}, ".mmc-dropdown-open-ul");
+
+		$("LI.mm-dropdown").hover(
+			function(){
+				mainMenu.submenu_locker = true;
+
+				$(".mmc-dropdown-open-ul").remove();
+
+				var head = $(this).find(".mm-text:first").clone();
+				$(this).find("UL:first").clone().removeClass("fadeInLeft").addClass("mmc-dropdown-open-ul").css({"top": $(this).position().top}).appendTo("#main-menu").prepend(head.addClass('mmc-title'));
+
+			},
+			function(){
+				mainMenu.submenu_locker = false;
+				mainMenu.hide_submenu();
+			}
+		);
+
+		$(".navigation a[href='"+window.location.hash+"']").click();
+	}
+};
+
 
 $(document).ready(function() {
 
