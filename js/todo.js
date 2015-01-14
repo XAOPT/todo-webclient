@@ -153,7 +153,7 @@ $(document).ready(function() {
 		box.prop("checked", !box.prop("checked"));
 	});
 
-	$(document).on('click', '.close', function() {
+	$(document).on('click', '.rpo-close', function() {
 		$(".main-wrapper").removeClass("rpo");
 	});
 

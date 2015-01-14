@@ -58,5 +58,5 @@ $(document).ready(function(){
 
 <div class="item-description" style="z-index: 50;">
 	<div class='bg' id="description"></div>
-	<span class="fa fa-times close"></span>
+	<span class="fa fa-times rpo-close"></span>
 </div>
