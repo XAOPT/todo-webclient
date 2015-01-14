@@ -16,7 +16,14 @@ var API_DOMAIN = "<?=API_DOMAIN?>";
 <?php
 if (isset($_COOKIE['session_token']) && isset($_COOKIE['session_user']) && !empty($_COOKIE['session_token']) && !empty($_COOKIE['session_user']))
 {
-	include("includes/inc_head.php");
+
+	if ($_SERVER['REMOTE_ADDR'] == '127.0.0.1') {
+		include("includes/inc_head_development.php");
+	}
+	else {
+		include("includes/inc_head_production.php");
+	}
+
 	echo "
 	<script>
 		var todo_session_key = '{$_COOKIE['session_token']}';
@@ -51,7 +58,6 @@ TODO:
 В планах:
 - Комментирование задач
 - Логировать изменения задач
-- Сжатие скриптов и стилей (значительное уменьшение траффика при первом заходе)
 - Восстановление пароля
 - Заявки на создание аккаунта
 - Полноценное разграничение уровней доступа

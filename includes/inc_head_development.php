@@ -9,12 +9,15 @@
 	<link rel="stylesheet" href="css/bootstrap-colorpicker.min.css">
 	<link rel="stylesheet" href="css/dropzone.css">
 	<link rel="stylesheet" href="css/animate.css">
+	<link rel="stylesheet" href="css/bootstrap-datepicker.css">
 	<link rel="stylesheet/less" href="css/main.less">
 	<link rel="stylesheet/less" href="css/menu.less">
 	<link rel="stylesheet/less" href="css/content_wrapper.less">
 	<link rel="stylesheet/less" href="css/navbar.less">
 	<link rel="stylesheet/less" href="css/timesheet.less">
-	<link rel="stylesheet/less" href="css/bootstrap-datepicker.less">
+
+	<link rel="stylesheet" href="css/summernote/codemirror.css" />
+	<link href="css/summernote/summernote.css" rel="stylesheet">
 
 	<script src="js/jquery-2.1.1.min.js"></script>
 	<script src="js/bootstrap.min.js"></script>
@@ -35,9 +38,7 @@
 	<script src="js/bootstrap-growl.min.js"></script>
 	<script src="js/bootstrap-datepicker.js"></script>
 
-	<link rel="stylesheet" href="css/summernote/codemirror.css" />
 	<script type="text/javascript" src="js/summernote/codemirror.js"></script>
 	<script type="text/javascript" src="js/summernote/formatting.min.js"></script>
-	<link href="css/summernote/summernote.css" rel="stylesheet">
 	<script type="text/javascript" src="js/summernote/summernote.min.js"></script>
 </head>
