@@ -10,14 +10,14 @@
 		<div class="signin-info">
 			<span href="index.php" class="logo">
 				<img src="img/logo-18x18.png" alt="" style="margin-top: -5px;">&nbsp;
-				Админка
+				Тудушник
 			</span>
 			<div class="slogan">
-				Просто. Гибко. Удобно.
+				Поработал? Забей время!
 			</div>
 			<ul>
 				<li><i class="fa fa-sitemap signin-icon"></i> Модульная структура</li>
-				<li><i class="fa fa-file-text-o signin-icon"></i> Удобные исходные файлы</li>
+				<li><i class="fa fa-file-text-o signin-icon"></i> Есть исходники</li>
 				<li><i class="fa fa-outdent signin-icon"></i> Любые устройства</li>
 				<li><i class="fa fa-heart signin-icon"></i> Сделано с любовью</li>
 			</ul>
@@ -81,7 +81,7 @@
 	</div>
 
 	<div class="not-a-member">
-		Нет доступа? <a href="#">Отправьте заявку</a>
+		Нет доступа? <a href="mailto:dpetrov@game-insight.com">Отправьте заявку</a>
 	</div>
 
 </body>

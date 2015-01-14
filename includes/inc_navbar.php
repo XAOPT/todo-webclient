@@ -124,7 +124,7 @@
 
 						<li>
 							<form class="navbar-form pull-left">
-								<input type="text" class="form-control" placeholder="Поиск">
+								<!-- <input type="text" class="form-control" placeholder="Поиск"> -->
 							</form>
 						</li>
 

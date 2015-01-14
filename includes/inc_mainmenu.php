@@ -32,10 +32,10 @@
 
 					a.parents(".mm-dropdown").addClass("open"); // откроем все родительские раскладывающиеся менюшки
 
-					window.history.pushState({},"", '#'+a.attr("href"));
+					window.history.pushState({},"", a.attr("href"));
 					$.ajax({
 						type: 'get',
-						url: a.attr("href"),
+						url: window.location.hash.substring(1, window.location.hash.length),
 						dataType: 'HTML',
 						success: function(answer) {
 							$("#content-wrapper").html(answer);
@@ -72,10 +72,7 @@
 				}
 			);
 
-			var after_hash = window.location.hash;
-			after_hash = after_hash.substring(1, after_hash.length);
-
-			$(".navigation a[href='"+after_hash+"']").click();
+			$(".navigation a[href='"+window.location.hash+"']").click();
 		}
 	};
 </script>
@@ -95,35 +92,35 @@
 				<a href="#"><i class="menu-icon fa fa-users"></i><span class="mm-text mmc-dropdown-delay fadeIn">Сотрудники</span></a>
 				<ul class="mmc-dropdown-delay fadeInLeft">
 					<li>
-						<a href="pages/users.php?deleted=0"><span class="mm-text">Активные</span></a>
+						<a href="#pages/users.php?deleted=0"><span class="mm-text">Активные</span></a>
 					</li>
 					<li>
-						<a href="pages/users.php?deleted=1"><span class="mm-text">Заблокированные</span></a>
+						<a href="#pages/users.php?deleted=1"><span class="mm-text">Заблокированные</span></a>
 					</li>
 					<li>
-						<a href="pages/role.php"><span class="mm-text">Роли пользователей</span></a>
+						<a href="#pages/role.php"><span class="mm-text">Роли пользователей</span></a>
 					</li>
 				</ul>
 			</li>
 			<li>
-				<a href="pages/timesheet.php"><i class="menu-icon fa fa-table"></i><span class="mm-text mmc-dropdown-delay fadeIn">Timesheet</span></a>
+				<a href="#pages/timesheet.php"><i class="menu-icon fa fa-table"></i><span class="mm-text mmc-dropdown-delay fadeIn">Timesheet</span></a>
 			</li>
 			<li class="mm-dropdown">
 				<a href="#"><i class="menu-icon fa fa-sitemap"></i><span class="mm-text mmc-dropdown-delay fadeIn">Проекты</span></a>
 				<ul class="mmc-dropdown-delay fadeInLeft">
 					<li>
-						<a href="pages/projects.php?archived=0"><span class="mm-text">Активные</span></a>
+						<a href="#pages/projects.php?archived=0"><span class="mm-text">Активные</span></a>
 					</li>
 					<li>
-						<a href="pages/projects.php?archived=1"><span class="mm-text">Заблокированные</span></a>
+						<a href="#pages/projects.php?archived=1"><span class="mm-text">Заблокированные</span></a>
 					</li>
 				</ul>
 			</li>
 			<li>
-				<a href="pages/report.php"><i class="menu-icon fa fa-calculator"></i><span class="mm-text mmc-dropdown-delay fadeIn">Отчёты</span></a>
+				<a href="#pages/report.php"><i class="menu-icon fa fa-calculator"></i><span class="mm-text mmc-dropdown-delay fadeIn">Отчёты</span></a>
 			</li>
 			<li>
-				<a href="pages/convert.php"><i class="menu-icon fa fa-exchange"></i><span class="mm-text mmc-dropdown-delay fadeIn">Конвертирование</span></a>
+				<a href="#pages/convert.php"><i class="menu-icon fa fa-exchange"></i><span class="mm-text mmc-dropdown-delay fadeIn">Конвертирование</span></a>
 			</li>
 			<!-- <li class="mm-dropdown">
 				<a href="#"><i class="menu-icon fa fa-sitemap"></i><span class="mm-text mmc-dropdown-delay fadeIn">Уровни меню</span><span class="badge badge-primary">6</span></a>

@@ -426,6 +426,9 @@ $(document).ready(function() {
 		$('.tt').removeClass("active");
 		$(this).addClass("active");
 
+		$(".main-wrapper").addClass("rpo");
+		$("#description").html('');
+
 		API.get.task({"id": taskid}, function(task) {
 			API.get.comment({"taskid": taskid}, function(comments) {
 				API.get.microtask({"taskid": taskid}, function(microtask) {
@@ -459,10 +462,6 @@ $(document).ready(function() {
 									tpl_data.attachments[i].full_url = API.url+task.items[0].attachments[i].url;
 								}
 							}
-
-							$(".main-wrapper").addClass("rpo");
-
-							console.log(tpl_data);
 
 							$("#description").html(TEMPLATES.task_full(tpl_data));
 
