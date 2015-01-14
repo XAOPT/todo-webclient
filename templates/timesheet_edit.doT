@@ -5,13 +5,21 @@
 	<div class="form-group">
 		<label class="col-sm-4 control-label" for="formGroupInputSmall">Потрачено часов</label>
 		<div class="col-sm-7">
-			<input type="text" class="form-control input-sm" name="worktimeHours" value="{{? typeof it.item !== 'undefined'}}{{=it.item.worktimeHours}}{{??}}0{{?}}">
+			{{?it.editable}}
+				<input type="text" class="form-control input-sm" name="worktimeHours" value="{{? typeof it.item !== 'undefined'}}{{=it.item.worktimeHours}}{{??}}0{{?}}">
+			{{??}}
+				{{? typeof it.item !== 'undefined'}}{{=it.item.worktimeHours}}{{??}}0{{?}}
+			{{?}}
 		</div>
 	</div>
 	<div class="form-group">
 		<label class="col-sm-4 control-label" for="formGroupInputSmall">Комментарий</label>
 		<div class="col-sm-7">
-			<textarea class="form-control" rows="3" name="comment">{{? typeof it.item !== 'undefined'}}{{=it.item.comment}}{{?}}</textarea>
+			{{?it.editable}}
+				<textarea class="form-control" rows="3" name="comment">{{? typeof it.item !== 'undefined'}}{{=it.item.comment}}{{?}}</textarea>
+			{{??}}
+				{{? typeof it.item !== 'undefined'}}{{=it.item.comment}}{{?}}
+			{{?}}
 		</div>
 	</div>
 </form>

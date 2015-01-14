@@ -103,7 +103,7 @@
 				</ul>
 			</li>
 			<li>
-				<a href="#pages/timesheet.php"><i class="menu-icon fa fa-table"></i><span class="mm-text mmc-dropdown-delay fadeIn">Timesheet</span></a>
+				<a href="#pages/timesheet.php"><i class="menu-icon fa fa-table"></i><span class="mm-text mmc-dropdown-delay fadeIn">Таблица времени</span></a>
 			</li>
 			<li class="mm-dropdown">
 				<a href="#"><i class="menu-icon fa fa-sitemap"></i><span class="mm-text mmc-dropdown-delay fadeIn">Проекты</span></a>

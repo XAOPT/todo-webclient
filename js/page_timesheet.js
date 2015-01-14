@@ -76,6 +76,7 @@ function renderTimesheet() {
 	this.drawUserTimesheet = function(params)
 	{
 		var tpl_data = {
+			"my_id": API.me.id,
 			"day_count": this.count,
 			"task": [],
 			"summary": []
@@ -513,7 +514,7 @@ $(document).ready(function() {
 	});
 
 	/* форма редактирования количества часов потраченных на выполнение задачи в какой-то день + комментарий */
-	$("#content-wrapper").on('click', '.task-hours td', function() {
+	$("#content-wrapper").on('click', '.my_task td, td.commented', function() {
 		var day = $(this).data("day");
 		var taskid = $(this).parent().data("taskid");
 		var userid = $(this).parent().data("userid");
@@ -524,6 +525,7 @@ $(document).ready(function() {
 				'day': day,
 				'taskid': taskid,
 				'userid': userid,
+				'editable': userid == API.me.id,
 				'item': answer.items[0]
 			};
 
@@ -590,6 +592,7 @@ $(document).ready(function() {
 		$(".add-microtask-detail").show();
 	});
 
+	/* подтверждение добавления микротаска */
 	$(document).on('click', '.create-microtask', function() {
 		$(".add-microtask-detail").hide();
 
@@ -610,6 +613,7 @@ $(document).ready(function() {
 		});
 	});
 
+	/* снять/установить выделение микротаска */
 	$(document).on('click', '.microtask_checkbox', function(){
 		var checkbox = $(this);
 		var params = {
@@ -622,6 +626,7 @@ $(document).ready(function() {
 		});
 	});
 
+	/* удаление микротаска */
 	$(document).on('click', '.microtask_remove', function(){
 		var microtask = $(this).parent();
 		API.delete.microtask({id: microtask.data("pk")}, function() {
