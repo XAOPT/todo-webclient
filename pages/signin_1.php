@@ -51,7 +51,7 @@
 
 			<div class="signin-with">
 				<!-- Facebook -->
-				<a class="signin-with-btn" onclick="fb_login();">Войти через <span>Facebook</span></a>
+				<!-- <a class="signin-with-btn" onclick="fb_login();">Войти через <span>Facebook</span></a> -->
 			</div>
 
 			<!-- Восстановление пароля -->

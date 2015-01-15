@@ -5,6 +5,7 @@
 
 	<link rel="stylesheet" href="css/bootstrap.min.css">
 	<link rel="stylesheet" href="css/font-awesome.min.css">
+	<link rel="stylesheet/less" href="css/main.less">
 	<link rel="stylesheet/less" href="css/menu.less">
 	<link rel="stylesheet/less" href="css/signin.less">
 
@@ -13,6 +14,4 @@
 	<script src="js/less.min.js"></script>
 	<script src="js/page_signin.js"></script>
 	<script src="js/todo-api.js"></script>
-
-	<link href="http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,400,600,700,300&subset=latin" rel="stylesheet" type="text/css">
 </head>

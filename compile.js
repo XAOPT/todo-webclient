@@ -91,10 +91,10 @@ lessFiles.forEach(function(file){
 				compress: true       // Minify CSS output
 			},
 			function (e, output) {
-				fs.appendFile('css/concat.min.css', output.css, function (err){
-					if(err)
-						console.log(err);
-				})
+				if(err)
+					console.log(err);
+				else
+					fs.appendFile('css/concat.min.css', output.css);
 			}
 		);
 	});
