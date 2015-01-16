@@ -201,7 +201,7 @@ $(document).ready(function() {
 			});
 
 			dialog.realize();
-			dialog.getModalHeader().hide();
+			//dialog.getModalHeader().hide();
 			dialog.getModalFooter().hide();
 			if (img_real_width > 600) {
 				img_real_width = 600;
