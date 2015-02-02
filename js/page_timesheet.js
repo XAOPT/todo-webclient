@@ -335,7 +335,7 @@ function init_timesheet_interface(cb) {
 					{
 						assignee_source[i] = {
 							value: user_list.items[i].id,
-							text: user_list.items[i].firstname + ' ' + user_list.items[i].lastname
+							text: user_list.items[i].lastname + ' ' + user_list.items[i].firstname
 						};
 					}
 

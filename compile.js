@@ -90,7 +90,7 @@ lessFiles.forEach(function(file){
 				paths: ['./css'],        // Specify search paths for @import directives
 				compress: true       // Minify CSS output
 			},
-			function (e, output) {
+			function (err, output) {
 				if(err)
 					console.log(err);
 				else

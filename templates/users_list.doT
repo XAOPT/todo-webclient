@@ -19,7 +19,7 @@
 			<div class="list-item-name">
 				<img class="avatar {{? user.deleted }}grayscale{{?}}" src="{{? user.email }}http://www.gravatar.com/avatar/{{=md5(user.email)}}?d=mm{{??}}img/avatar1.jpg{{?}}">
 				{{? user.firstname || user.lastname}}
-					{{=user.firstname}} {{=user.lastname}}
+					{{=user.lastname}} {{=user.firstname}}
 				{{??}}
 					<i>Не подтвержён</i>
 				{{?}}

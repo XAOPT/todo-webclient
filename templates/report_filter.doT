@@ -8,7 +8,7 @@
 			</div>
 			<div class="report_filter_users panel-body">
 				{{~it.users :user:index}}
-				<label class="checkbox"><input type="checkbox" name="users" value="{{=user.id}}" CHECKED>{{=user.firstname}} {{=user.lastname}}</label><br />
+				<label class="checkbox"><input type="checkbox" name="users" value="{{=user.id}}" CHECKED>{{=user.lastname}} {{=user.firstname}}</label><br />
 				{{~}}
 			</div>
 		</div>

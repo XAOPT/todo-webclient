@@ -1,7 +1,7 @@
 <tr>
 	<td colspan="2" class="user">
 	<img class="avatar {{? it.user.deleted }}grayscale{{?}}" src="{{? it.user.email }}http://www.gravatar.com/avatar/{{=md5(it.user.email)}}?d=mm{{??}}img/avatar1.jpg{{?}}">
-	{{=it.user.firstname}} {{=it.user.lastname}}
+	{{=it.user.lastname}} {{=it.user.firstname}}
 	</td>
 </tr>
 {{~it.tasks :task:index}}

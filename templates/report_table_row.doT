@@ -1,6 +1,6 @@
 <tr>
 	<td style="white-space: nowrap;">
-		<b>{{=it.user.firstname}} {{=it.user.lastname}}</b>
+		<b>{{=it.user.lastname}} {{=it.user.firstname}}</b>
 	</td>
 	{{~it.sorted_hours :hour}}
 	<td align="center">
