@@ -448,13 +448,6 @@ $(document).ready(function() {
 							}
 							tpl_data['comments'] = comments.items;
 
-							/// вот это вот шляпа про проект - поправить
-							for (var i=0; i<projects.items.length; i++) {
-								if (projects.items[i].id == task.items[0].project) {
-									tpl_data['project'] = projects.items[i];
-								}
-							}
-
 							// разберёмся с вложенными файлами
 							if (typeof task.items[0].attachments !== 'undefined') {
 								for (var i=0; i<task.items[0].attachments.length; i++) {
@@ -464,9 +457,25 @@ $(document).ready(function() {
 								}
 							}
 
+							editable_sources.project = [];
+							for (var i=0; i<projects.items.length; i++) {
+								if (projects.items[i].id == task.items[0].project) {
+									tpl_data['project'] = projects.items[i];
+								}
+
+								editable_sources.project.push({value: projects.items[i].id, text: projects.items[i].title});
+							}
+
 							$("#description").html(TEMPLATES.task_full(tpl_data));
 
 							make_task_editable("#description");
+
+							$('#description #project').editable({
+								source: editable_sources.project,
+								url: function(params) {
+									API.put.task({id: params.pk, project: params.value});
+								}
+							});
 
 							// dropzone
 							$(".dz-hidden-input").remove(); // подчистим концы от предыдущих инициализаций dropzone

@@ -15,7 +15,7 @@
 					</tr>
 					<tr>
 						<td>Проект:</td>
-						<td><a href="#" id="project" data-type="select" class="editable editable-click">{{=it.project.title}}</a></td>
+						<td><a href="#" id="project" data-type="select" class="editable editable-click" data-pk="{{=it.task.id}}">{{=it.project.title}}</a></td>
 					</tr>
 					<tr>
 						<td>Приоритет:</td>
