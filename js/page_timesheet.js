@@ -494,7 +494,7 @@ $(document).ready(function() {
 	});
 
 	/* форма изменения типа дня на выходной-рабочий */
-	$("#content-wrapper").on('dblclick', '.timesheet-day', function() {
+	$("#content-wrapper").on('click', '.timesheet-day', function() {
 		var day = $(this).data("day");
 		var day_kind = $(this).data("kind");
 
