@@ -95,15 +95,20 @@ $(document).ready(function(){
 							});
 
 							var sorted_hours = [];
-							var total = 0;
+							var total_hours = 0;
 
 							projects.forEach(function(proj){
 								var temp = (typeof hours[proj.id] === 'undefined')?0:Math.round(hours[proj.id]*10)/10;
 								sorted_hours.push(temp);
-								total += temp;
+								total_hours += temp;
 							});
 
-							$(".report-body TABLE TBODY").append(TEMPLATES.report_table_row({user: users[i], "sorted_hours": sorted_hours, "total": total}));
+							$(".report-body TABLE TBODY").append(TEMPLATES.report_table_row({
+								user: users[i],
+								"sorted_hours": sorted_hours,
+								"total_hours": total_hours,
+								"total_days": total_hours/8,
+							}));
 						});
 					})(i);
 				}

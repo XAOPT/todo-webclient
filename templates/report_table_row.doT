@@ -8,6 +8,9 @@
 	</td>
 	{{~}}
 	<td align="center">
-		<b>{{=it.total}}</b>
+		<b>{{=it.total_hours}}</b>
+	</td>
+	<td align="center">
+		<b>{{=it.total_days}}</b>
 	</td>
 </tr>

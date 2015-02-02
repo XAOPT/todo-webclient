@@ -3,11 +3,12 @@
 	<tr>
 		<th></th>
 		{{~it.projects :proj:index}}
-			<th style="background: #{{=proj.tagcolor}}">
+			<th align="center" style="background: #{{=proj.tagcolor}}">
 				<span data-placement="top" title="{{=proj.title}}">{{=proj.shorttitle}}</span>
 			</th>
 		{{~}}
-		<th>Всего</th>
+		<th align="center">Всего, часов</th>
+		<th align="center">Всего, дней</th>
 	</tr>
 	</thead>
 	<tbody>
