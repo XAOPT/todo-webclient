@@ -87,14 +87,17 @@ lessFiles.forEach(function(file){
 		var dataString = data.toString();
 		less.render(dataString,
 			{
-				paths: ['./css'],        // Specify search paths for @import directives
-				compress: true       // Minify CSS output
+				paths: ['./css'],    // Specify search paths for @import directives
+				compress: true,       // Minify CSS output
+				sourceMap: {}
 			},
 			function (err, output) {
-				if(err)
+				if(err) {
 					console.log(err);
-				else
+				}
+				else {
 					fs.appendFile('css/concat.min.css', output.css);
+				}
 			}
 		);
 	});
