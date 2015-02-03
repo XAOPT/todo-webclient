@@ -1,6 +1,6 @@
 <tr class="timesheet_summary">
-	{{~it.summary :hours:day_index}}
-	<td>{{?hours>0}}{{=hours}}{{??}}&nbsp;{{?}}</td>
+	{{~it.summary :current:day_index}}
+	<td data-day="{{=current.day}}" data-userid="{{=it.userid}}" data-kind="{{=current.day_kind}}" class="{{=current.day_kind}}">{{?current.hours>0}}{{=current.hours}}{{??}}&nbsp;{{?}}</td>
 	{{~}}
 </tr>
 

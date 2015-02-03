@@ -77,31 +77,61 @@ function renderTimesheet() {
 	{
 		var tpl_data = {
 			"my_id": API.me.id,
+			"userid": params.userid,
 			"day_count": this.count,
 			"task": [],
 			"summary": []
 		};
 
 		if (params.tasks.length == 0) {
-			$(".task-hours .wrapper table tbody tr[data-holderid='"+params.userid+"']").replaceWith("<tr><td colspan="+this.count+">&nbsp;</td></tr>");
+			$(".task-hours .wrapper table tbody tr[data-holderid='"+params.userid+"']").replaceWith("<tr class='timesheet_summary'><td colspan="+this.count+">&nbsp;</td></tr>");
 			return;
-		}
-
-		var task_ids = []; // соберём айдишники тасков, чтобы отправить их в апи для получения часов
-		for (var i=0; i<params.tasks.length; i++) {
-			task_ids[i] = params.tasks[i].id;
 		}
 
 		API.get.timesheet.summary({"userid": params.userid, "from": this.from, "count": this.count}, function(answer) {
 
 			var items = answer.items;
 			for (var i=0; i < items.length; i++){
-				tpl_data.summary[items[i].day-this.from] = items[i].worktimeSeconds/3600;
+				tpl_data.summary[items[i].day-this.from] = {
+					day: items[i].day,
+					hours: items[i].worktimeSeconds/3600,
+				}
+			}
+
+			for (var j = this.from; j < this.from + this.count; j++) {
+				var day_kind = this.is_weakend(j);
+
+				if (typeof params.user_exceptions[j] !== 'undefined') {
+					day_kind = params.user_exceptions[j].kind; // пользовательские исключения для календаря выше в приоритете
+				}
+				else if (typeof this.global_exceptions[j] !== 'undefined') {
+					day_kind = this.global_exceptions[j].kind; // глобальные исключения для календаря
+				}
+
+				if (typeof tpl_data.summary[j-this.from] === 'undefined') {
+					tpl_data.summary[j-this.from] = {
+						"day": j,
+						"hours": 0,
+						"day_kind": day_kind,
+					};
+				}
+				else {
+					tpl_data.summary[j-this.from].day_kind = day_kind;
+				}
 			}
 
 			for (i=0; i<this.count; i++) {
-				if (typeof tpl_data.summary[i] === 'undefined')
-					tpl_data.summary[i] = 0;
+				if (typeof tpl_data.summary[i] === 'undefined') {
+					tpl_data.summary[i] = {
+						day: i+this.from,
+						hours: 0
+					};
+				}
+			}
+
+			var task_ids = []; // соберём айдишники тасков, чтобы отправить их в апи для получения часов
+			for (var i=0; i<params.tasks.length; i++) {
+				task_ids[i] = params.tasks[i].id;
 			}
 
 			API.get.timesheet({"userid": params.userid, "taskid":task_ids}, function(answer) {
@@ -191,7 +221,7 @@ function renderTimesheet() {
 
 			var th_class = (current_day == i)?'current_day':day_kind;
 
-			row1 += "<th data-day='"+i+"' data-kind='"+day_kind+"' class='timesheet-day "+th_class+"''>"+day+"</th>";
+			row1 += "<th data-day='"+i+"' data-kind='"+day_kind+"' data-userid='0' class='timesheet-day "+th_class+"''>"+day+"</th>";
 
 			if (prev_day > day) {
 				row2 += "<th colspan='"+column_counter+"'>"+month+"</th>"
@@ -494,14 +524,15 @@ $(document).ready(function() {
 	});
 
 	/* форма изменения типа дня на выходной-рабочий */
-	$("#content-wrapper").on('click', '.timesheet-day', function() {
-		var day = $(this).data("day");
+	$("#content-wrapper").on('click', '.timesheet-day, .timesheet_summary TD', function() {
+		var day      = $(this).data("day");
 		var day_kind = $(this).data("kind");
+		var userid   = $(this).data("userid");
 
 		API.get.calendar({"from": day, "count": 1}, function(answer) {
 			day_kind = (typeof answer.items[0] !== 'undefined')?answer.items[0].kind:day_kind;
 
-			BootstrapDialog.confirm(TEMPLATES.calendar_edit({day: day, kind: day_kind}), function(result, dialogRef){
+			BootstrapDialog.confirm(TEMPLATES.calendar_edit({day: day, kind: day_kind, userid: userid}), function(result, dialogRef){
 				if (result) {
 					data = {};
 					dialogRef.getModal().find('form').serializeArray().map(function(item) {
