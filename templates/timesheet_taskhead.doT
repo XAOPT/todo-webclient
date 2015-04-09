@@ -1,6 +1,6 @@
 <tr>
 	<td colspan="2" class="user">
-	<img class="avatar {{? it.user.deleted }}grayscale{{?}}" src="{{? it.user.email }}http://www.gravatar.com/avatar/{{=md5(it.user.email)}}?d=mm{{??}}img/avatar1.jpg{{?}}">
+	<img class="avatar {{? it.user.deleted }}grayscale{{?}}" src="{{? it.user.email }}http://www.gravatar.com/avatar/{{=md5(it.user.email)}}?d=mm{{??}}img/avatar_def.png{{?}}">
 	{{=it.user.lastname}} {{=it.user.firstname}}
 	</td>
 </tr>
