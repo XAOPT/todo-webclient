@@ -78,17 +78,17 @@ var less = require('less');
 var lessFiles = walkSync('css/');
 var compiled = '';
 
-fs.existsSync('css/concat.min.css', function(){
+if (fs.existsSync('./css/concat.min.css')) {
 	fs.unlinkSync('css/concat.min.css');
-});
+};
 
 lessFiles.forEach(function(file){
 	fs.readFile(file, function(error, data) {
 		var dataString = data.toString();
 		less.render(dataString,
 			{
-				paths: ['./css'],    // Specify search paths for @import directives
-				compress: true,       // Minify CSS output
+				paths: ['./css'], // Specify search paths for @import directives
+				compress: true,   // Minify CSS output
 				sourceMap: {}
 			},
 			function (err, output) {
