@@ -134,7 +134,7 @@ function renderTimesheet() {
 				task_ids[i] = params.tasks[i].id;
 			}
 
-			API.get.timesheet({"userid": params.userid, "taskid":task_ids}, function(answer) {
+			API.get.timesheet({"userid": params.userid, "taskid":task_ids, "from": this.from, "count": this.count}, function(answer) {
 
 				for (var i=0; i < answer.taskid.length; i++) {
 
