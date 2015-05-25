@@ -27,6 +27,10 @@ var editable_sources = {
 */
 function make_task_editable(parent_selector) {
 
+
+	return false; //// HACK
+
+
 	// редактирование описания задачи
 	$(parent_selector+' #comment').click(function() {
 		$(this).summernote().after("<button class='btn btn-flat btn-sm btn-labeled btn-success' id='save_comment'>Сохранить</button>");
@@ -598,6 +602,7 @@ $(document).ready(function() {
 
 	/* нажатие на описание задачи перевод в режим редактирования описания */
 	$("#content-wrapper").on('click', '#save_comment', function() {
+
 		$(this).remove();
 		var params = {
 			id: $('#comment').data('pk'),
