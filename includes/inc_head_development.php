@@ -32,6 +32,7 @@
 	<script src="js/page_users.js"></script>
 	<script src="js/page_projects.js"></script>
 	<script src="js/page_role.js"></script>
+	<script src="js/page_users_groups.js"></script>
 	<script src="js/page_report.js"></script>
 	<script src="js/bootstrap-colorpicker.js"></script>
 	<script src="js/dropzone.js"></script>

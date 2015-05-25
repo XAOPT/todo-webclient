@@ -21,6 +21,9 @@
 					<li>
 						<a href="#pages/role.php"><span class="mm-text">Роли пользователей</span></a>
 					</li>
+					<li>
+						<a href="#pages/users_groups.php"><span class="mm-text">Группы</span></a>
+					</li>                                        
 				</ul>
 			</li>
 			<li>

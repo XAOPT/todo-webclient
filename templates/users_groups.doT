@@ -1,0 +1,24 @@
+<div class="panel panel-default">
+	<div class="panel-heading">
+		<span class="panel-title"><i class="panel-title-icon fa fa-users"></i>Группы</span>
+	</div>
+	<ul class="list-group">
+
+		{{~it.items :group:index}}
+		<li class="list-group-item">
+			<div class="list-item-name">
+				{{? group.name }}
+					{{=group.name}}
+				{{??}}
+					&nbsp;
+				{{?}}
+				<div class="pull-right">
+					<button class="btn btn-info btn-sm edit_role" data-id="{{=group.id}}">Редактировать</button>
+					<button class="btn btn-danger btn-sm remove_role" data-confirm="Вы собираетесь удалить группу {{=group.name}}.
+						Вы уверены?" data-id="{{=group.id}}">Удалить</button>
+				</div>
+			</div>
+		</li>
+		{{~}}
+	</ul>
+</div>
