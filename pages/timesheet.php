@@ -10,7 +10,7 @@ $(document).ready(function(){
 
 <div class="page-header-menu">
 	<button class="btn btn-flat btn-sm btn-labeled btn-primary" id="toggle-filter-options"><span class="btn-label icon fa fa-filter"></span>Фильтр</button>
-	<button class="btn btn-flat btn-sm btn-labeled btn-success" id="add-task-button"><span class="btn-label icon fa fa-plus"></span>Добавить</button>
+	<!-- <button class="btn btn-flat btn-sm btn-labeled btn-success" id="add-task-button"><span class="btn-label icon fa fa-plus"></span>Добавить</button> -->
 </div>
 
 <div class="row">
