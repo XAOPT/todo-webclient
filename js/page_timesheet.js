@@ -577,6 +577,10 @@ $(document).ready(function() {
 				tpl_data.item.worktimeHours = tpl_data.item.worktimeSeconds/3600;
 			}
 
+			if (typeof answer.items[0].comment != 'undefined' && !tpl_data.editable) {
+				answer.items[0].comment = answer.items[0].comment.replace(/\r\n/g, '<br />').replace(/[\r\n]/g, '<br />');
+			}
+
 			BootstrapDialog.confirm(TEMPLATES.timesheet_edit(tpl_data), function(result, dialogRef){
 				if (result) {
 					data = {};

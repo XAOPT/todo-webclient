@@ -101,18 +101,21 @@ $(document).ready(function() {
 	}
 
 	BootstrapDialog.prototype.updateAnimate = function(){return;};
-	BootstrapDialog.configDefaultOptions({ onshown: function() {
-		$("input[type=checkbox]").replaceWith(function(){
-			var data = {
-				'checked': $(this).prop("checked"),
-				'theme': $(this).attr('class'),
-				'name': $(this).attr('name'),
-				'value': $(this).attr('value')?$(this).attr('value'):false
-			};
+	BootstrapDialog.configDefaultOptions({
+		onshown: function() {
+			$("input[type=checkbox]").replaceWith(function(){
+				var data = {
+					'checked': $(this).prop("checked"),
+					'theme': $(this).attr('class'),
+					'name': $(this).attr('name'),
+					'value': $(this).attr('value')?$(this).attr('value'):false
+				};
 
-			return TEMPLATES.dom_checkbox(data);
-		});
-	} });
+				return TEMPLATES.dom_checkbox(data);
+			});
+		},
+		nl2br: false
+	});
 
 	BootstrapDialog.prototype.open = function(cb) {
         !this.isRealized() && this.realize();
