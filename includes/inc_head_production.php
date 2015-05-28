@@ -5,5 +5,7 @@
 
 	<link rel="stylesheet" href="css/concat.min.css" />
 
+	<link href="favicon.ico" rel="shortcut icon" type="image/x-icon" />
+
 	<script src="js/concat.min.js"></script>
 </head>
